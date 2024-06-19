@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="SO 8859-1">
+    <title>Seechain</title>
+    <style>
+        body {
+            background-color: #ffcc00;
+            color: #0000ff;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            color: #ff0000;
+        }
+        .blink {
+            animation: blink-animation 1s steps(5, start) infinite;
+            -webkit-animation: blink-animation 1s steps(5, start) infinite;
+        }
+        @keyframes blink-animation {
+            to {
+                visibility: hidden;
+            }
+        }
+        @-webkit-keyframes blink-animation {
+            to {
+                visibility: hidden;
+            }
+        }
+        .marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            animation: marquee 10s linear infinite;
+        }
+        @keyframes marquee {
+            0% {
+                transform: translate(100%, 0);
+            }
+            100% {
+                transform: translate(-100%, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Seechain</h1>
+    <img src="img/sopapo.gif" alt="sopapo" />
+    <p class="blink">¡Bienvenidos a mi sitio web!</p>
+    <div class="marquee">¡Sitio web en construcción! ¡Pronto Novedades!</div>
+    <br>
+    <img src="img/computer.gif" alt="Computadora animada" />
+    <br><br>
+    <a href="https://www.google.com/search?q=blink+html&oq=blink+html" target="_blank">
+        <img src="img/mouse.gif" alt="Click aquí" />Click aquí
+    </a>
+</body>
+</html>
