@@ -179,6 +179,60 @@
             border-radius: 50%;
             cursor: pointer;
         }
+        /* Estilos para móviles */
+        @media (max-width: 768px) {
+            .desktop {
+                padding: 5px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-around;
+            }
+
+            .icon {
+                width: 50px;
+            }
+
+            .icon span {
+                font-size: 10px;
+            }
+
+            .notepad {
+                width: 200px;
+                height: 120px;
+            }
+
+            .audio-player {
+                width: 200px;
+            }
+
+            .taskbar-time {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .desktop {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .icon {
+                width: 40px;
+            }
+
+            .icon span {
+                font-size: 9px;
+            }
+
+            .notepad {
+                width: 180px;
+                height: 100px;
+            }
+
+            .audio-player {
+                width: 180px;
+            }
+        }
     </style>
 </head>
 <body>
