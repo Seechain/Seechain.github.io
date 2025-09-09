@@ -1,290 +1,274 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="images/favicon.ico" sizes="any"> 
-<title>Seechain - Desktop</title>
-<style>
-  :root {
-    --bg: rgba(26,27,38,0.8);
-    --fg: #c0caf5;
-    --green: #9ece6a;
-    --blue: #7aa2f7;
-    --red: #f7768e;
-    --yellow: #e0af68;
-    --purple: #bb9af7;
-    --bar-bg: #101218;
-  }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="images/favicon.ico" sizes="any" />
+        <title>Seechain - Desktop</title>
+        <style>
+            :root {
+                --bg: rgba(26, 27, 38, 0.8);
+                --fg: #c0caf5;
+                --green: #9ece6a;
+                --blue: #7aa2f7;
+                --red: #f7768e;
+                --yellow: #e0af68;
+                --purple: #bb9af7;
+                --bar-bg: #101218;
+            }
 
-  body {
-    margin: 0;
-    height: 100vh;
-    background: url('images/background.webp') no-repeat center center / cover;
-    font-family:system-ui, 'Segoe UI', Roboto, Arial, sans-serif;
-    color: var(--fg);
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 350px 200px 1fr;
-    gap: 10px;
-    padding: 10px;
-  }
+            body {
+                margin: 0;
+                background: url("images/background.webp") no-repeat center center / cover;
+                font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+                color: var(--fg);
+                overflow: hidden;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: auto;
+                gap: 10px;
+                padding: 10px;
+            }
 
-  .window {
-    background: var(--bg);
-    border-radius: 10px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
+            .window {
+                background: var(--bg);
+                border-radius: 10px;
+                flex-direction: column;
+            }
 
-  .window-header {
-    background: rgba(16,18,24,0.9);
-    padding: 5px;
-    font-weight: bold;
-    color: var(--fg);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+            .window-header {
+                background: rgba(16, 18, 24, 0.9);
+                padding: 5px;
+                font-weight: bold;
+                color: var(--fg);
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
 
-  .window-buttons span {
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    margin-left: 5px;
-    background-color: var(--green);
-    cursor: pointer;
-  }
+            .window-buttons span {
+                display: inline-block;
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                margin-left: 5px;
+                background-color: var(--green);
+                cursor: pointer;
+            }
 
-  .window-buttons span:nth-child(2) { 
-    background-color: var(--yellow); 
-  }
-  
-  .window-buttons span:nth-child(3) { 
-    background-color: var(--red); 
-  }
+            .window-buttons span:nth-child(2) {
+                background-color: var(--yellow);
+            }
 
-  .window-content {
-    padding: 10px;
-    overflow: auto;
-    flex: 1;
-  }
+            .window-buttons span:nth-child(3) {
+                background-color: var(--red);
+            }
 
-  .window-link {
-    color: var(--green);
-    display: block;
-    margin: 5px 0;
-    text-decoration: none;
-    font-size: 1.em;
-  }
+            .window-content {
+                padding: 10px;
+                overflow: auto;
+                flex: 1;
+            }
 
-  .window-image {
-    max-width: 100%;
-    display: block;
-    margin: auto;
-  }
+            .window-link {
+                color: var(--green);
+                display: block;
+                margin: 5px 0;
+                text-decoration: none;
+                font-size: 1em;
+            }
 
-  .prompt {
-  color: var(--blue);
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-}
+            .window-image {
+                max-width: 100%;
+                display: block;
+                margin: auto;
+            }
 
-  .taskbar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 30px;
-    background: var(--bar-bg);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 10px;
-    box-sizing: border-box;
-    color: var(--fg);
-  }
+            .prompt {
+                color: var(--blue);
+                margin-bottom: 0.5rem;
+                font-weight: bold;
+            }
 
-  .taskbar .start-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    width: 24px;
-    height: 24px;
-  }
+            .taskbar {
+                position: fixed; /* Cambio aquí */
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 30px;
+                background: var(--bar-bg);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 10px;
+                box-sizing: border-box;
+                color: var(--fg);
+                z-index: 1000; /* Para que quede encima del contenido */
+            }
 
-  .taskbar .start-btn img {
-    width: 100%;
-    height: 100%;
-  }
+            .taskbar .start-btn {
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+                width: 24px;
+                height: 24px;
+            }
 
-  .audio-controls {
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+            .taskbar .start-btn img {
+                width: 100%;
+                height: 100%;
+            }
 
-  .audio-btn {
-    background: #f0f0f0;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-  }
+            .audio-controls {
+                margin-top: 8px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
 
-  .audio-btn:hover svg polygon,
-  .audio-btn:hover svg rect {
-    fill: #007bff;
-  }
+            .audio-btn {
+                background: #f0f0f0;
+                border: none;
+                cursor: pointer;
+                padding: 5px;
+            }
 
-  .audio-volume {
-    width: 100px;
-  }
+            .audio-btn:hover svg polygon,
+            .audio-btn:hover svg rect {
+                fill: #007bff;
+            }
 
-  .terminal-text {
-    margin: 0;
-    line-height: 1.4;
-    margin-bottom: 0.5rem;
-  }
+            .audio-volume {
+                width: 100px;
+            }
 
-  @media (max-width: 600px) {
-    html, body {
-      grid-template-columns: 1fr;
-      overflow-y: auto;
-    }
-  }
-</style>
-</head>
-<body>
-<div class="window">
-  <div class="window-header">
-    Links
-    <div class="window-buttons">
-      <span></span><span></span><span></span>
-    </div>
-  </div>
-  <div class="window-content">
-    <div class="prompt">seechain@neocities:~$ ls</div>
-    <a class="window-link" href="https://x.com/seechain" target="_blank">Twitter</a>
-    <a class="window-link" href="https://www.instagram.com/seechain/" target="_blank">Instagram</a>
-    <a class="window-link" href="https://seechain.blogspot.com/" target="_blank">blogspot</a>
-    <a class="window-link" href="https://www.youtube.com/@unbewut7625" target="_blank">unbewußt Channel</a>
-    <a class="window-link" href="https://myanimelist.net/animelist/Seechain" target="_blank">Myanimelist</a>
-    <a class="window-link" href="https://seechain.bsky.social" target="_blank">Bluesky</a>
-    <a class="window-link" href="https://seechain.neocities.org/" target="_blank">Neocities</a>
+            .terminal-text {
+                margin: 0;
+                line-height: 1.4;
+                margin-bottom: 0.5rem;
+            }
 
-  </div>
-</div>
+            @media (max-width: 600px) {
+                html,
+                body {
+                    grid-template-columns: 1fr;
+                    overflow-y: auto;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="window">
+            <div class="window-header">
+                Links
+                <div class="window-buttons"><span></span><span></span><span></span></div>
+            </div>
+            <div class="window-content">
+                <div class="prompt">seechain@neocities:~$ ls</div>
+                <a class="window-link" href="https://x.com/seechain" target="_blank">Twitter</a>
+                <a class="window-link" href="https://www.instagram.com/seechain/" target="_blank">Instagram</a>
+                <a class="window-link" href="https://seechain.blogspot.com/" target="_blank">blogspot</a>
+                <a class="window-link" href="https://www.youtube.com/@unbewut7625" target="_blank">unbewußt Channel</a>
+                <a class="window-link" href="https://myanimelist.net/animelist/Seechain" target="_blank">Myanimelist</a>
+                <a class="window-link" href="https://seechain.bsky.social" target="_blank">Bluesky</a>
+                <a class="window-link" href="https://seechain.neocities.org/" target="_blank">Neocities</a>
+            </div>
+        </div>
 
-<div class="window">
-  <div class="window-header">
-     Welcome
-    <div class="window-buttons">
-      <span></span><span></span><span></span>
-    </div>
-  </div>
-  <div class="window-content">
-    <div class="prompt">seechain@neocities:~$ cat welcome.txt</div>
-  <p class="terminal-text"><strong>Hello! I'm Seechain.</strong><br>Here you’ll find a collection of my links: projects, networks, and other sites. Feel free to explore, and I hope you find something that resonates with you.</p>
-  </div>
-</div>
-<div class="window">
-  <div class="window-header">
-   Photo
-    <div class="window-buttons">
-      <span></span><span></span><span></span>
-    </div>
-  </div>
-  <div class="window-content">
-    <img class="window-image" src="images/kaoru.webp" alt="Kaoruko Waguri">
-  </div>
-</div>
+        <div class="window">
+            <div class="window-header">
+                Welcome
+                <div class="window-buttons"><span></span><span></span><span></span></div>
+            </div>
+            <div class="window-content">
+                <div class="prompt">seechain@neocities:~$ cat welcome.txt</div>
+                <p class="terminal-text">
+                    <strong>Hello! I'm Seechain.</strong><br />Here you’ll find a collection of my links: projects,
+                    networks, and other sites. Feel free to explore, and I hope you find something that resonates with
+                    you.
+                </p>
+            </div>
+        </div>
+        <div class="window">
+            <div class="window-header">
+                Photo
+                <div class="window-buttons"><span></span><span></span><span></span></div>
+            </div>
+            <div class="window-content">
+                <img class="window-image" src="images/kaoru.webp" alt="Kaoruko Waguri" />
+            </div>
+        </div>
 
-<div class="window">
-  <div class="window-header">
-    Music
-    <div class="window-buttons">
-      <span></span><span></span><span></span>
-    </div>
-  </div>
-  <div class="window-content">
-   <div class="prompt">seechain@neocities:~$ play MrBig-Shine.mp3</div> 
-    <div class="audio-player">
-      <audio id="background-music">
-        <source src="https://archive.org/download/mr-big-discography-eclickmp3bank/Shine.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-      </audio>
-      <div class="audio-controls">
-        <button class="audio-btn" id="play-btn">
-          <svg width="24" height="24" viewBox="0 0 24 24">
-            <polygon points="5,3 19,12 5,21" fill="#333"/>
-          </svg>
-        </button>
-        <button class="audio-btn" id="pause-btn">
-          <svg width="24" height="24" viewBox="0 0 24 24">
-            <rect x="5" y="3" width="5" height="18" fill="#333"/>
-            <rect x="14" y="3" width="5" height="18" fill="#333"/>
-          </svg>
-        </button>
-        <input class="audio-volume" type="range" id="volume" min="0" max="1" step="0.1" value="1">
-      </div>
-    </div>
-  </div>
-</div>
+        <div class="window">
+            <div class="window-header">
+                Music
+                <div class="window-buttons"><span></span><span></span><span></span></div>
+            </div>
+            <div class="window-content">
+                <div class="prompt">seechain@neocities:~$ play MrBig-Shine.mp3</div>
+                <div class="audio-player">
+                    <audio id="background-music">
+                        <source
+                            src="https://archive.org/download/mr-big-discography-eclickmp3bank/Shine.mp3"
+                            type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="audio-controls">
+                        <button class="audio-btn" id="play-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                <polygon points="5,3 19,12 5,21" fill="#333" />
+                            </svg>
+                        </button>
+                        <button class="audio-btn" id="pause-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                <rect x="5" y="3" width="5" height="18" fill="#333" />
+                                <rect x="14" y="3" width="5" height="18" fill="#333" />
+                            </svg>
+                        </button>
+                        <input class="audio-volume" type="range" id="volume" min="0" max="1" step="0.1" value="1" />
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="taskbar">
-  <button class="start-btn">
-    <img src="images/inicio.png" alt="Menu">
-  </button>
-  <div id="clock"></div>
-</div>
+        <div class="taskbar">
+            <button class="start-btn">
+                <img src="images/inicio.png" alt="Menu" />
+            </button>
+            <div id="clock"></div>
+        </div>
 
-<script>
+        <script>
+            function updateClock() {
+                const now = new Date();
+                const hours = now.getHours().toString().padStart(2, "0");
+                const minutes = now.getMinutes().toString().padStart(2, "0");
+                document.getElementById("clock").textContent = `${hours}:${minutes}`;
+            }
 
-function updateClock() {
-  const now = new Date();
-  const hours = now.getHours().toString().padStart(2, '0');
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  document.getElementById('clock').textContent = `${hours}:${minutes}`;
-}
+            function setupAudioControls() {
+                const audio = document.getElementById("background-music");
+                const playBtn = document.getElementById("play-btn");
+                const pauseBtn = document.getElementById("pause-btn");
+                const volumeControl = document.getElementById("volume");
 
-function setupAudioControls() {
-  const audio = document.getElementById('background-music');
-  const playBtn = document.getElementById('play-btn');
-  const pauseBtn = document.getElementById('pause-btn');
-  const volumeControl = document.getElementById('volume');
-  
-  playBtn.addEventListener('click', () => audio.play());
-  pauseBtn.addEventListener('click', () => audio.pause());
-  volumeControl.addEventListener('input', () => {
-    audio.volume = volumeControl.value;
-  });
-}
+                playBtn.addEventListener("click", () => audio.play());
+                pauseBtn.addEventListener("click", () => audio.pause());
+                volumeControl.addEventListener("input", () => {
+                    audio.volume = volumeControl.value;
+                });
+            }
 
-
-document.addEventListener('DOMContentLoaded', () => {
-  setInterval(updateClock, 1000);
-  updateClock();
-  setupAudioControls();
-});
-
-
-</script>
-
-</body>
-
-</html>
-
-
-
-
-
+            document.addEventListener("DOMContentLoaded", () => {
+                setInterval(updateClock, 1000);
+                updateClock();
+                setupAudioControls();
+            });
+        </script>
+    </body>
 
 
 
