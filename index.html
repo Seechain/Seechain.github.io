@@ -1,333 +1,281 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="shortcut icon" href="img/avatar_80x80.jpg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escritorio - Seechain</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            background-image: url('https://i.imgur.com/AatX0rN.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: white;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seechain - Escritorio</title>
+<style>
+  :root {
+    --bg: rgba(26,27,38,0.8);
+    --fg: #c0caf5;
+    --green: #9ece6a;
+    --blue: #7aa2f7;
+    --red: #f7768e;
+    --yellow: #e0af68;
+    --purple: #bb9af7;
+    --bar-bg: #101218;
+  }
 
-        .desktop {
-            display: flex;
-            flex-wrap: wrap;
-            align-content: flex-start;
-            flex-direction: column;
-            padding: 15px;
-            height: calc(100% - 40px);
-        }
+  body {
+    margin: 0;
+    height: 100vh;
+    background: url('images/background.webp') no-repeat center center / cover;
+    font-family:system-ui, 'Segoe UI', Roboto, Arial, sans-serif;
+    color: var(--fg);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 350px 200px 1fr;
+    gap: 10px;
+    padding: 10px;
+  }
 
-        .icon {
-            width: 80px;
-            text-align: center;
-            margin: 10px;
-            cursor: pointer;
-        }
+  .window {
+    background: var(--bg);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
 
-        .icon img {
-            width: 80%;
-            height: auto;
-            
-        }
+  .window-header {
+    background: rgba(16,18,24,0.9);
+    padding: 5px;
+    font-weight: bold;
+    color: var(--fg);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-        .icon span {
-            display: block;
-            margin-top: 5px;
-            font-size: 14px;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Sombra para el texto */
-        }
- 
-   .icon:hover {
-            transform: scale(1.1);
-            
-        }
+  .window-buttons span {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-left: 5px;
+    background-color: var(--green);
+    cursor: pointer;
+  }
 
-        .icon:active {
-            transform: scale(0.95);
-            background-color: rgba(255, 255, 255, 0.2);
-           
-            
-        }
-
-        .taskbar {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 40px;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-           
-        }
-
-        .start-menu {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .start-menu img {
-            width: 30px;
-            margin-right: 10px;
-            padding: 5px;
-        }
-
-        .taskbar-time {
-            margin-left: auto;
-            font-size: 14px;
-        }
-
-              /* Estilos para el bloc de notas */
-              .notepad {
-            position: absolute;
-            top: 50px;
-            left: 450px;
-            width: 300px;
-            height: 200px;
-            background-color: #FFF2AB; 
-            border: 1px solid #d1c72f; 
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-            color: black;
-            resize:none
-            overflow: hidden;
-        }
-
-        .notepad-header {
-            background-color: #FFEC83; 
-            padding: 5px;
-            cursor: move;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .notepad-content {
-            padding: 10px;
-            height: calc(100% - 30px);
-        }
-
-        .notepad textarea {
-            width: 100%;
-            height: 100%;
-            border: none;
-            outline: none;
-            resize: none;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-        }
-       
-        .audio-player {
-            position: absolute;
-            bottom: 50px;
-            right: 15px;
-            width: 300px;
-            background-color: rgba(0, 0, 0, 0.8);
-            border: 1px solid #333;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-            color: white;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .audio-player .controls {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .audio-player button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            margin: 0 5px;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .audio-player button:hover {
-            color: #ffcc00;
-        }
-
-        .audio-player input[type="range"] {
-            -webkit-appearance: none;
-            width: 100px;
-            height: 5px;
-            background: #444;
-            border-radius: 5px;
-            margin: 0 10px;
-        }
-
-        .audio-player input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            background: #ffcc00;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        /* Estilos para móviles */
-        @media (max-width: 768px) {
-            .desktop {
-                padding: 5px;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: space-around;
-            }
-
-            .icon {
-                width: 50px;
-            }
-
-            .icon span {
-                font-size: 10px;
-            }
-
-            .notepad {
-                width: 200px;
-                height: 120px;
-            }
-
-            .audio-player {
-                width: 200px;
-            }
-
-            .taskbar-time {
-                font-size: 12px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .desktop {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .icon {
-                width: 40px;
-            }
-
-            .icon span {
-                font-size: 9px;
-            }
-
-            .notepad {
-                left: 150px;
-                width: 180px;
-                height: 200px;
-            }
-
-            .audio-player {
-                display:none;
-                width: 180px;
-            }
-
+  .window-buttons span:nth-child(2) { 
+    background-color: var(--yellow); 
+  }
   
-        }
-    </style>
+  .window-buttons span:nth-child(3) { 
+    background-color: var(--red); 
+  }
+
+  .window-content {
+    padding: 10px;
+    overflow: auto;
+    flex: 1;
+  }
+
+  .window-link {
+    color: var(--green);
+    display: block;
+    margin: 5px 0;
+    text-decoration: none;
+    font-size: 1.em;
+  }
+
+  .window-image {
+    max-width: 100%;
+    display: block;
+    margin: auto;
+  }
+
+  .prompt {
+  color: var(--blue);
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+  .taskbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: var(--bar-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    box-sizing: border-box;
+    color: var(--fg);
+  }
+
+  .taskbar .start-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+  }
+
+  .taskbar .start-btn img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .audio-controls {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .audio-btn {
+    background: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+  }
+
+  .audio-btn:hover svg polygon,
+  .audio-btn:hover svg rect {
+    fill: #007bff;
+  }
+
+  .audio-volume {
+    width: 100px;
+  }
+
+  .terminal-text {
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 600px) {
+    body {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(4, 1fr);
+    }
+  }
+</style>
 </head>
 <body>
-    <div class="desktop">
-    <div class="audio-player">
-        <span>Reproductor de Música</span>
-        <audio id="background-music" controls style="display: none;">
-            <source src="https://od.lk/s/NThfNTg5NzU5ODZf/01%20-%20Ningyo%20Hime.mp3" type="audio/mpeg">
-            Tu navegador no soporta el elemento de audio.
-        </audio>
-        <div class="controls">
-            <button onclick="document.getElementById('background-music').play()">▶️</button>
-            <button onclick="document.getElementById('background-music').pause()">⏸️</button>
-            <input type="range" id="volume" min="0" max="1" step="0.1" value="1" onchange="document.getElementById('background-music').volume = this.value">
-        </div>
+<div class="window">
+  <div class="window-header">
+    Links
+    <div class="window-buttons">
+      <span></span><span></span><span></span>
     </div>
-    
-  <div class="notepad" id="notepad">
-    <div class="notepad-header">Seechain</div>
-    <div class="notepad-content">
-      
-            
-            
-            ¡Hola! Soy una Criatura mágica del internet y he estado aquí durante más de 20 años. Antes todo esto era campo y los sitios web tenían libro de visita.
-            
-    </div>
+  </div>
+  <div class="window-content">
+    <div class="prompt">seechain@neocities:~$ ls</div>
+    <a class="window-link" href="https://x.com/seechain" target="_blank">Twitter</a>
+    <a class="window-link" href="https://www.instagram.com/seechain/" target="_blank">Instagram</a>
+    <a class="window-link" href="https://seechain.blogspot.com/" target="_blank">blogspot</a>
+    <a class="window-link" href="https://www.youtube.com/@unbewut7625" target="_blank">unbewußt Channel</a>
+    <a class="window-link" href="https://myanimelist.net/animelist/Seechain" target="_blank">Myanimelist</a>
+        <a class="window-link" href="https://seechain.bsky.social" target="_blank">Bluesky</a>
+    <a class="window-link" href="https://seechain.neocities.org/" target="_blank">Neocities</a>
+
+  </div>
 </div>
-        <div class="icon">
-            <img src="https://i.imgur.com/yqr6Iks.png" alt="Icono 1">
-            <span>Este Equipo</span>
-        </div>
-        <div class="icon">
-            <a href="https://www.instagram.com/seechain/" target="_blank">  <img src="https://i.imgur.com/BaO84Pf.png" alt="Icono 2"></a>
-            <span>Instagram</span>
-        </div>
-        <div class="icon">
-           <a href="https://seechain.blogspot.com/" target="_blank"> <img src="https://i.imgur.com/BaO84Pf.png" alt="Icono 3"></a>
-            <span>Blog</span>
-        </div>
 
-        <div class="icon">
-            <a href="https://www.youtube.com/channel/UCo93eDYJEK7K7qR5vb9GKUg" target="_blank"> <img src="https://i.imgur.com/BaO84Pf.png" alt="Icono 4"></a>
-            <span> Canciones Slowed-Reverb</span>
-        </div>
-        <div class="icon">
-            <a href="https://myanimelist.net/animelist/Seechain" target="_blank"> <img src="https://i.imgur.com/BaO84Pf.png" alt="Icono 5"></a>
-            <span>MyAnimelist</span>
-        </div>
-
-        <div class="icon">
-           <a href="https://x.com/seechain" target="_blank"><img src="https://i.imgur.com/nMSgIIE.png" alt="Icono 6"></a>
-            <span>Twitter</span>
-        </div>
-              <div class="icon">
-           <a href="https://seechain.neocities.org" target="_blank"><img src="https://i.imgur.com/dXH5Jrr.png" alt="Icono 7"></a>
-            <span>Neocities</span>
-        </div>
-        
+<div class="window">
+  <div class="window-header">
+     Welcome
+    <div class="window-buttons">
+      <span></span><span></span><span></span>
     </div>
+  </div>
+  <div class="window-content">
+    <div class="prompt">seechain@neocities:~$ cat welcome.txt</div>
+    <p class="terminal-text"><b>Hello! I'm Seechain</b>, a magical creature that dwells in the corners of the internet.</p>
   
-    <div class="taskbar">
-        <div class="start-menu">
-            <img src="https://i.imgur.com/iwt2dyl.png" alt="Inicio">
-            
-        </div>
-        <div class="taskbar-time" id="time">
-            <span>12:00 PM</span>
-        </div>
+  </div>
+</div>
+
+<div class="window">
+  <div class="window-header">
+   Photo
+    <div class="window-buttons">
+      <span></span><span></span><span></span>
     </div>
+  </div>
+  <div class="window-content">
+    <img class="window-image" src="images/kaoru.webp" alt="Kaoruko Waguri">
+  </div>
+</div>
 
-    <script>
-        function updateTime() {
-            const now = new Date();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            let seconds = now.getSeconds();
-            const ampm = hours >= 12 ? 'PM' : 'AM';
+<div class="window">
+  <div class="window-header">
+    Music
+    <div class="window-buttons">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="window-content">
+   <div class="prompt">seechain@neocities:~$ play MrBig-Shine.mp3</div> 
+    <div class="audio-player">
+      <audio id="background-music">
+        <source src="https://archive.org/download/mr-big-discography-eclickmp3bank/Shine.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+      </audio>
+      <div class="audio-controls">
+        <button class="audio-btn" id="play-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24">
+            <polygon points="5,3 19,12 5,21" fill="#333"/>
+          </svg>
+        </button>
+        <button class="audio-btn" id="pause-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24">
+            <rect x="5" y="3" width="5" height="18" fill="#333"/>
+            <rect x="14" y="3" width="5" height="18" fill="#333"/>
+          </svg>
+        </button>
+        <input class="audio-volume" type="range" id="volume" min="0" max="1" step="0.1" value="1">
+      </div>
+    </div>
+  </div>
+</div>
 
-            hours = hours % 12;
-            hours = hours ? hours : 12;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
+<div class="taskbar">
+  <button class="start-btn">
+    <img src="images/inicio.png" alt="Menu">
+  </button>
+  <div id="clock"></div>
+</div>
 
-            const timeString = `${hours}:${minutes}:${ampm}`;
-            document.getElementById('time').textContent = timeString;
-        }
+<script>
 
-        setInterval(updateTime, 1000); 
+function updateClock() {
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  document.getElementById('clock').textContent = `${hours}:${minutes}`;
+}
 
-        updateTime(); 
-    </script>
+function setupAudioControls() {
+  const audio = document.getElementById('background-music');
+  const playBtn = document.getElementById('play-btn');
+  const pauseBtn = document.getElementById('pause-btn');
+  const volumeControl = document.getElementById('volume');
+  
+  playBtn.addEventListener('click', () => audio.play());
+  pauseBtn.addEventListener('click', () => audio.pause());
+  volumeControl.addEventListener('input', () => {
+    audio.volume = volumeControl.value;
+  });
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  setInterval(updateClock, 1000);
+  updateClock();
+  setupAudioControls();
+});
+
+
+</script>
+
 </body>
 </html>
-
