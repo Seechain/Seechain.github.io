@@ -76,15 +76,20 @@
 
             .window-link {
                 color: var(--green);
-                display: block;
+                display: inline;
                 margin: 5px 0;
                 text-decoration: none;
                 font-size: 1em;
             }
 
+            .window-link::before {
+                content: "\1F4C4"; 
+                margin-right: 5px;
+}
+
             .window-image {
                 max-width: 100%;
-                max-height: 30vh; 
+                max-height: 50vh; 
                 display: block;
                 margin: auto;
                 object-fit: contain; 
@@ -280,6 +285,7 @@
             });
         </script>
     </body>
+
 
 
 
