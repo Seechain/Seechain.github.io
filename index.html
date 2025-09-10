@@ -74,18 +74,18 @@
                 flex: 1;
             }
 
-            .window-link {
+          .window-link {
                 color: var(--green);
-                display: inline;
-                margin: 5px 0;
                 text-decoration: none;
-                font-size: 1em;
+                font-size: clamp(0.9em, 2vw, 1.1em);
+                margin: 0 10px 0 0; /* espacio entre links */
+                display: inline; /* cambia de block a inline */
             }
 
             .window-link::before {
                 content: "\1F4C4"; 
                 margin-right: 5px;
-}
+            }
 
             .window-image {
                 max-width: 100%;
@@ -285,6 +285,7 @@
             });
         </script>
     </body>
+
 
 
 
