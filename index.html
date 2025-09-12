@@ -86,9 +86,17 @@
                 width: max-content;
             }
 
-            .window-link::before {
-                content: "\1F4C4";
+             .window-link::before {
+                content: "";
+                display: inline-block;
+                width: 16px; /* ancho del icono */
+                height: 16px; /* alto del icono */
                 margin-right: 5px;
+                background-image: url("images/folder.svg");
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                color: aliceblue;
             }
 
             .window-image {
@@ -372,6 +380,7 @@
         </script>
     </body>
 </html>
+
 
 
 
