@@ -17,6 +17,7 @@
                 --cyan: #00ffff;
                 --bar-bg: #101218;
                 --photo-app-bg: #0d0e14;
+                --music-player-bg: #16161e;
             }
 
             body {
@@ -168,6 +169,17 @@
                 color: rgba(255, 255, 255, 0.7);
             }
 
+            /* Music Player */
+            .music-player {
+                background: var(--music-player-bg);
+            }
+            
+            .music-player .window-content {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+            }
+            
             .prompt {
                 color: var(--cyan);
                 margin-bottom: 0.5rem;
@@ -302,14 +314,14 @@
                     </div>
                 </div>
                 <div class="photo-info">
-                    kaoru.webp • 800×600 • 256 KB
+                    kaoru.webp • 500×500 • 77.2 KB
                 </div>
             </div>
         </div>
 
-        <div class="window">
+       <div class="window music-player">
             <div class="window-header">
-                Music
+                Music Player
                 <div class="window-buttons"><span></span><span></span><span></span></div>
             </div>
             <div class="window-content">
@@ -375,6 +387,7 @@
         </script>
     </body>
 </html>
+
 
 
 
