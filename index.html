@@ -97,7 +97,45 @@
                 object-fit: contain;
             }
 
-             .photo-viewer {
+        /* Photo App */
+            .photo-app {
+                background: var(--photo-app-bg);
+            }
+            
+            .photo-app .window-content {
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+            }
+            
+            .photo-toolbar {
+                display: flex;
+                justify-content: center;
+                padding: 8px;
+                background: rgba(0, 0, 0, 0.3);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .photo-toolbar button {
+                background: rgba(255, 255, 255, 0.1);
+                border: none;
+                color: var(--fg);
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                margin: 0 5px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .photo-toolbar button:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+            
+            .photo-viewer {
                 flex: 1;
                 display: flex;
                 align-items: center;
@@ -111,8 +149,9 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: var(--photo-app-bg);
-       
+                background: #000;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             }
             
             .photo-image {
@@ -123,7 +162,7 @@
             
             .photo-info {
                 padding: 8px 15px;
-                background: var(--photo-app-bg);
+                background: rgba(0, 0, 0, 0.3);
                 border-top: 1px solid rgba(255, 255, 255, 0.1);
                 font-size: 0.8rem;
                 color: rgba(255, 255, 255, 0.7);
@@ -250,11 +289,12 @@
                 <a class="window-link" href="https://seechain.neocities.org/" target="_blank">Neocities</a>
             </div>
         </div>
-        <div class="window">
+       <div class="window photo-app">
             <div class="window-header">
                 Photo Viewer
                 <div class="window-buttons"><span></span><span></span><span></span></div>
             </div>
+      
             <div class="window-content">
                 <div class="photo-viewer">
                     <div class="photo-frame">
@@ -264,8 +304,6 @@
                 <div class="photo-info">
                     kaoru.webp • 800×600 • 256 KB
                 </div>
-            </div>
-        
             </div>
         </div>
 
@@ -337,6 +375,7 @@
         </script>
     </body>
 </html>
+
 
 
 
