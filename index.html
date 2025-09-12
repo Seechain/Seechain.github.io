@@ -199,21 +199,25 @@
                 gap: 10px;
             }
 
-            .audio-btn {
-                background: #f0f0f0;
-                border: none;
-                cursor: pointer;
-                padding: 5px;
-            }
 
-            .audio-btn:hover svg polygon,
-            .audio-btn:hover svg rect {
-                fill: #007bff;
-            }
 
-            .audio-volume {
-                width: 100px;
-            }
+.audio-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.audio-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.audio-btn:active {
+    transform: scale(0.95);
+}
 
             .terminal-text {
                 margin: 0;
@@ -309,20 +313,25 @@
                             type="audio/mpeg" />
                         Your browser does not support the audio element.
                     </audio>
-                    <div class="audio-controls">
-                        <button class="audio-btn" id="play-btn">
-                            <svg width="24" height="24" viewBox="0 0 24 24">
-                                <polygon points="5,3 19,12 5,21" fill="#333" />
-                            </svg>
-                        </button>
-                        <button class="audio-btn" id="pause-btn">
-                            <svg width="24" height="24" viewBox="0 0 24 24">
-                                <rect x="5" y="3" width="5" height="18" fill="#333" />
-                                <rect x="14" y="3" width="5" height="18" fill="#333" />
-                            </svg>
-                        </button>
-                        <input class="audio-volume" type="range" id="volume" min="0" max="1" step="0.1" value="1" />
-                    </div>
+         <div class="audio-controls">
+    <button class="audio-btn" id="play-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 5V19L19 12L7 5Z" fill="var(--green)"/>
+        </svg>
+    </button>
+    <button class="audio-btn" id="pause-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="5" width="4" height="14" fill="var(--yellow)"/>
+            <rect x="14" y="5" width="4" height="14" fill="var(--yellow)"/>
+        </svg>
+    </button>
+    <button class="audio-btn" id="stop-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="6" width="12" height="12" fill="var(--red)"/>
+        </svg>
+    </button>
+    <input class="audio-volume" type="range" id="volume" min="0" max="1" step="0.1" value="1" />
+</div>
                 </div>
             </div>
         </div>
@@ -342,18 +351,23 @@
                 document.getElementById("clock").textContent = `${hours}:${minutes}`;
             }
 
-            function setupAudioControls() {
-                const audio = document.getElementById("background-music");
-                const playBtn = document.getElementById("play-btn");
-                const pauseBtn = document.getElementById("pause-btn");
-                const volumeControl = document.getElementById("volume");
+     function setupAudioControls() {
+    const audio = document.getElementById("background-music");
+    const playBtn = document.getElementById("play-btn");
+    const pauseBtn = document.getElementById("pause-btn");
+    const stopBtn = document.getElementById("stop-btn");
+    const volumeControl = document.getElementById("volume");
 
-                playBtn.addEventListener("click", () => audio.play());
-                pauseBtn.addEventListener("click", () => audio.pause());
-                volumeControl.addEventListener("input", () => {
-                    audio.volume = volumeControl.value;
-                });
-            }
+    playBtn.addEventListener("click", () => audio.play());
+    pauseBtn.addEventListener("click", () => audio.pause());
+    stopBtn.addEventListener("click", () => {
+        audio.pause();
+        audio.currentTime = 0;
+    });
+    volumeControl.addEventListener("input", () => {
+        audio.volume = volumeControl.value;
+    });
+}
 
             document.addEventListener("DOMContentLoaded", () => {
                 setInterval(updateClock, 1000);
@@ -363,6 +377,7 @@
         </script>
     </body>
 </html>
+
 
 
 
