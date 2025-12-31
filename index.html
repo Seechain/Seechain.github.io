@@ -1,383 +1,274 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="images/favicon.ico" sizes="any" />
-        <title>Seechain - Desktop</title>
-        <style>
-            :root {
-                --bg: rgba(26, 27, 38, 0.8);
-                --fg: #c0caf5;
-                --green: #9ece6a;
-                --blue: #7aa2f7;
-                --red: #f7768e;
-                --yellow: #e0af68;
-                --purple: #bb9af7;
-                --cyan: #00ffff;
-                --bar-bg: #101218;
-                --photo-app-bg: #0d0e14;
-                --music-player-bg: #16161e;
-            }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <link rel="icon" href="images/favicon.ico" sizes="any" />
+  <title>Seechain - Link Iceberg</title>
+  <style>
 
-            body {
-                margin: 0;
-                background: url("images/background.webp") no-repeat center center fixed;
-                background-size: cover;
-                font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
-                color: var(--fg);
-                overflow: hidden;
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
-                padding: 10px;
-                padding-bottom: 40px;
-            }
+body {
+    margin: 0;
+    font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+    background: url("images/ice.webp") no-repeat top;  
+	background-color:#0F0C17;
+    background-size: auto; 
+    background-attachment: scroll; 
+    position: relative;
+    overflow-x: hidden;
+}
 
-            .window {
-                background: var(--bg);
-                border-radius: 10px;
-                display: flex;
-                flex-direction: column;
-            }
+	
 
-            .window-header {
-                background: rgba(16, 18, 24, 0.9);
-                padding: 5px;
-                font-weight: bold;
-                color: var(--fg);
-                border-top-left-radius: 10px;
-                border-top-right-radius: 10px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+      text-transform: uppercase;
+      text-shadow: -3px -3px #00f2ff;
+      margin-bottom: 2rem;
+     
+    }
 
-            .window-buttons span {
-                display: inline-block;
-                width: 15px;
-                height: 15px;
-                border-radius: 50%;
-                margin-left: 5px;
-                background-color: var(--green);
-                cursor: pointer;
-            }
 
-            .window-buttons span:nth-child(2) {
-                background-color: var(--yellow);
-            }
+    .iceberg {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.2rem 4rem;
+    }
 
-            .window-buttons span:nth-child(3) {
-                background-color: var(--red);
-            }
+    .layer {
+      margin: 3rem 0;
+      background: rgba(22,22,30,0.65);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 0 1px rgba(122,162,247,0.08), 0 20px 40px rgba(0,0,0,0.45);
+    }
+	
 
-            .window-content {
-                padding: 10px;
-                overflow: auto;
+    .layer table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .layer td {
+      vertical-align: top;
+      padding: 1.4rem 1.6rem;
+    }
+
+    .layer td.banner {
+      width: 150px;
+      padding: 0;
+     
+    }
+
+    .layer td.banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .layer h2 {
+      margin: 0 0 0.8rem 0;
+      font-size: 1.3rem;
+      color: #ffffff;
+      letter-spacing: 0.05em;
     
-            }
+      padding-bottom: 0.4rem;
+    }
 
-            .window-link {
-                color: var(--green);
-                text-decoration: none;
-                font-size: clamp(1em, 2vw, 1.1em);
-                margin: 0 10px 5px 0;
-                display: block;
-                width: max-content;
-            }
+.links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
 
-             .window-link::before {
-                content: "";
-                display: inline-block;
-                width: 16px; /* ancho del icono */
-                height: 16px; /* alto del icono */
-                margin-right: 5px;
-                background-image: url("images/file.svg");
-                background-size: contain;
-                background-repeat: no-repeat;
-                background-position: center;
-             
-            }
+    .links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 4px 6px;
+      display: flex;
+      align-items: center;
+    }
 
-            .window-image {
-                max-width: 100%;
-                max-height: 50vh;
-                display: block;
-                margin: auto;
-                object-fit: contain;
-            }
-
-        /* Photo App */
-            .photo-app {
-                background: var(--photo-app-bg);
-            }
-            
-            .photo-app .window-content {
-                padding: 0;
-                display: flex;
-                flex-direction: column;
-                height: 100%;
-            }
-            
+    .links a::before {
+      content: "🌐";
+      margin-right: 8px;
+      font-size: 1rem;
+    }
     
-            .photo-viewer {
-                flex: 1;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                overflow: hidden;
-            }
-            
-            .photo-frame {
-                max-width: 90%;
-                max-height: 50vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-           
-            }
-            
-            .photo-image {
-                max-width: 100%;
-                max-height: 100%;
-                object-fit: contain;
-            }
-            
-            .photo-info {
-                padding: 8px 15px;
-                font-size: 0.8rem;
-            
-            }
-
-            /* Music Player */
-               .music-player {
-                background: var(--music-player-bg);
-            }
-            
-            .music-player .window-content {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                padding: 15px;
-            }
-            
-            .prompt {
-                color: var(--cyan);
-                margin-bottom: 0.5rem;
-                font-weight: bold;
-            }
-
-            .taskbar {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 30px;
-                background: var(--bar-bg);
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 0 10px;
-                box-sizing: border-box;
-                color: var(--fg);
-                z-index: 1000;
-            }
-
-            .taskbar .start-btn {
-                background: none;
-                border: none;
-                cursor: pointer;
-                padding: 0;
-                width: 24px;
-                height: 24px;
-            }
-
-            .taskbar .start-btn img {
-                width: 100%;
-                height: 100%;
-            }
-
-            .audio-controls {
-                margin-top: 8px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-
-
-
-.audio-btn {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-    border-radius: 50%;
-    transition: all 0.2s ease;
-}
-
-.audio-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(1.1);
-}
-
-.audio-btn:active {
-    transform: scale(0.95);
-}
-
-            .terminal-text {
-                margin: 0;
-                line-height: 1.4;
-                margin-bottom: 0.5rem;
-            }
-
-            @media (max-width: 900px) {
-                body {
-                    grid-template-columns: repeat(2, 1fr);
-                    overflow-y: auto;
-                }
-            }
-            @media (max-width: 600px) {
-                body {
-                    grid-template-columns: 1fr;
-                    overflow-y: auto;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="window">
-            <div class="window-header">
-                Links
-                <div class="window-buttons"><span></span><span></span><span></span></div>
+  </style>
+</head>
+<body>
+  <main class="iceberg">
+<h1>Seechain Link Iceberg</h1>
+    <section class="layer">
+      <table>
+        <tr>
+          <td>
+               <h2>Networks</h2>
+            <div class="links">
+           <a href="https://www.pinterest.cl/" target="_blank">Pinterest</a>
+<a href="https://www.reddit.com/" target="_blank">Reddit</a>
+<a href="https://www.instagram.com/seechain/" target="_blank">Instagram</a>
+<a href="https://www.twitch.tv/"target="_blank">Twitch</a>
+<a href="https://www.youtube.com/feed/subscriptions"target="_blank">Youtube</a>
+<a href="https://x.com/Seechain" target="_blank">X</a>
+<a href="https://bsky.app/profile/seechain.bsky.social
+" target="_blank">Bluesky</a>
             </div>
-            <div class="window-content">
-                <div class="prompt">seechain@github:~$ ls</div>
-                <a class="window-link" href="https://seechain.neocities.org/wallpapers" target="_blank">Wallpapers</a>
-                <a class="window-link" href="https://seechain.neocities.org/solo-journalrpg" target="_blank">Solo Journal RPG</a>
-                <a class="window-link" href="https://seechain.neocities.org/software-list" target="_blank">Software list</a>
-                <a class="window-link" href="https://seechain.neocities.org/resources" target="_blank">Web Tools</a>
-                <a class="window-link" href="https://seechain.neocities.org/wikipedia-notes" target="_blank">Wikipedia Bookmarks</a>
-            </div>
-        </div>
+          </td>
+          <td class="banner">
+            <img src="images/layer1.jpg">
+          </td>
+        </tr>
+      </table>
+    </section>
 
-        <div class="window">
-            <div class="window-header">
-                Welcome
-                <div class="window-buttons"><span></span><span></span><span></span></div>
-            </div>
-            <div class="window-content">
-                <div class="prompt">seechain@github:~$ cat welcome.txt</div>
-                <p class="terminal-text">
-                    <strong>Hello! I'm Seechain.</strong><br />Here you’ll find a collection of my links: projects,
-                    networks, and other sites.
-                </p>
-                <a class="window-link" href="https://www.instagram.com/seechain/" target="_blank">Instagram</a>
-                <a class="window-link" href="https://x.com/seechain" target="_blank">Twitter</a>
-                <a class="window-link" href="https://seechain.bsky.social" target="_blank">Bluesky</a>
-                <a class="window-link" href="https://seechain.blogspot.com/" target="_blank">Blogspot</a>
-                <a class="window-link" href="https://www.youtube.com/@unbewut7625" target="_blank">Unbewußt Channel</a>
-                <a class="window-link" href="https://myanimelist.net/animelist/Seechain" target="_blank">Myanimelist</a>
-                <a class="window-link" href="https://seechain.neocities.org/" target="_blank">Neocities</a>
-            </div>
-        </div>
-       <div class="window photo-app">
-            <div class="window-header">
-                Photo Viewer
-                <div class="window-buttons"><span></span><span></span><span></span></div>
-            </div>
-      
-            <div class="window-content">
-                <div class="photo-viewer">
-                    <div class="photo-frame">
-                        <img class="photo-image" src="images/kaoru-hana.jpg" alt="kaoru Hana" />
-                    </div>
-                </div>
-                <div class="photo-info">
-                    kaoru-hana.jpg • 400×400 • 45 KB
-                </div>
-            </div>
-        </div>
+    <section class="layer">
+      <table>
+        <tr>
+          <td>
+            <h2>Websurfin</h2>
+            <div class="links">
+ <a href="https://seechain.neocities.org/">Neocities</a>
+<a href="https://keep.google.com/" target="_blank">Keep</a>
+<a href="https://docs.google.com" target="_blank">Google Docs</a>
+<a href="https://play.google.com/books/uploads" target="_blank">Google Books</a>
+<a href="https://www.solotodo.cl" target="_blank">Solotodo</a>
+<a href="https://www.wunderground.com/hourly/cl/m%C3%A1fil" target="_blank">Clima</a>
+<a href="https://es.aliexpress.com/" target="_blank">Aliexpress</a>
+<a href="https://itch.io/physical-games" target="_blank">Itch.io</a>
 
-       <div class="window music-player">
-            <div class="window-header">
-                Music Player
-                <div class="window-buttons"><span></span><span></span><span></span></div>
+
             </div>
-            <div class="window-content">
-              Shine – Mr. Big
-                <div class="audio-player">
-                    <audio id="background-music">
-                        <source
-                            src="https://archive.org/download/mr-big-discography-eclickmp3bank/Shine.mp3"
-                            type="audio/mpeg" />
-                        Your browser does not support the audio element.
-                    </audio>
-         <div class="audio-controls">
-    <button class="audio-btn" id="play-btn">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 5V19L19 12L7 5Z" fill="var(--green)"/>
-        </svg>
-    </button>
-    <button class="audio-btn" id="pause-btn">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="6" y="5" width="4" height="14" fill="var(--green)"/>
-            <rect x="14" y="5" width="4" height="14" fill="var(--green)"/>
-        </svg>
-    </button>
-    <button class="audio-btn" id="stop-btn">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="6" y="6" width="12" height="12" fill="var(--green)"/>
-        </svg>
-    </button>
-    <input class="audio-volume" type="range" id="volume" min="0" max="1" step="0.1" value="1" />
-</div>
-                </div>
+          </td>
+          <td class="banner">
+            <img src="images/layer2.jpg">
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="layer">
+      <table>
+        <tr>
+          <td>
+            <h2>Otaku Tier</h2>
+            <div class="links">
+           <a href="https://www3.animeflv.net/">Animeflv</a>
+<a href="https://animeav1.com/">AnimeAV</a>
+<a href="https://www1.otakustv.com/animes">Otakutv</a>
+<a href="https://nyaa.land">Nyaa</a>
+<a href="https://myanimelist.net/animelist/Seechain">Myanimelist</a>
+<a href="https://anichart.net/Summer-2023">AnimeChart</a>
+<a href="https://sukidesuost.info/">SukidesuOST</a>
             </div>
-        </div>
+          </td>
+          <td class="banner">
+            <img src="images/layer3.jpg">
+          </td>
+        </tr>
+      </table>
+    </section>
 
-        <div class="taskbar">
-            <button class="start-btn">
-                <img src="images/inicio.png" alt="Menu" />
-            </button>
-            <div id="clock"></div>
-        </div>
+    <section class="layer">
+      <table>
+        <tr>
+          <td>
+            <h2>Cinema & Piracy</h2>
+            <div class="links">
+         <a href="https://www2.rarbggo.to/">RARBG</a>
+<a href="https://cuevana3.eu/">Cuevana</a>
+<a href="https://qwx.cuevana.pro/">Cuevana Pro</a>
+<a href="http://www.divxclasico.com/foro">Divx Clasico</a>
+<a href="https://www.cuevana2espanol.net/">Cuevana2español</a>
+<a href="https://posterspy.com/posters/">Posters</a>
+            </div>
+          </td>
+          <td class="banner">
+            <img src="images/layer4.jpg">
+          </td>
+        </tr>
+      </table>
+    </section>
+	
+	        <section class="layer">
+      <table>
+        <tr>
+          <td>
+            <h2>The Grind</h2>
+            <div class="links">
+   <a href="https://freegogpcgames.com/">Free GOG PC Games</a>
+<a href="https://itch.io/games/free">Indie Freegames</a>
+<a href="https://www.reddit.com/r/Genshin_Impact/">Genshin Impact</a>
+<a href="https://vsrecommendedgames.fandom.com/wiki/PC">Game Wiki</a>
+<a href="https://bunnymuffins.lol/meta/">TFT</a>
+<a href="https://www.reddit.com/r/heroesofthestorm/">Heroes of the Storm</a>
+            </div>
+          </td>
+          <td class="banner">
+            <img src="images/layer5.jpg">
+          </td>
+        </tr>
+      </table>
+    </section>
 
-        <script>
-            function updateClock() {
-                const now = new Date();
-                const hours = now.getHours().toString().padStart(2, "0");
-                const minutes = now.getMinutes().toString().padStart(2, "0");
-                document.getElementById("clock").textContent = `${hours}:${minutes}`;
-            }
-
-     function setupAudioControls() {
-    const audio = document.getElementById("background-music");
-    const playBtn = document.getElementById("play-btn");
-    const pauseBtn = document.getElementById("pause-btn");
-    const stopBtn = document.getElementById("stop-btn");
-    const volumeControl = document.getElementById("volume");
-
-    playBtn.addEventListener("click", () => audio.play());
-    pauseBtn.addEventListener("click", () => audio.pause());
-    stopBtn.addEventListener("click", () => {
-        audio.pause();
-        audio.currentTime = 0;
-    });
-    volumeControl.addEventListener("input", () => {
-        audio.volume = volumeControl.value;
-    });
-}
-
-            document.addEventListener("DOMContentLoaded", () => {
-                setInterval(updateClock, 1000);
-                updateClock();
-                setupAudioControls();
-            });
-        </script>
-    </body>
+    <section class="layer">
+      <table>
+        <tr>
+          <td>
+            <h2>Schizo Solo RPG</h2>
+            <div class="links">
+            <a href="https://g.co/kgs/UUhPLoL" target="_blank">Google Dice Roller</a>
+        <a href="https://mothteeth.itch.io/freeform-solo-roleplaying" target="_blank">Freeform Solo Roleplaying</a>
+        <a href="https://homebrewery.naturalcrit.com/share/rkmo0t9k4Q" target="_blank">Mune</a>
+        <a href="https://davidblandy.itch.io/world-engine" target="_blank">WORLD ENGINE SRD</a>
+        <a href="https://inflatablestudios.itch.io/one-page-solo-engine" target="_blank">One Page Solo Engine</a>
+        <a href="https://benji-t.itch.io/mini-gm-companion" target="_blank">Mini GM Companion</a>
+        <a href="https://culinaryroleplaying.itch.io/1dfantasysolotoolkit1d" target="_blank">d6 Fantasy Solo Toolkit</a>
+        <a href="https://castlegrief.itch.io/tarvannion" target="_blank">Tarvannion</a>
+        <a href="https://tabletopaudio.com/" target="_blank">Tabletop Audio </a>
+        <a href="https://www.youtube.com/c/BlueTurtle" target="_blank">Blue Turtle</a>
+        <a href="https://inflatablestudios.itch.io/rpg-card-crafter" target="_blank">RPG Card Crafter</a>
+        <a href="https://donjon.bin.sh/5e/dungeon/" target="_blank">Dungeon Generator</a>
+            </div>
+          </td>
+          <td class="banner">
+            <img src="images/layer6.jpg">
+          </td>
+        </tr>
+      </table>
+    </section>
+    
+    <section class="layer">
+      <table>
+        <tr>
+          <td>
+            <h2>Digital Grave</h2>
+            <div class="links">
+			     <a href="http://web.archive.org/web/20061108070557/http://seechain.wordpress.com/">Think Fade Out</a>
+			<a href="https://web.archive.org/web/20130901000000*/wmforo.com">wmforo.com</a>	 
+<a href="https://web.archive.org/web/20250000000000*/http://animevaldivia.org">animevaldivia.org</a>
+<a href="https://www.deviantart.com/oekakirulz">Oekakirulz</a>
+<a href="https://www.youtube.com/channel/UC23QfKzpExqxSiYI3c51gTA">Relatos de Terror</a>
+<a href="https://www.youtube.com/channel/UCo93eDYJEK7K7qR5vb9GKUg">Unbewußt Channel</a>
+<a href="https://seechain.github.io/">Seechain</a>
+<a href="https://www.reddit.com/r/laEmbajada/">LaEmbajada</a>
+<a href="https://diariopcerdo.blogspot.com/">Pcerdo</a>
+<a href="https://archive.org/details/@seechain" target="_blank">Internet Archive</a>
+<a href="https://www.tiktok.com/@seechain">Tiktok</a>
+<a href="https://soundcloud.com/seechain">Soundcloud</a>
+            </div>
+          </td>
+          <td class="banner">
+            <img src="images/layer7.jpg">
+          </td>
+        </tr>
+      </table>
+    </section>
+  </main></body>
 </html>
-
-
 
 
 
