@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<style>
+body{max-width:50em;margin:auto;padding:1em;font-family:monospace;font-size:1.2em;line-height:1.5}
+img {max-width: 100%;}
+pre{background:#F4F2F1;padding:1em;overflow-x:auto}
+table, th, td { border-collapse: collapse; padding: 0.5em; }
+td {border-top: 1px solid #ddd;}
+.backlink{text-align:center;margin-top:2em;background:#F4F2F1;padding:0.5em}
+</style>
+<title>Avahi - Configuración</title>
+
+<h1>Avahi - Configuración</h1>
+
+<p>Avahi permite resolver nombres <code>.local</code> en la red local sin necesidad de configurar un servidor DNS.</p>
+
+<h2>Instalación</h2>
+
+<pre>
+sudo apt install avahi-daemon avahi-utils
+</pre>
+
+<h2>Habilitar y arrancar</h2>
+
+<pre>
+sudo systemctl enable avahi-daemon
+sudo systemctl start avahi-daemon
+sudo systemctl status avahi-daemon
+</pre>
+
+<h2>Verificación</h2>
+
+<pre>
+# Ver servicios publicados en la red
+avahi-browse -a
+
+# Resolver un hostname
+avahi-resolve -n nombre.local
+</pre>
+
+<h2>Configuración</h2>
+
+<p>El archivo principal está en <code>/etc/avahi/avahi-daemon.conf</code></p>
+
+<pre>
+sudo nano /etc/avahi/avahi-daemon.conf
+</pre>
+
+<p>Opciones útiles:</p>
+
+<pre>
+[server]
+use-ipv4=yes
+use-ipv6=no
+
+[publish]
+publish-addresses=yes
+publish-dns-servers=yes
+</pre>
+
+<h2>Acceso al servidor</h2>
+
+<p>Después de configurar Avahi, puedes acceder al servidor usando:</p>
+
+<pre>
+ssh usuario@nombre-del-servidor.local
+</pre>
+
+<p>En lugar de recordar la dirección IP.</p>
+
+<div class="backlink"><a href="index.html#servidor">index</a></div>
+</body>
+</html>

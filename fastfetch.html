@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<style>
+body{max-width:50em;margin:auto;padding:1em;font-family:monospace;font-size:1.2em;line-height:1.5}
+img {max-width: 100%;}
+pre{background:#F4F2F1;padding:1em;overflow-x:auto}
+table, th, td { border-collapse: collapse; padding: 0.5em; }
+td {border-top: 1px solid #ddd;}
+.backlink{text-align:center;margin-top:2em;background:#F4F2F1;padding:0.5em}
+</style>
+<title>Fastfetch - Configuración</title>
+
+<h1>Fastfetch - Configuración</h1>
+
+<p>Fastfetch es una herramienta para mostrar información del sistema, similar a neofetch pero más rápida.</p>
+
+<h2>Nerd Fonts</h2>
+
+<p>Los iconos que ves en la configuración son símbolos de Nerd Fonts, una fuente que incluye miles de glyphs adicionales.</p>
+
+<p>Cómo funcionan:</p>
+<ul>
+<li>Los iconos como 󰌢, ,  son caracteres Unicode privados</li>
+<li>Necesitas una fuente con parches Nerd Font en tu terminal</li>
+<li>Ejemplos: JetBrainsMono Nerd Font, FiraCode Nerd Font, Hack Nerd Font</li>
+</ul>
+
+<p>Instalación en Debian:</p>
+<pre>
+sudo apt install fonts-jetbrains-mono
+</pre>
+
+<p>Página oficial: nerdfonts.com</p>
+
+<h2>Logo personalizado</h2>
+
+<p>Ubicación: <code>~/.config/fastfetch/logo/logo.txt</code></p>
+
+<p>Arte ASCII que se muestra junto a los módulos de información.</p>
+
+<h2>Configuración actual</h2>
+
+<p>Ubicación: <code>~/.config/fastfetch/config.jsonc</code></p>
+
+<pre>
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "type": "file",
+        "source": "~/.config/fastfetch/logo/logo.txt",
+    },
+    "display": {
+        "separator": " "
+    },
+    "modules": [
+        {
+            "type": "host",
+            "key": "╭─󰌢",
+            "keyColor": "green"
+        },
+        {
+            "type": "cpu",
+            "key": "├─󰻠",
+            "keyColor": "green"
+        },
+        {
+            "type": "gpu",
+            "key": "├─󰍛",
+            "keyColor": "green"
+        },
+        {
+            "type": "disk",
+            "key": "├─",
+            "keyColor": "green"
+        },
+        {
+            "type": "memory",
+            "key": "├─󰑭",
+            "keyColor": "green"
+        },
+        "break",
+        {
+            "type": "shell",
+            "key": "╭─",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "terminal",
+            "key": "├─",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "terminalfont",
+            "key": "├─",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "de",
+            "key": "├─",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "wm",
+            "key": "├─",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "theme",
+            "key": "├─󰉼",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "icons",
+            "key": "├─󰀻",
+            "keyColor": "yellow"
+        },
+        "break",
+        {
+            "type": "title",
+            "key": "╭─",
+            "format": "{user-name}@{host-name}",
+            "keyColor": "blue"
+        },
+        {
+            "type": "os",
+            "key": "├─{icon}",
+            "keyColor": "blue"
+        },
+        {
+            "type": "kernel",
+            "key": "├─",
+            "keyColor": "blue"
+        },
+        {
+            "type": "packages",
+            "key": "├─󰏖",
+            "keyColor": "blue"
+        },
+        {
+            "type": "uptime",
+            "key": "├─󰅐",
+            "keyColor": "blue"
+        }
+    ]
+}
+</pre>
+
+<div class="backlink"><a href="index.html#configuracion">index</a></div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<style>
+body{max-width:50em;margin:auto;padding:1em;font-family:monospace;font-size:1.2em;line-height:1.5}
+img {max-width: 100%;}
+pre{background:#F4F2F1;padding:1em;overflow-x:auto}
+table, th, td { border-collapse: collapse; padding: 0.5em; }
+td { border-top: 1px solid #ddd; }
+.backlink{text-align:center;margin-top:2em;background:#F4F2F1;padding:0.5em}
+</style>
+<title>Docker Compose - Servicios</title>
+
+<h1>Docker Compose - Servicios</h1>
+
+<p>Servicios configurados usando <a href="https://compose.ajnart.dev/">Docker Compose Generator</a>:</p>
+
+<ul>
+<li>Jellyfin - Media server</li>
+<li>Heimdall - Dashboard de aplicaciones</li>
+<li>Filebrowser - Gestor de archivos</li>
+<li>Transmission - Cliente BitTorrent</li>
+</ul>
+
+<h2>Archivo docker-compose.yml</h2>
+
+<pre>
+services:
+
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Santiago
+    volumes:
+      - /home/tu_usuario/docker-services/jellyfin/config:/config
+      - /home/tu_usuario/peliculas:/data/movies
+      - /home/tu_usuario/musica:/data/music
+      - /home/tu_usuario/series:/data/series
+    ports:
+      - "8096:8096"
+      - "7359:7359/udp"
+    restart: unless-stopped
+
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:latest
+    container_name: heimdall
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Santiago
+    volumes:
+      - /home/tu_usuario/docker-services/heimdall/config:/config
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
+
+  filebrowser:
+    image: filebrowser/filebrowser
+    container_name: filebrowser
+    user: "1000:1000"
+    ports:
+      - "8081:80"
+    volumes:
+      - /home/tu_usuario:/srv
+      - /home/tu_usuario/docker-services/filebrowser/config:/config
+    restart: unless-stopped
+
+  transmission:
+    image: linuxserver/transmission:latest
+    container_name: transmission
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Santiago
+      - TRANSMISSION_WATCH_DIR_ENABLED=true
+      - TRANSMISSION_WATCH_DIR=/watch
+    volumes:
+      - /home/tu_usuario/docker-services/transmission/config:/config
+      - /home/tu_usuario/descargas:/downloads
+      - /home/tu_usuario/docker-services/transmission/watch:/watch
+    ports:
+      - "9091:9091"
+      - "51413:51413" 
+      - "51413:51413/udp"
+    restart: unless-stopped
+</pre>
+
+<h2>Uso</h2>
+
+<pre>
+# Iniciar servicios
+docker compose up -d
+
+# Ver estado
+docker compose ps
+
+# Ver logs
+docker compose logs -f
+</pre>
+
+<h2>Acceso a servicios</h2>
+
+<table>
+  <tr><th>Servicio</th><th>URL</th></tr>
+  <tr><td>Heimdall</td><td>http://servidor.local</td></tr>
+  <tr><td>Jellyfin</td><td>http://servidor.local:8096</td></tr>
+  <tr><td>Filebrowser</td><td>http://servidor.local:8080</td></tr>
+  <tr><td>Transmission</td><td>http://servidor.local:9091</td></tr>
+</table>
+
+<h2>Notas</h2>
+
+<ul>
+<li>Ajustar <code>/home/tu_usuario/</code> según tu estructura</li>
+<li>Modificar <code>PUID</code> y <code>PGID</code> según tu usuario</li>
+<li>Cambiar <code>TZ</code> a tu zona horaria</li>
+</ul>
+
+<div class="backlink"><a href="index.html#servidor">index</a></div>
+</body>
+</html>

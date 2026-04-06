@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<style>
+body{max-width:50em;margin:auto;padding:1em;font-family:monospace;font-size:1.2em;line-height:1.5}
+img {max-width: 100%;}
+pre{background:#F4F2F1;padding:1em;overflow-x:auto}
+table, th, td { border-collapse: collapse; padding: 0.5em; }
+td {border-top: 1px solid #ddd;}
+.backlink{text-align:center;margin-top:2em;background:#F4F2F1;padding:0.5em}
+</style>
+<title>Docker Engine - Instalación</title>
+
+<h1>Docker Engine - Instalación</h1>
+
+<p>Guía de instalación de Docker en Debian.</p>
+
+<h2>Requisitos Previos</h2>
+
+<ul>
+<li>Debian 12 (Bookworm) o 13 (Trixie)</li>
+<li>Usuario en grupo sudo</li>
+<li>Conexión a internet</li>
+</ul>
+
+<h2>Pasos de Instalación</h2>
+
+<h3>1. Actualizar repositorios</h3>
+
+<pre>
+sudo apt update
+sudo apt install ca-certificates curl gnupg
+</pre>
+
+<h3>2. Añadir clave GPG de Docker</h3>
+
+<pre>
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+</pre>
+
+<h3>3. Configurar repositorio</h3>
+
+<pre>
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+</pre>
+
+<h3>4. Instalar Docker</h3>
+
+<pre>
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</pre>
+
+<h3>5. Verificar instalación</h3>
+
+<pre>
+sudo docker run hello-world
+</pre>
+
+<h2>Post-Instalación</h2>
+
+<h3>Añadir usuario al grupo docker</h3>
+
+<pre>
+sudo usermod -aG docker $USER
+# Cerrar sesión y volver a entrar para aplicar cambios
+</pre>
+
+<h3>Habilitar Docker al inicio</h3>
+
+<pre>
+sudo systemctl enable docker
+</pre>
+
+<h2>Comandos útiles</h2>
+
+<pre>
+# Ver estado
+systemctl status docker
+
+# Ver contenedores
+docker ps -a
+
+# Ver imágenes
+docker images
+
+# Ver uso de recursos
+docker stats
+</pre>
+
+<div class="backlink"><a href="index.html#servidor">index</a></div>
+</body>
+</html>

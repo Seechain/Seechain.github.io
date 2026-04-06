@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<style>
+body{max-width:50em;margin:auto;padding:1em;font-family:monospace;font-size:1.2em;line-height:1.5}
+img {max-width: 100%;}
+pre{background:#F4F2F1;padding:1em;overflow-x:auto}
+table, th, td { border-collapse: collapse; padding: 0.5em; }
+td {border-top: 1px solid #ddd;}
+.backlink{text-align:center;margin-top:2em;background:#F4F2F1;padding:0.5em}
+</style>
+<title>SSH con GitHub</title>
+
+<h1>SSH con GitHub</h1>
+
+<p>Guía paso a paso para configurar SSH y conectarte a GitHub.</p>
+
+<h2>Qué es SSH</h2>
+
+<p>SSH (Secure Shell) es un protocolo que permite conexiones seguras entre tu computadora y servidores remotos. Con SSH puedes autenticarte con GitHub usando una clave criptográfica en lugar de usuario y contraseña.</p>
+
+<h2>Por qué usar SSH</h2>
+
+<ul>
+<li>No necesitas escribir token ni contraseña cada vez que haces push</li>
+<li>Más seguro que autenticación por contraseña</li>
+<li>Una vez configurado, funciona automáticamente</li>
+<li>Puedes automatizar tareas con git</li>
+</ul>
+
+<h2>Algoritmo Ed25519</h2>
+
+<p>Ed25519 es el algoritmo recomendado por GitHub para claves SSH:</p>
+
+<ul>
+<li>Más seguro que RSA</li>
+<li>Más rápido</li>
+<li>Claves más cortas</li>
+<li>Soportado oficialmente por GitHub</li>
+</ul>
+
+<h2>Paso 1: Generar la clave SSH</h2>
+
+<p>Ejecuta este comando en tu terminal:</p>
+
+<pre>
+ssh-keygen -t ed25519 -C "tu@email.com"
+</pre>
+
+<p>Qué significa:</p>
+<ul>
+<li><code>-t ed25519</code> - Usa el algoritmo Ed25519</li>
+<li><code>-C "tu@email.com"</code> - Un comentario para identificar la clave</li>
+</ul>
+
+<p>El comando te preguntará:</p>
+
+<p>1. <strong>Where to save the key</strong>: Presiona Enter para aceptar la ubicación por defecto (<code>~/.ssh/id_ed25519</code>)</p>
+
+<p>2. <strong>Passphrase</strong>: Deja vacío presionando Enter (o escribe una contraseña si quieres protección extra)</p>
+
+<p>3. <strong>Confirm passphrase</strong>: Presiona Enter de nuevo</p>
+
+<p>Deberías ver algo como:</p>
+
+<pre>
+Generating public/private ed25519 key pair.
+Your identification has been saved in /home/user/.ssh/id_ed25519
+Your public key has been saved in /home/user/.ssh/id_ed25519.pub
+</pre>
+
+<h2>Paso 2: Añadir la clave a GitHub</h2>
+
+<p>Primero, copia tu clave pública:</p>
+
+<pre>
+cat ~/.ssh/id_ed25519.pub
+</pre>
+
+<p>Debería mostrar algo que empieza con <code>ssh-ed25519</code> y termina con tu email.</p>
+
+<p>Ahora en GitHub:</p>
+
+<p>1. Ve a Settings (tu foto de perfil > Settings)</p>
+<p>2. En el menú lateral busca "SSH and GPG keys"</p>
+<p>3. Click en "New SSH key"</p>
+<p>4. En "Title" escribe algo como "Mi computadora"</p>
+<p>5. En "Key" pega todo el contenido de tu clave pública</p>
+<p>6. Click en "Add SSH key"</p>
+
+<h2>Paso 3: Verificar la conexión</h2>
+
+<p>Prueba que todo funciona:</p>
+
+<pre>
+ssh -T git@github.com
+</pre>
+
+<p>Si es la primera vez, te preguntará si quieres continuar. Escribe "yes" y presiona Enter.</p>
+
+<p>Deberías ver:</p>
+
+<pre>
+Hi tu-usuario! You've successfully authenticated.
+</pre>
+
+<h2>Paso 4: Cambiar remote de HTTPS a SSH</h2>
+
+<p>Si ya tienes un repositorio clonado con HTTPS, cámbialo a SSH:</p>
+
+<pre>
+git remote set-url origin git@github.com:usuario/repo.git
+</pre>
+
+<p>Para saber tu URL SSH correcta:</p>
+<ul>
+<li>En GitHub, ve a tu repositorio</li>
+<li>Click en el botón verde "Code"</li>
+<li>Selecciona "SSH"</li>
+<li>Copia la URL que empieza con <code>git@github.com:</code></li>
+</ul>
+
+<p>Verifica el cambio:</p>
+
+<pre>
+git remote -v
+</pre>
+
+<p>Debería mostrar:</p>
+<pre>
+origin  git@github.com:usuario/repo.git (fetch)
+origin  git@github.com:usuario/repo.git (push)
+</pre>
+
+<h2>Paso 5: Automatizar SSH Agent (opcional)</h2>
+
+<p>Para no tener que ejecutar <code>ssh-add</code> cada vez, añade esto al final de tu archivo <code>~/.bashrc</code>:</p>
+
+<pre>
+if [ -z "$SSH_AUTH_SOCK" ]; then
+   eval "$(ssh-agent -s)"
+   ssh-add ~/.ssh/id_ed25519
+fi
+</pre>
+
+<p>Después reinicia tu terminal o ejecuta:</p>
+
+<pre>
+source ~/.bashrc
+</pre>
+
+<h2>Solución de problemas</h2>
+
+<p><strong>Error: Permission denied (publickey)</strong></p>
+<ul>
+<li>Verifica que añadiste la clave correcta en GitHub</li>
+<li>Ejecuta <code>ssh -vvv git@github.com</code> para ver detalles del error</li>
+</ul>
+
+<p><strong>Error: Could not resolve hostname</strong></p>
+<ul>
+<li>Verifica tu conexión a internet</li>
+<li>Verifica que escribiste bien la URL</li>
+</ul>
+
+<p><strong>La clave no se añade automáticamente</strong></p>
+<ul>
+<li>Ejecuta manualmente: <code>ssh-add ~/.ssh/id_ed25519</code></li>
+</ul>
+
+<h2>Comandos útiles</h2>
+
+<pre>
+# Ver claves disponibles
+ls -la ~/.ssh
+
+# Ver clave pública
+cat ~/.ssh/id_ed25519.pub
+
+# Probar conexión
+ssh -T git@github.com
+
+# Ver todas las claves añadidas al agente
+ssh-add -l
+</pre>
+
+<div class="backlink"><a href="index.html#configuracion">index</a></div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<style>
+body{max-width:50em;margin:auto;padding:1em;font-family:monospace;font-size:1.2em;line-height:1.5}
+img {max-width: 100%;}
+pre{background:#F4F2F1;padding:1em;overflow-x:auto}
+table, th, td { border-collapse: collapse; padding: 0.5em; }
+td {border-top: 1px solid #ddd;}
+.backlink{text-align:center;margin-top:2em;background:#F4F2F1;padding:0.5em}
+</style>
+<title>Debian 13 - Instalación Mínima</title>
+
+<h1>Debian 13 - Instalación Mínima</h1>
+
+<p>Instalación mínima de Debian 13 (Trixie)</p>
+
+<h2>Requisitos</h2>
+
+<ul>
+<li>USB bootable con Debian 13 netinstall</li>
+<li>Conexión a internet</li>
+</ul>
+
+<h2>Proceso de Instalación</h2>
+
+<p>1. Descargar imagen ISO de debian.org</p>
+<p>2. Crear USB bootable con <code>dd</code> o balenaEtcher</p>
+<p>3. Boot desde USB</p>
+<p>4. Seleccionar <strong>Install</strong> (no graphical install)</p>
+<p>5. Configurar idioma, ubicación y teclado</p>
+<p>6. Particionado: usar disco completo, todo en una partición</p>
+<p>7. <strong>Selección de software</strong>:</p>
+<p>   - ✅ Servidor SSH</p>
+<p>   - ✅ Utilidades estándar del sistema</p>
+<p>   - ⬜ Entorno gráfico (NO seleccionado)</p>
+
+<p>8. Completar instalación y reiniciar</p>
+
+<h2>Post-Instalación</h2>
+
+<pre>
+# Actualizar sistema
+sudo apt update && sudo apt upgrade -y
+
+# Instalar herramientas básicas
+sudo apt install curl wget git htop nano
+</pre>
+
+<h1>Configuración de Red</h1>
+
+<pre>
+# Ver configuración actual
+ip addr
+
+# Configurar IP estática (opcional)
+sudo nano /etc/network/interfaces
+</pre>
+
+<h1>Acceso SSH</h1>
+
+<pre>
+# Desde otro equipo de la red
+ssh usuario@ip-servidor
+</pre>
+
+
+<div class="backlink"><a href="index.html#servidor">index</a></div>
+</body>
+</html>

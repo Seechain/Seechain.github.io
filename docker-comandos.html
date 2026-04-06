@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<style>
+body{max-width:50em;margin:auto;padding:1em;font-family:monospace;font-size:1.2em;line-height:1.5}
+img {max-width: 100%;}
+pre{background:#F4F2F1;padding:1em;overflow-x:auto}
+table, th, td { border-collapse: collapse; padding: 0.5em; }
+td {border-top: 1px solid #ddd;}
+.backlink{text-align:center;margin-top:2em;background:#F4F2F1;padding:0.5em}
+</style>
+<title>Docker - Comandos</title>
+
+<h1>Docker - Comandos</h1>
+
+<h2>Información</h2>
+
+<pre>
+sudo docker info         # Información del sistema Docker (versión, contenedores, recursos)
+systemctl status docker  # Estado del servicio Docker (activo/inactivo/errores)
+docker ps -a             # Lista todos los contenedores (activos y detenidos)
+docker images            # Lista todas las imágenes descargadas
+docker stats             # Monitor de recursos en tiempo real (CPU, memoria, red)
+sudo docker logs nombre-contenedor  # Muestra los logs de un contenedor específico
+</pre>
+
+<h2>Docker Compose</h2>
+
+<pre>
+# Iniciar servicios
+docker compose up -d
+
+# Detener servicios
+docker compose down
+
+# Ver logs
+docker compose logs -f
+
+# Ver estado
+docker compose ps
+
+# Reconstruir servicios
+docker compose build
+
+# Reiniciar un servicio
+docker compose restart nombre-servicio
+
+# Validar YAML
+docker compose config
+</pre>
+
+<h2>Limpieza</h2>
+
+<pre>
+# Eliminar contenedores parados, imágenes y redes sin usar
+docker system prune -a
+
+# Lo anterior + volúmenes sin usar
+docker system prune -a --volumes
+
+# Eliminar todos los contenedores
+docker container prune -f
+
+# Eliminar todas las imágenes
+docker image prune -a
+
+# Eliminar todos los volúmenes
+docker volume prune -f
+
+# Eliminar redes sin usar
+docker network prune -f
+</pre>
+
+<div class="backlink"><a href="index.html#servidor">index</a></div>
+</body>
+</html>
