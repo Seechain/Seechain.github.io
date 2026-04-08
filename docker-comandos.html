@@ -10,12 +10,23 @@
 <h2>Información</h2>
 
 <pre>
-sudo docker info         # Información del sistema Docker (versión, contenedores, recursos)
-systemctl status docker  # Estado del servicio Docker (activo/inactivo/errores)
-docker ps -a             # Lista todos los contenedores (activos y detenidos)
-docker images            # Lista todas las imágenes descargadas
-docker stats             # Monitor de recursos en tiempo real (CPU, memoria, red)
-sudo docker logs nombre-contenedor  # Muestra los logs de un contenedor específico
+# Información del sistema Docker (versión, contenedores, recursos)	
+sudo docker info 
+
+# Estado del servicio Docker (activo/inactivo/errores)
+systemctl status docker  
+
+# Lista todos los contenedores (activos y detenidos)
+docker ps -a    
+
+# Lista todas las imágenes descargadas         
+docker images  
+   
+# Monitor de recursos en tiempo real (CPU, memoria, red)      
+docker stats 
+
+# Muestra los logs de un contenedor específico
+sudo docker logs nombre-contenedor  
 </pre>
 
 <h2>Docker Compose</h2>

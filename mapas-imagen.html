@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>Image Maps - Diseño Web Early 2000s</title>
+
+<h1>Image Maps - Diseño Web Early 2000s</h1>
+
+<p>Cuando Dreamweaver convertía PNGs en sitios web interactivos.</p>
+
+<p>Si comenzaste a diseñar webs en la era de Flash, tablas anidadas y resoluciones de 800×600, surely recuerdo esta técnica: abrías Fireworks o Photoshop, maquetabas <em>todo</em> el sitio —fondo, botones, textos, logos— en una única imagen PNG o GIF, la exportabas, y luego, en Dreamweaver, trazabas rectángulos invisibles encima para convertir cada "botón" visual en un enlace real.</p>
+
+<p>Eso era un <strong>mapa de imagen</strong> (image map), y fue una de las técnicas más populares entre 1998 y 2004. Hoy está casi olvidada, pero merece un lugar en la historia del diseño frontend.</p>
+
+<h2>¿Cómo funcionaba exactamente?</h2>
+
+<p>La tecnología era simple, casi primitiva, pero ingeniosa:</p>
+
+<ol>
+<li><strong>Una imagen contenedora</strong> (layout.png) alojaba todo el diseño: menú superior, barra lateral, galería, pies de página, incluso textos que no eran realmente texto sino píxeles pintados.</li>
+<li><strong>Una etiqueta <code>&lt;map&gt;</code></strong> definía el mapa, con un nombre único.</li>
+<li><strong>Etiquetas <code>&lt;area&gt;</code></strong> dentro del mapa: cada una definía una zona interactiva con atributos como:
+<ul>
+<li><code>shape="rect"</code> (rectángulo), <code>"circle"</code> o <code>"poly"</code> (polígono para formas libres).</li>
+<li><code>coords="x1,y1,x2,y2"</code> (coordenadas exactas dentro de la imagen).</li>
+<li><code>href="pagina.html"</code> (el destino del enlace).</li>
+</ul>
+</li>
+<li>La imagen se vinculaba al mapa mediante <code>usemap="#nombre"</code>.</li>
+</ol>
+
+<pre>
+&lt;img src="layout.png" usemap="#menu" alt="Mi sitio web 2002"&gt;
+&lt;map name="menu"&gt;
+  &lt;area shape="rect" coords="10,20,110,50" href="inicio.html" alt="Inicio"&gt;
+  &lt;area shape="rect" coords="120,20,220,50" href="productos.html" alt="Productos"&gt;
+  &lt;area shape="poly" coords="230,20,280,50,280,80,230,80" href="contacto.html"&gt;
+&lt;/map&gt;
+</pre>
+
+<p>Dreamweaver tenía una herramienta visual: dibujabas rectángulos, círculos o polígonos directamente sobre la imagen, y él generaba el código automáticamente.</p>
+
+<h2>¿Por qué se adoptó tan masivamente?</h2>
+
+<ul>
+<li><strong>Control total del diseño</strong>: Lo que veías en Photoshop era exactamente lo que el usuario veía. Sin sorpresas CSS entre navegadores.</li>
+<li><strong>Tipografías imposibles</strong>: Podías usar cualquier fuente (no solo las seguras para web) porque todo era una imagen.</li>
+<li><strong>Efectos visuales complejos</strong>: Sombras, degradados, texturas, brillos —todo funcionaba sin CSS3 ni SVG.</li>
+<li><strong>Dreamweaver lo hacía fácil</strong>: No necesitabas saber coordenadas; solo dibujar.</li>
+</ul>
+
+<h2>Desventajas</h2>
+
+<h3>1. No responsive ni escalable</h3>
+
+<p>Las coordenadas son absolutas. Si la imagen se redimensionaba (o la pantalla era más pequeña), los enlaces se desplazaban. En móviles era un desastre.</p>
+
+<h3>2. Mantenimiento infernal</h3>
+
+<p>¿Cambiar un botón de "Servicios" a "Productos"? Había que:</p>
+
+<ul>
+<li>Modificar el PNG original.</li>
+<li>Reexportar.</li>
+<li>Recalcular todas las coordenadas si la posición cambiaba mínimamente.</li>
+<li>Actualizar el HTML.</li>
+</ul>
+
+<p>Un simple cambio textual requería Photoshop y edición manual del mapa.</p>
+
+<h3>3. SEO pésimo</h3>
+
+<p>Los buscadores veían una imagen con zonas, pero no tenían texto real asociado. El atributo <code>alt</code> en cada <code>&lt;area&gt;</code> ayudaba un poco, pero no era suficiente. Google no podía indexar frases dentro de los botones.</p>
+
+<h3>4. Accesibilidad nula</h3>
+
+<p>Los lectores de pantalla tenían grandes dificultades con múltiples áreas superpuestas o formas complejas.</p>
+
+<h3>5. Sin feedback visual</h3>
+
+<p>Al pasar el ratón por encima, no había cambio de color, sombra o subrayado (a menos que usaras JavaScript).</p>
+
+<h2>Cuando el CSS mató a los mapas</h2>
+
+<p>Entre 2004 y 2008 llegaron varios golpes mortales:</p>
+
+<ul>
+<li><strong>CSS posicionamiento</strong> (<code>position: absolute;</code> <code>float</code> <code>flex</code>) permitió layouts reales con elementos HTML independientes.</li>
+<li><strong>Textos reales</strong>: se podían usar fuentes web, tamaños relativos (<code>em</code>, <code>rem</code>) y estilos CSS para botones.</li>
+<li><strong>Sprites CSS</strong>: varias imágenes en una sola hoja, pero con <code>background-position</code>, no con mapas de coordenadas frágiles.</li>
+<li><strong>Navegadores móviles</strong>: Safari en iPhone (2007) mostró que los mapas de imagen no funcionaban bien en pantallas táctiles pequeñas.</li>
+</ul>
+
+<h2>Casos de uso legítimos</h2>
+
+<p>Aunque abandonados para layouts generales, los image maps aún tienen dos o tres aplicaciones muy concretas:</p>
+
+<ol>
+<li><strong>Infografías interactivas</strong>: Un mapa político donde cada provincia lleva a su ficha. Por ejemplo, en medios como El País o BBC, para resultados electorales.</li>
+<li><strong>Planos de museos o edificios</strong>: Donde cada sala o departamento es un <code>&lt;area&gt;</code> poligonal.</li>
+<li><strong>Juegos retro o experimentos artísticos</strong> (por pura nostalgia o restricción técnica).</li>
+</ol>
+
+<p>Incluso en esos casos, <strong>SVG es superior</strong>: permite escalado, estilos CSS, eventos JavaScript y mejor accesibilidad.</p>
+
+<pre>
+&lt;!-- Alternativa moderna a image map --&gt;
+&lt;svg viewBox="0 0 300 200"&gt;
+  &lt;polygon points="10,10 50,10 30,50" onclick="location.href='pagina.html'" /&gt;
+&lt;/svg&gt;
+</pre>
+
+<a class="backlink" href="index.html#apuntes">Volver al índice</a>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>Chuleta de Comandos</title>
+
+<h1>Chuleta de Comandos</h1>
+
+<h2>YT-DLP</h2>
+
+<pre>
+# Descargar MP4
+yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4" URL
+
+# Descargar MP3 con metadatos
+yt-dlp -x --audio-format mp3 --audio-quality 0 --embed-metadata --embed-thumbnail --add-metadata --extractor-args "youtube:player_client=android" -o "%(artist,creator,uploader)s - %(title)s.%(ext)s" URL
+</pre>
+
+<h2>FFmpeg</h2>
+
+<pre>
+# Capturar pantalla
+ffmpeg -f x11grab -framerate 30 -i :0.0 output.mp4
+# Presionar Q para detener
+
+# Video a GIF
+ffmpeg -i input.mp4 -vf "fps=15,scale=600:-1:flags=lanczos" output.gif
+
+# Miniaturas escaladas
+ffmpeg -i %d.jpg -vf "scale=320:-1" %d_thumb.jpg
+</pre>
+
+<h2>Aria2</h2>
+
+<pre>
+# Instalar
+sudo pacman -S aria2
+
+# Descargar archivo
+aria2c https://ejemplo.com/archivo.zip
+
+# Reanudar descarga interrumpida
+aria2c -c https://ejemplo.com/archivo.zip
+</pre>
+
+<h2>MPV</h2>
+
+<pre>
+# Stream de Twitch
+mpv https://www.twitch.tv/usuario
+
+# Solo audio de Twitch
+mpv --no-video https://www.twitch.tv/usuario
+
+# YouTube en bucle (solo audio)
+mpv --no-video --loop https://youtube.com/watch?v=ejemplo
+
+# Detener: Ctrl + C
+</pre>
+
+<h2>Find</h2>
+
+<pre>
+# Buscar archivos por nombre
+find /ruta -name "archivo.txt"
+
+# Buscar por extensión
+find /ruta -name "*.log"
+
+# Buscar archivos modificados en los últimos 7 días
+find /ruta -mtime -7
+
+# Buscar directorios
+find /ruta -type d -name "carpeta"
+
+# Buscar y eliminar archivos mayores a 100MB
+find /ruta -type f -size +100M -exec rm {} \;
+
+# Buscar archivos por contenido (encontrar txt que contenga "palabra")
+find /ruta -name "*.txt" -exec grep -l "palabra" {} \;
+</pre>
+
+<h2>Grep</h2>
+
+<pre>
+# Buscar palabra en archivo
+grep "palabra" archivo.txt
+
+# Buscar recursivamente en directorio
+grep -r "palabra" /directorio
+
+# Mostrar número de línea
+grep -n "palabra" archivo.txt
+
+# Buscar sin distinción mayúsculas/minúsculas
+grep -i "palabra" archivo.txt
+
+# Excluir palabras
+grep -v "excluir" archivo.txt
+
+# Expresiones regulares
+grep -E "patron[0-9]+" archivo.txt
+</pre>
+
+<h2>Nano + FZF</h2>
+
+<pre>
+# Instalar FZF
+sudo pacman -S fzf
+
+# Buscar y editar archivo
+nano $(fzf)
+
+# Alternar preview en FZF
+fzf --preview 'cat {}'
+
+# Buscar en archivos con grep y abrir con nano
+grep -r "palabra" . | fzf | xargs nano
+</pre>
+
+<h2>Combinaciones Útiles</h2>
+
+<pre>
+# Encontrar y editar
+find . -name "*.md" | fzf | xargs nano
+
+# Buscar texto en archivos y editar resultado
+grep -r "error" . | fzf -m | xargs -r nano
+
+# Editar último archivo modificado
+nano $(ls -t *.txt | head -1)
+
+# Ver contenido sin abrir editor
+find . -name "*.log" -exec tail -n 20 {} \;
+
+# Matar proceso por nombre
+pkill -f "proceso"
+</pre>
+
+<a class="backlink" href="index.html#recursos">Volver al índice</a>
+</body>
+</html>

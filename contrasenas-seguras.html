@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>Contraseñas seguras con openssl</title>
+
+<h1>Contraseñas seguras con openssl</h1>
+
+<p>¿Alguna vez has necesitado un token rápido o una contraseña segura y no querías usar una web externa? Tu terminal tiene la solución definitiva usando OpenSSL.</p>
+
+<h2>El Comando</h2>
+
+<pre>
+openssl rand -base64 14 | tr -d '\n'
+</pre>
+
+<h2>¿Por qué deberías usarlo?</h2>
+
+<ul>
+<li><strong>Seguridad Criptográfica</strong>: A diferencia de otros comandos, openssl rand utiliza entropía del sistema para generar datos verdaderamente aleatorios.</li>
+<li><strong>Formato Base64</strong>: Al usar el flag -base64, transformamos bytes binarios en caracteres legibles (A-Z, a-z, 0-9, /, +), evitando caracteres de control que podrían dar problemas.</li>
+<li><strong>Salida Limpia</strong>: El comando <code>tr -d '\n'</code> elimina el salto de línea final. Esto es vital si estás copiando el token a un archivo .env o usándolo en un script, ya que evita espacios invisibles que suelen causar errores de autenticación.</li>
+</ul>
+
+<a class="backlink" href="index.html#configuracion">Volver al índice</a>
+</body>
+</html>
