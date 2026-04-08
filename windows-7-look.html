@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>Personalizar Windows 10 como Windows 7</title>
+
+<h1>Personalizar Windows 10 como Windows 7</h1>
+
+
+
+<h2>Paso 1: Instalar Revert8Plus</h2>
+
+<p>Revert8Plus es un paquete de transformación completamente automatizado y personalizable para usuarios de Windows 10 u 11.</p>
+
+<p>Descarga e instala desde: <a href="https://teknixstuff.com/Libraries/Projects/Revert8Plus/">Revert8Plus</a></p>
+
+
+<h2>Paso 2: Firefox - Efecto Aero Glass (Opcional)</h2>
+
+<h3>2.1: Instalar complemento</h3>
+<p>Instala <a href="https://addons.mozilla.org/es-ES/firefox/addon/aero-glass/">Aero Glass</a> o <a href="https://addons.mozilla.org/es-ES/firefox/addon/glas-374012-2/">GlassMyFox</a> desde los complementos de Mozilla.</p>
+
+<h3>2.2: Habilitar personalización</h3>
+<p>Escribe <strong>about:config</strong> en la barra de direcciones y presiona Enter.</p>
+<p>Haz clic en <strong>"Aceptar el riesgo y continuar"</strong>.</p>
+<p>Busca <strong>toolkit.legacyUserProfileCustomizations.stylesheets</strong> y cámbialo a <strong>true</strong>.</p>
+<p>Busca <strong>browser.tabs.inTitlebar</strong> y cámbialo a <strong>0</strong>.</p>
+<p>Opcional: Busca <strong>browser.uidensity</strong> y cámbialo a <strong>1</strong>.</p>
+
+<h3>2.3: Crear userChrome.css</h3>
+<p>Ve a <strong>about:support</strong> y abre la carpeta del perfil.</p>
+<p>Crea una carpeta <strong>chrome</strong> y dentro un archivo <strong>userChrome.css</strong>.</p>
+
+<h3>2.4: Código CSS</h3>
+
+<pre>
+/* Hacer que la ventana principal sea transparente */
+#main-window {
+  background-color: transparent !important;
+  -moz-appearance: -moz-win-glass !important;
+}
+
+/* Ajustar el área de las pestañas y barra de herramientas */
+#navigator-toolbox, 
+#nav-bar, 
+#TabsToolbar {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Opcional: Añadir un ligero tinte para legibilidad */
+.tab-background[selected="true"] {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+</pre>
+
+<h3>2.5: Reiniciar Firefox</h3>
+
+<h2>Paso 3: Windows Terminal - Ocultar barra de título (Opcional)</h2>
+
+<p>Abre la configuración de Windows Terminal (Ctrl + ,).</p>
+<p>Selecciona <strong>Appearance</strong> en la barra lateral.</p>
+<p>Activa <strong>"Hide the title bar"</strong>.</p>
+
+
+<a class="backlink" href="index.html#apuntes">Volver al índice</a>
+</body>
+</html>
