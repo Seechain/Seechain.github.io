@@ -1,4 +1,4 @@
-body {max-width:50em;margin:auto;padding:1em;font-family:"Courier New", Courier, monospace;line-height:1.7;}
+body {max-width:50em;margin:auto;padding:1em;font-family:system-ui, -apple-system, sans-serif;line-height:1.7;}
 a {color: #0000ff;text-decoration: underline; }
 h1 {padding-bottom: 0.3em;border-bottom: 1px solid #ccc;}
 img {max-width: 100%;height: auto;display: block;}
