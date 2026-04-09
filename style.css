@@ -1,7 +1,12 @@
-body{max-width:50em;margin:auto;padding:1em;font-family:monospace;font-size:1.2em;line-height:1.5em;}
-img {max-width: 100%;}
-pre{background:#F4F2F1;padding:1em;overflow-x:auto;}
-table, th, td {border: 1px solid #808080;border-collapse: collapse; padding: 0.5em;}
+body {max-width:50em;margin:auto;padding:1em;font-family:"Courier New", Courier, monospace;line-height:1.7;}
+a {color: #0000ff;text-decoration: underline; }
+h1 {padding-bottom: 0.3em;border-bottom: 1px solid #ccc;}
+img {max-width: 100%;height: auto;display: block;}
+pre, code {background:#f0f0f0;font-family: "Courier New", Courier, monospace;font-size: 1em;line-height: 1.4;}
+pre {padding:1em;border-left: 4px solid #ccc;overflow-x:auto;}
+code {padding: 0.2em 0.4em;border-radius: 8px;}
+table, th, td {border: 1px solid #ccc;border-collapse: collapse; padding: 0.5em;}
 tbody tr.active {background-color: #c0ffc0;}
-.backlink{display:block;text-align:center;margin-top:2em;background:#F4F2F1;padding:0.5em;}
+.backlink {display:block;text-align:center;margin-top:2em;background:#f0f0f0;padding:0.5em;border-radius: 8px;}
+
 
