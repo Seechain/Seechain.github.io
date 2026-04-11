@@ -5,10 +5,10 @@
 <meta name=viewport content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
-<title>Chuleta de Comandos</title>
+<title>Comandos de Terminal</title>
 </head>
 <body>
-<h1>Chuleta de Comandos</h1>
+<h1>Comandos de Terminal</h1>
 
 <h2>YT-DLP</h2>
 
@@ -118,29 +118,9 @@ nano $(fzf)
 # Alternar preview en FZF
 fzf --preview 'cat {}'
 
-# Buscar en archivos con grep y abrir con nano
-grep -r "palabra" . | fzf | xargs nano
 </pre>
 
-<h2>Combinaciones Útiles</h2>
+<footer><a href="index.html">Volver al índice</a></footer>
 
-<pre>
-# Encontrar y editar
-find . -name "*.md" | fzf | xargs nano
-
-# Buscar texto en archivos y editar resultado
-grep -r "error" . | fzf -m | xargs -r nano
-
-# Editar último archivo modificado
-nano $(ls -t *.txt | head -1)
-
-# Ver contenido sin abrir editor
-find . -name "*.log" -exec tail -n 20 {} \;
-
-# Matar proceso por nombre
-pkill -f "proceso"
-</pre>
-
-<footer><a href="index.html#recursos">Volver al índice</a></footer>
 </body>
 </html>

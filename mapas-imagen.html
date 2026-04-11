@@ -5,21 +5,21 @@
 <meta name=viewport content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
-<title>Image Maps - Diseño Web Early 2000s</title>
+<title>Mapas de Imagen  - Diseño Web 2000s</title>
 </head>
 <body>
-<h1>Image Maps - Diseño Web Early 2000s</h1>
+<h1>Mapas de Imagen - Diseño Web 2000s- Diseño Web 2000s</h1>
 
 <p>Si comenzaste a diseñar webs en la era de Flash, tablas anidadas y resoluciones de 800×600, seguramente recuerdes esta técnica: abrías Fireworks o Photoshop, maquetabas todo el sitio (fondo, botones, textos, logos) en una única imagen PNG o GIF, la exportabas, y luego, en Dreamweaver, trazabas rectángulos invisibles encima para convertir cada botón visual en un enlace real.</p>
 
-<p>Eso era un <strong>mapa de imagen</strong> (image map), y fue una de las técnicas más populares entre 1998 y 2004. Hoy está casi olvidada, pero merece un lugar en la historia del diseño frontend.</p>
+<p>Eso era un <strong>mapas de imagen</strong> (image map), y fue una de las técnicas más populares entre 1998 y 2004. Hoy está casi olvidada, pero merece un lugar en la historia del diseño frontend.</p>
 
 <h2>¿Cómo funcionaba exactamente?</h2>
 
 <ol>
 <li><strong>Una imagen contenedora</strong> (layout.png) alojaba todo el diseño: menú superior, barra lateral, galería, pies de página, incluso textos que no eran realmente texto sino píxeles pintados.</li>
-<li><strong>Una etiqueta <code>&lt;map&gt;</code></strong> definía el mapa, con un nombre único.</li>
-<li><strong>Etiquetas <code>&lt;area&gt;</code></strong> dentro del mapa: cada una definía una zona interactiva con atributos como:
+<li>Una etiqueta <strong>map</strong> definía el mapa, con un nombre único.</li>
+<li>Etiquetas <strong>area </strong> dentro del mapa: cada una definía una zona interactiva con atributos como:
 <ul>
 <li><code>shape="rect"</code> (rectángulo), <code>"circle"</code> o <code>"poly"</code> (polígono para formas libres).</li>
 <li><code>coords="x1,y1,x2,y2"</code> (coordenadas exactas dentro de la imagen).</li>
@@ -30,7 +30,7 @@
 </ol>
 
 <pre>
-&lt;img src="layout.png" usemap="#menu" alt="Mi sitio web 2002"&gt;
+&lt;img src="layout.png" usemap="#menu"&gt;
 &lt;map name="menu"&gt;
   &lt;area shape="rect" coords="10,20,110,50" href="inicio.html" alt="Inicio"&gt;
   &lt;area shape="rect" coords="120,20,220,50" href="productos.html" alt="Productos"&gt;
@@ -43,10 +43,10 @@
 <h2>¿Por qué se adoptó tan masivamente?</h2>
 
 <ul>
-<li><strong>Control total del diseño</strong>: Lo que veías en Photoshop era exactamente lo que el usuario veía. Sin sorpresas CSS entre navegadores.</li>
+<li><strong>Control total del diseño</strong>: Lo que veías en Photoshop era exactamente lo que el usuario veía.</li>
 <li><strong>Tipografías imposibles</strong>: Podías usar cualquier fuente (no solo las seguras para web) porque todo era una imagen.</li>
-<li><strong>Efectos visuales complejos</strong>: Sombras, degradados, texturas, brillos —todo funcionaba sin CSS3 ni SVG.</li>
-<li><strong>Dreamweaver lo hacía fácil</strong>: No necesitabas saber coordenadas; solo dibujar.</li>
+<li><strong>Efectos visuales complejos</strong>: Sombras, degradados, texturas y brillos.</li>
+<li><strong>Dreamweaver lo hacía fácil</strong>: No necesitabas saber coordenadas.</li>
 </ul>
 
 <h2>Desventajas</h2>
@@ -56,15 +56,6 @@
 <p>Las coordenadas son absolutas. Si la imagen se redimensionaba (o la pantalla era más pequeña), los enlaces se desplazaban. En móviles era un desastre.</p>
 
 <h3>2. Mantenimiento infernal</h3>
-
-<p>¿Cambiar un botón de "Servicios" a "Productos"? Había que:</p>
-
-<ul>
-<li>Modificar el PNG original.</li>
-<li>Reexportar.</li>
-<li>Recalcular todas las coordenadas si la posición cambiaba mínimamente.</li>
-<li>Actualizar el HTML.</li>
-</ul>
 
 <p>Un simple cambio textual requería Photoshop y edición manual del mapa.</p>
 
@@ -96,9 +87,9 @@
 <p>Aunque abandonados para layouts generales, los image maps aún tienen dos o tres aplicaciones muy concretas:</p>
 
 <ol>
-<li><strong>Infografías interactivas</strong>: Un mapa político donde cada provincia lleva a su ficha. Por ejemplo, en medios como El País o BBC, para resultados electorales.</li>
+<li><strong>Infografías interactivas</strong>: Un mapa político donde cada provincia lleva a su ficha.</li>
 <li><strong>Planos de museos o edificios</strong>: Donde cada sala o departamento es un <code>&lt;area&gt;</code> poligonal.</li>
-<li><strong>Juegos retro o experimentos artísticos</strong> (por pura nostalgia o restricción técnica).</li>
+<li><strong>Juegos retro o experimentos artísticos</strong> (Nostalgia o restricción técnica).</li>
 </ol>
 
 <p>Incluso en esos casos, <strong>SVG es superior</strong>: permite escalado, estilos CSS, eventos JavaScript y mejor accesibilidad.</p>
