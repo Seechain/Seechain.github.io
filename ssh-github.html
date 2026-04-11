@@ -134,9 +134,23 @@ origin  git@github.com:usuario/repo.git (push)
 <p>Para no tener que ejecutar <code>ssh-add</code> cada vez, añade esto al final de tu archivo <code>~/.bashrc</code>:</p>
 
 <pre>
-if [ -z "$SSH_AUTH_SOCK" ]; then
-   eval "$(ssh-agent -s)"
-   ssh-add ~/.ssh/id_ed25519
+SSH_ENV="$HOME/.ssh/agent.env"
+
+function start_agent {
+    # El comando 'ssh-agent' sin ruta absoluta funciona en cualquier distro
+    ssh-agent -s | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+    ssh-add ~/.ssh/id_ed25519
+}
+
+if [ -f "${SSH_ENV}" ]; then
+    . "${SSH_ENV}" > /dev/null
+    ps -ef | grep ${SSH_AGENT_PID} | grep [s]sh-agent > /dev/null || {
+        start_agent
+    }
+else
+    start_agent
 fi
 </pre>
 
