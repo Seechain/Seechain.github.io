@@ -160,40 +160,69 @@ fi
 source ~/.bashrc
 </pre>
 
-<h2>Solución de problemas</h2>
 
-<p><strong>Error: Permission denied (publickey)</strong></p>
-<ul>
-<li>Verifica que añadiste la clave correcta en GitHub</li>
-<li>Ejecuta <code>ssh -vvv git@github.com</code> para ver detalles del error</li>
-</ul>
+<h2>Paso 6: Agent Forwarding</h2>
 
-<p><strong>Error: Could not resolve hostname</strong></p>
-<ul>
-<li>Verifica tu conexión a internet</li>
-<li>Verifica que escribiste bien la URL</li>
-</ul>
+<p>El <strong>SSH Agent Forwarding</strong> permite que un servidor remoto utilice tus llaves SSH locales para autenticarse ante terceros (como GitHub). La llave privada nunca se copia al servidor, lo que garantiza que tu identidad permanezca segura en tu hardware local.</p>
 
-<p><strong>La clave no se añade automáticamente</strong></p>
-<ul>
-<li>Ejecuta manualmente: <code>ssh-add ~/.ssh/id_ed25519</code></li>
-</ul>
+<h3>Funcionamiento del Túnel</h3>
 
-<h2>Comandos útiles</h2>
+<p>Cuando se establece una conexión con reenvío de agente, SSH crea un <strong>socket</strong> (archivo de comunicación temporal) en el servidor remoto. Este socket actúa como un puente directo hacia el <code>ssh-agent</code> en tu máquina local:</p>
+
+<ol>
+<li>El servidor recibe un desafío de autenticación (ej. de GitHub)</li>
+<li>El servidor redirige el desafío a través del túnel SSH hacia tu PC</li>
+<li>Tu PC firma el desafío con la llave privada y devuelve la firma</li>
+<li>El servidor completa la autenticación sin haber visto jamás la llave privada</li>
+</ol>
+
+<h3>Configuración del Servidor</h3>
+
+<p>Para permitir que el servidor acepte identidades reenviadas:</p>
+
+<ol>
+<li>Edita el archivo de configuración:
+<pre>
+sudo nano /etc/ssh/sshd_config
+</pre></li>
+<li>Asegúrate de que la directiva esté habilitada:
+<pre>
+AllowAgentForwarding yes
+</pre></li>
+<li>Reinicia el servicio:
+<pre>
+sudo systemctl restart ssh
+</pre>
+</li>
+</ol>
+
+<p><strong>Nota:</strong> En Debian y derivados, <code>AllowAgentForwarding yes</code> viene habilitado por defecto porque toma la configuración OpenSSL.</p>
+
+<h3>Verificación en el Servidor</h3>
+
+<p>Conectate con el flag <code>-A</code>:</p>
 
 <pre>
-# Ver claves disponibles
-ls -la ~/.ssh
+ssh -A usuario@servidor
+</pre>
 
-# Ver clave pública
-cat ~/.ssh/id_ed25519.pub
+<p>Verifica que el socket existe:</p>
 
-# Probar conexión
-ssh -T git@github.com
+<pre>
+echo $SSH_AUTH_SOCK
+# Salida esperada: /tmp/ssh-XXXXXX/agent.XXXX
+</pre>
 
-# Ver todas las claves añadidas al agente
+<p>Si está vacío, el túnel no se construyó.</p>
+
+<p>Verifica las claves disponibles:</p>
+
+<pre>
 ssh-add -l
 </pre>
+
+<p>Debería mostrar tu clave pública.</p>
+
 
 <footer><a href="index.html#configuracion">Volver al índice</a></footer>
 </body>
