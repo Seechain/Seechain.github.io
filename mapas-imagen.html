@@ -8,18 +8,15 @@
 <title>Mapas de Imagen  - Diseño Web 2000s</title>
 </head>
 <body>
-<h1>Mapas de Imagen - Diseño Web 2000s- Diseño Web 2000s</h1>
-
-<p>Si comenzaste a diseñar webs en la era de Flash, tablas anidadas y resoluciones de 800×600, seguramente recuerdes esta técnica: abrías Fireworks o Photoshop, maquetabas todo el sitio (fondo, botones, textos, logos) en una única imagen PNG o GIF, la exportabas, y luego, en Dreamweaver, trazabas rectángulos invisibles encima para convertir cada botón visual en un enlace real.</p>
-
-<p>Eso era un <strong>mapas de imagen</strong> (image map), y fue una de las técnicas más populares entre 1998 y 2004. Hoy está casi olvidada, pero merece un lugar en la historia del diseño frontend.</p>
-
+<h1>Mapas de Imagen - Diseño Web 2000s</h1>
+<p>El mapa de imagen (image map) fue una de las técnicas más utilizadas en los primeros años del diseño web. Apareció oficialmente con la especificación HTML 3.2, publicada en enero de 1997. Consistía en maquetar un sitio completo (fondo, botones, textos y logotipos) dentro de una única imagen PNG o GIF, creada con herramientas como Fireworks o Photoshop. Luego, en editores como Dreamweaver, se trazaban áreas invisibles sobre esa imagen para convertir cada elemento visual en un enlace funcional.</p>
+<p>Aunque hoy está casi en desuso, los mapas de imagen representan un hito en la evolución del desarrollo frontend.</p>
 <h2>¿Cómo funcionaba exactamente?</h2>
 
 <ol>
 <li><strong>Una imagen contenedora</strong> (layout.png) alojaba todo el diseño: menú superior, barra lateral, galería, pies de página, incluso textos que no eran realmente texto sino píxeles pintados.</li>
-<li>Una etiqueta <strong>map</strong> definía el mapa, con un nombre único.</li>
-<li>Etiquetas <strong>area </strong> dentro del mapa: cada una definía una zona interactiva con atributos como:
+<li>Una etiqueta <code>map</code> definía el mapa, con un nombre único.</li>
+<li>Etiquetas <code>area </code> dentro del mapa: cada una definía una zona interactiva con atributos como:
 <ul>
 <li><code>shape="rect"</code> (rectángulo), <code>"circle"</code> o <code>"poly"</code> (polígono para formas libres).</li>
 <li><code>coords="x1,y1,x2,y2"</code> (coordenadas exactas dentro de la imagen).</li>
@@ -51,25 +48,18 @@
 
 <h2>Desventajas</h2>
 
-<h3>1. No responsive ni escalable</h3>
-
-<p>Las coordenadas son absolutas. Si la imagen se redimensionaba (o la pantalla era más pequeña), los enlaces se desplazaban. En móviles era un desastre.</p>
-
-<h3>2. Mantenimiento infernal</h3>
-
-<p>Un simple cambio textual requería Photoshop y edición manual del mapa.</p>
-
-<h3>3. SEO pésimo</h3>
-
-<p>Los buscadores veían una imagen con zonas, pero no tenían texto real asociado. El atributo <code>alt</code> en cada <code>&lt;area&gt;</code> ayudaba un poco, pero no era suficiente. Google no podía indexar frases dentro de los botones.</p>
-
-<h3>4. Accesibilidad nula</h3>
-
-<p>Los lectores de pantalla tenían grandes dificultades con múltiples áreas superpuestas o formas complejas.</p>
-
-<h3>5. Sin feedback visual</h3>
-
-<p>Al pasar el ratón por encima, no había cambio de color, sombra o subrayado (a menos que usaras JavaScript).</p>
+<ul>
+  <li> <strong>No responsive ni escalable:</strong> Si la imagen se redimensionaba o la pantalla era más pequeña, los enlaces se desplazaban.
+  </li>
+  <li><strong>Mantenimiento infernal:</strong>Un simple cambio textual requería Photoshop y edición manual del mapa.
+  </li>
+  <li><strong>SEO pésimo:</strong> Los buscadores veían una imagen con zonas, pero no tenían texto real asociado. El atributo <code>alt</code> en cada <code>&lt;area&gt;</code> ayudaba un poco, pero no era suficiente. Google no podía indexar frases dentro de los botones.
+  </li>
+  <li><strong>Accesibilidad nula:</strong> Los lectores de pantalla tenían grandes dificultades con múltiples áreas superpuestas o formas complejas.
+  </li>
+  <li><strong>Sin feedback visual</strong> Al pasar el ratón por encima, no había cambio de color, sombra o subrayado (a menos que usaras JavaScript).
+  </li>
+</ul>
 
 <h2>Cuando el CSS mató a los mapas</h2>
 
