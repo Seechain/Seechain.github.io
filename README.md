@@ -1,7 +1,4 @@
 # Seechain.github.io
-Aquí tienes un archivo `README.md` estructurado y profesional en español, basado en la filosofía de tu proyecto:
-
----
 
 # 🌿 Jardín Digital
 
