@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>Scoop - Gestor de Paquetes para Windows</title>
+</head>
+<body>
+<h1>Scoop - Gestor de Paquetes para Windows</h1>
+
+<p>Scoop es un gestor de paquetes desde línea de comandos para Windows que simplifica el proceso de instalar, actualizar y gestionar aplicaciones. Es el equivalente de Windows a Homebrew o apt-get.</p>
+
+<p>Scoop descarga y gestiona paquetes de forma portátil, lo que significa que no se requieren permisos de administrador para instalar nada. Una vez instalado, Scoop coloca las aplicaciones en <code>~\scoop</code>.</p>
+
+<h2>Instalación</h2>
+
+<p>Para instalar Scoop, ejecuta el siguiente comando en PowerShell:</p>
+
+<pre>
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+</pre>
+
+<h2>Comandos Básicos</h2>
+
+<table>
+<tr><td>Buscar un paquete</td><td><code>scoop search [nombre_paquete]</code></td></tr>
+<tr><td>Instalar un paquete</td><td><code>scoop install [nombre_paquete]</code></td></tr>
+<tr><td>Actualizar un paquete</td><td><code>scoop update [nombre_paquete]</code></td></tr>
+<tr><td>Listar paquetes instalados</td><td><code>scoop list</code></td></tr>
+<tr><td>Desinstalar un paquete</td><td><code>scoop uninstall [nombre_paquete]</code></td></tr>
+</table>
+
+<h2>Oh My Posh</h2>
+
+<p>Oh My Posh es un motor de temas para el prompt de PowerShell que permite personalizar el terminal. Es la versión para Windows de la popular herramienta Oh My Zsh usada en sistemas Unix.</p>
+
+<h3>Instalación</h3>
+
+<p>Para instalar Oh My Posh usando Scoop, ejecuta:</p>
+
+<pre>
+scoop install main/oh-my-posh
+</pre>
+
+<h3>Configuración</h3>
+
+<p>Para configurar un tema, primero necesitas inicializar Oh My Posh en tu perfil de PowerShell. Abre el perfil ejecutando:</p>
+
+<pre>
+notepad $PSHOME\Profile.ps1
+</pre>
+
+<p>Añade la siguiente línea al script del perfil:</p>
+
+<pre>
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\tu-tema.omp.json" | Invoke-Expression
+</pre>
+
+<p>Reemplaza <code>tu-tema.omp.json</code> con el path al tema deseado. Los temas se encuentran en la carpeta <code>themes</code> dentro del directorio de instalación de Oh My Posh.</p>
+
+<h2>YT-DLP</h2>
+
+<p>YT-DLP es un gestor de descargas de audio/vídeo desde línea de comandos con soporte para miles de sitios.</p>
+
+<h3>Instalación</h3>
+
+<pre>
+scoop install yt-dlp ffmpeg
+</pre>
+
+<h3>Uso</h3>
+
+<h4>Descargar vídeo en MP4</h4>
+
+<pre>
+yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4" https://www.youtube.com/watch?v=ejemplo
+</pre>
+
+<h4>Descargar MP3 con máxima calidad y metadatos</h4>
+
+<pre>
+yt-dlp -x --audio-format mp3 --audio-quality 0 --embed-metadata --embed-thumbnail --add-metadata --extractor-args "youtube:player_client=android" -o "%(artist,creator,uploader)s - %(title)s.%(ext)s" https://www.youtube.com/watch?v=ejemplo
+</pre>
+
+<h2>MPV</h2>
+
+<p>MPV es un reproductor de medios gratuito para línea de comandos.</p>
+
+<h3>Instalación</h3>
+
+<pre>
+scoop install mpv
+</pre>
+
+<h3>Uso</h3>
+
+<p>Reproducir un archivo de vídeo local:</p>
+
+<pre>
+mpv video.mp4
+</pre>
+
+<p>Reproducir desde una URL (streaming):</p>
+
+<pre>
+mpv https://www.twitch.tv/usuario
+mpv https://www.youtube.com/watch?v=ejemplo
+</pre>
+
+<p>Reproducir solo audio (sin vídeo):</p>
+
+<pre>
+mpv --no-video https://www.twitch.tv/usuario
+mpv --no-video https://www.youtube.com/watch?v=ejemplo
+</pre>
+
+<p>Bucle infinito (para música o streams):</p>
+
+<pre>
+mpv --no-video --loop https://www.youtube.com/watch?v=ejemplo
+</pre>
+
+
+
+<h2>Fastfetch</h2>
+
+<p>Fastfetch es una herramienta ligera de información del sistema. <a href="fastfetch.html">Ver configuración detallada</a>.</p>
+
+<pre>
+scoop install fastfetch
+</pre>
+
+<h3>Uso</h3>
+
+<pre>
+fastfetch
+</pre>
+
+<h2>Btop</h2>
+
+<p>Btop es un monitor de recursos moderno para el terminal.</p>
+
+<h3>Instalación</h3>
+
+<pre>
+scoop install btop
+</pre>
+
+<h3>Uso</h3>
+
+<pre>
+btop
+</pre>
+
+
+<footer><a href="index.html">Volver al índice</a></footer>
+</body>
+</html>
