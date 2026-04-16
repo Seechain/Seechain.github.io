@@ -154,6 +154,43 @@ git restore .
 git checkout .
 </pre>
 
+<h2>Ollama</h2>
+
+<pre>
+# Listar modelos instalados
+ollama list
+
+# Descargar modelo
+ollama pull modelo
+
+# Eliminar modelo
+ollama rm modelo
+
+# Ejecutar modelo en modo interactivo
+ollama run modelo
+
+# Información del modelo
+ollama show modelo
+
+# Ver procesos de Ollama en ejecución
+ollama ps
+
+# Iniciar Ollama
+sudo systemctl start ollama
+
+# Reiniciar Ollama
+sudo systemctl restart ollama
+
+# Ver estado de Ollama
+sudo systemctl status ollama
+
+# Detener Ollama
+sudo systemctl stop ollama
+
+# Deshabilitar inicio automático de Ollama
+sudo systemctl disable ollama
+</pre>
+
 <footer><a href="index.html">Volver al índice</a></footer>
 
 </body>
