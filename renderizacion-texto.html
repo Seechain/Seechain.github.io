@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100%100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>Renderización mediante Texto - Jardín Digital</title>
+</head>
+<body>
+<h1>Renderización mediante Texto</h1>
+
+<p>En el desarrollo web y la administración de sistemas, la eficiencia y la estética convergen en el uso de formatos basados en texto. Este enfoque reduce peticiones HTTP y permite integración profunda con herramientas de terminal.</p>
+
+<h2>1. ASCII Art</h2>
+
+<p>La etiqueta HTML <code>&lt;pre&gt;</code> conserva espacios y saltos de línea exactamente como se escriben, evitando que el navegador colapse los espacios en blanco.</p>
+
+<pre>
+                           (   )
+                          (    )
+                           (    )
+                          (    )
+                            )  )
+                           (  (                  /\
+                            (_)                 /  \  /\
+                    ________[_]________      /\/    \/  \
+           /\      /\        ______    \    /   /\/\  /\/\
+          /  \    //_\       \    /\    \  /\/\/    \/    \
+   /\    / /\/\  //___\       \__/  \    \/
+  /  \  /\/    \//_____\       \ |[]|     \
+ /\/\/\/       //_______\       \|__|      \
+/      \      /XXXXXXXXXX\                  \
+        \    /_I_II  I__I_\__________________\
+               I_I|  I__I_____[]_|_[]_____I
+               I_II  I__I_____[]_|_[]_____I
+               I II__I  I     XXXXXXX     I
+            ~~~~~"   "~~~~~~~~~~~~~~~~~~~~~~~~
+</pre>
+
+<h2>2. Nerd Fonts</h2>
+
+<p>Nerd Fonts es un proyecto que parcha (modifica) fuentes populares de programación añadiendo miles de iconos, glifos y símbolos.</p>
+
+<pre>
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
+</pre>
+
+<p>Uso: <code>&lt;i class="nf nf-fa-heart"&gt;&lt;/i&gt;</code></p>
+
+<h3>Instalación en Linux</h3>
+
+<pre>
+# Descargar instalador
+curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraCode.zip -o FiraCode.zip
+unzip FiraCode.zip -d ~/.local/share/fonts/FiraCode
+fc-cache -fv
+</pre>
+
+<h3>Instalación en Windows</h3>
+
+<pre>
+# Via Scoop
+scoop install nerd-fonts
+
+# O manualmente en %WINDIR%\Fonts
+</pre>
+
+<h2>3. SVG</h2>
+
+<p>SVG (Scalable Vector Graphics) es un formato de imagen vectorial basado en lenguaje XML, diseñado específicamente para mostrar gráficos bidimensionales, logotipos e ilustraciones en la web.</p>
+
+<pre>
+&lt;svg height="280" width="360" xmlns="http://www.w3.org/2000/svg"&gt;  
+  &lt;polygon points="150,15 258,77 258,202 150,265 42,202 42,77"  
+  style="fill:lime;stroke:purple;stroke-width:3" /&gt;  
+&lt;/svg&gt;
+</pre>
+
+<h2>4. Base64: Binarios en texto</h2>
+
+<p>Base64 es un sistema de codificación que transforma datos binarios (imágenes, archivos, audio) en una cadena de caracteres ASCII seguros (texto imprimible). Permite transmitir información binaria a través de protocolos diseñados para texto, como correos electrónicos (MIME) o JSON.</p>
+
+
+<pre>
+&lt;img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA
+    AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
+    9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="ejemplo" /&gt;</pre>
+<h3>Linux</h3>
+
+<pre>
+# Codificar imagen
+base64 -w 0 imagen.jpg > imagen.txt
+
+# Desde URL
+curl -s https://ejemplo.com/imagen.jpg | base64 -w 0
+</pre>
+
+<h3>Windows (PowerShell)</h3>
+
+<pre>
+[Convert]::ToBase64String((Get-Content -Path "imagen.jpg" -AsByteStream)) | Set-Content -Path "imagen.txt"
+</pre>
+
+<footer><a href="index.html">Volver al &iacute;ndice</a></footer>
+</body>
+</html>

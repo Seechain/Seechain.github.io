@@ -1,2 +1,0 @@
-mogrify: no decode delegate for this image format `jpeg' @ error/constitute.c/ReadImage/752.
-mogrify: insufficient image data in file `/home/seechain/seechain.github.io/covers/nujabes-modal-soul.jpg' @ error/jpeg.c/ReadOneJPEGImage/1145.
