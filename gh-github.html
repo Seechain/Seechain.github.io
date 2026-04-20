@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>GitHub CLI (gh)</title>
+</head>
+<body>
+<h1>GitHub CLI (gh)</h1>
+
+<p>gh es la CLI oficial de GitHub para gestionar repositorios desde la terminal.</p>
+
+<h2>Instalación</h2>
+
+<pre>
+# Debian/Ubuntu
+sudo apt install gh
+
+# Fedora
+sudo dnf install gh
+
+# Arch
+sudo pacman -S github-cli
+</pre>
+
+<h2>Autenticación</h2>
+
+<pre>
+gh auth login
+</pre>
+
+<p>Verificar estado:</p>
+
+<pre>
+gh auth status
+</pre>
+
+
+<h2>Crear Repositorio</h2>
+
+<p>Crea un nuevo repositorio en GitHub:</p>
+
+<pre>
+gh repo create &lt;nombre-repo&gt;
+</pre>
+
+<p>Flags:</p>
+<ul>
+<li><code>--source .</code> - Usa el directorio actual como fuente</li>
+<li><code>--public</code> - Repositorio público</li>
+<li><code>--private</code> - Repositorio privado</li>
+<li><code>--clone</code> - Clona después de crear</li>
+<li><code>--push</code> - Hace push del código actual</li>
+<li><code>--description "texto"</code> - Descripción</li>
+<li><code>--license "licencia"</code> - Licencia (mit, gpl-3.0, etc)</li>
+<li><code>--gitignore "plantilla"</code> - Plantilla .gitignore</li>
+</ul>
+
+<h3>Ejemplos</h3>
+
+<p>Crear repositorio público desde directorio actual:</p>
+
+<pre>
+gh repo create mi-repo --source . --public
+</pre>
+
+<p>Crear repositorio privado y hacer push:</p>
+
+<pre>
+gh repo create mi-repo --source . --private --push
+</pre>
+
+<p>Crear repositorio vacío:</p>
+
+<pre>
+gh repo create mi-repo --private
+</pre>
+
+
+<footer><a href="index.html#configuracion">Volver al índice</a></footer>
+</body>
+</html>
