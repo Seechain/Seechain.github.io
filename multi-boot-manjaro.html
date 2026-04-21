@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-boot Manjaro y Windows (Discos Separados)</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Multi-boot Manjaro y Windows en Discos Separados</h1>
+
+<p>Esta guia esta disenada para multi-boot con cada SO en un disco separado.</p>
+
+<p>Si tienes una laptop con solo un disco, o si deseas instalar un SO en su propia particion del mismo disco, esta guia no es para ti.</p>
+
+<p>Esta guia asume que cada SO se instalara usando UEFI y no el modo CSM o Legacy de UEFI. No soporta el metodo tradicional de boot BIOS. Adicionalmente, todos los discos deben usar el esquema de particionado GPT.</p>
+
+<p>Se asume conocimiento y algun <em>entendimiento</em> de estas terminologias. Sin eso, tendras lectura adicional antes de configurar un sistema multi-boot.</p>
+
+<h2>Desconectar Otros Discos</h2>
+
+<p>Al crear un escenario multi-boot, cada SO necesita estar <em>protegido</em> de los efectos de instalar otro SO. Se recomienda primero <em>desconectar</em> el disco que contiene un SO existente antes de instalar un segundo.</p>
+
+<p>Es posible que un boot loader UEFI de un nuevo SO se instale en la ESP de otro disco. Desconectar otros discos durante la instalacion previene esto mientras asegura que cada SO permanezca lo mas <em>autocontenido</em> posible.</p>
+
+<p>Con sus respectivos archivos de boot en la ESP de su propio disco, cada SO mantiene una cierta <em>portabilidad</em>, y puede ser removido en cualquier momento si se desea.</p>
+
+<h2>La Guia General</h2>
+
+<p>Primero desconecta cualquier disco de SO previo. Instala el nuevo SO (en modo UEFI) en un disco nuevo, y cuando este completamente funcional, reconnecta el disco del SO original. Configura el SO Linux primero en el orden de boot.</p>
+
+<h3>Paso a Paso</h3>
+
+<ol>
+<li>Apagar, desconectar y desenchufar el computador.</li>
+<li><strong>Desconectar</strong> cualquier disco de SO existente.</li>
+<li>Conectar la corriente nuevamente.</li>
+<li>Bootear con el instalador del SO (DVD/USB).</li>
+<li>Instalar el nuevo SO en el disco nuevo y configurar el SO.</li>
+<li>Apagar, desconectar y desenchufar el computador.</li>
+<li><strong>Reconectar</strong> el disco del SO previo.</li>
+<li>Conectar la corriente nuevamente.</li>
+<li>Bootear al BIOS y seleccionar <strong>Manjaro</strong> como primera opcion de boot.</li>
+<li>Reiniciar y disfrutar.</li>
+</ol>
+
+<p>Esto permitira que Grub se convierta en el boot loader principal para ambos Manjaro y Windows.</p>
+
+<h2>Advertencias Importantes</h2>
+
+<h3>Secure Boot</h3>
+
+<p>Manjaro no soporta configuracion Secure Boot. Cada BIOS es diferente, asi que el procedimiento para deshabilitar Secure Boot puede variar. Consulta la documentacion de tu BIOS.</p>
+
+<p>Si Secure Boot esta habilitado debido a un requerimiento de Microsoft (Windows 11), puede necesitarse una solucion alternativa para permitir que Windows bootee sin Secure Boot.</p>
+
+<p>Secure Boot debe ser deshabilitado antes de instalar Manjaro.</p>
+
+<h3>Poner Manjaro Primero en el Orden de Boot</h3>
+
+<p>Bootear directamente a la configuracion del BIOS y asegurarse de que el disco con Linux/Grub/rEFInd (tu EFI principal) este seleccionado para bootear primero.</p>
+
+<h3>Windows Fast Startup</h3>
+
+<p>Por defecto, Windows 10/11 usan una variante de hibernacion que Microsoft llama <strong>Fast Startup</strong>. Windows en realidad no se apaga, sino que despierta de hibernacion dando la ilusion de un inicio mas rapido. Esto frecuentemente causa problemas con el boot y el montaje NTFS en Linux.</p>
+
+<p>Fast Startup <strong>debe</strong> ser deshabilitado en un escenario multi-boot.</p>
+
+<p>Para deshabilitar Fast Startup, ejecuta este comando desde un simbolo del sistema administrativo en Windows:</p>
+
+<pre>powercfg /h off</pre>
+
+<h3>Fast Boot</h3>
+
+<p><em>Fast Boot</em> es una opcion del BIOS que, si esta presente, permite saltarse ciertos <em>autotest</em> durante el pre-boot. Si Fast Boot esta habilitado, generalmente se recomienda deshabilitarlo en tu BIOS cuando usas Linux.</p>
+
+<h3>UTC vs Hora Local</h3>
+
+<p>Linux por defecto usa UTC en lugar de hora local; Windows usa hora local.</p>
+
+<p>Esto causa problemas particulares al multi-boot, ya que cada SO por defecto usa un estandar de tiempo diferente. El metodo mas elegante es crear un archivo de registro de Windows llamado <code>RealTimeIsUniversal.reg</code>:</p>
+
+<pre>Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\TimeZoneInformation]
+"RealTimeIsUniversal"=dword:00000001</pre>
+
+<h2>Windows No Aparece en el Menu Grub</h2>
+
+<p>Windows puede no aparecer aun en el menu GRUB. El paquete <strong>os-prober</strong> es responsable de detectar otros sistemas operativos durante el boot.</p>
+
+<h3>Habilitar os-prober</h3>
+
+<p>Verificar que <strong>os-prober</strong> esta instalado:</p>
+
+<pre>pacman -Qi os-prober</pre>
+
+<p>Instalar si no esta:</p>
+
+<pre>sudo pacman -S os-prober</pre>
+
+<p>Verificar el estado de os-prober:</p>
+
+<pre>cat /etc/default/grub | grep -i 'OS_PROBER'</pre>
+
+<p>El resultado debe incluir esta linea:</p>
+
+<pre>GRUB_DISABLE_OS_PROBER=false</pre>
+
+<p>Si la linea esta comentada, <strong>descomentala</strong>:</p>
+
+<pre>sudo nano /etc/default/grub</pre>
+
+<p>Luego actualizar GRUB:</p>
+
+<pre>sudo update-grub</pre>
+
+<h2>rEFInd UEFI Boot Manager</h2>
+
+<p>rEFInd es una solucion versatil y mas manejable para multi-boot con varios sabores de Linux.</p>
+
+<p>rEFInd asume el rol del boot loader <em>inicial</em>, que a su vez chain-loadea otros boot loaders UEFI, incluyendo el GRUB efi-stub, el bootloader de Windows, MacOS y BSD.</p>
+
+<p>Esto permite dejar cada GRUB intacto y manejado por su SO respectivo. Ademas, permite bypasear cualquier GRUB instalado y bootear el <em>kernel-stub</em> directamente.</p>
+
+<h3>Instalar rEFInd</h3>
+
+<p>Instalar el paquete:</p>
+
+<pre>sudo pacman -S refind</pre>
+
+<p>Usar la herramienta propia de rEFInd para instalarlo en la ESP:</p>
+
+<pre>sudo refind-install</pre>
+
+<p>La estructura de directorios sera similar a:</p>
+
+<pre>EFI
+├─ BOOT
+├─ Manjaro
+└─ refind</pre>
+
+<p>Si rEFInd no aparece la primera vez, reiniciar al BIOS/UEFI y asegurarse de que <strong>rEFInd UEFI Boot Manager</strong> este primero en prioridad de boot.</p>
+
+<h3>Cambiar el Kernel que usa rEFInd</h3>
+
+<p>Manjaro Linux permite instalar multiples kernels.</p>
+
+<pre>sudo pacman -S manjaro-refind-installer</pre>
+
+<p>Este paquete permite seleccionar facilmente el kernel preferido que rEFInd usara.</p>
+
+<h3>Temas para rEFInd</h3>
+
+<p>rEFInd es un boot manager <em>grafico</em> y permite personalizacion con muchos temas disponibles.</p>
+
+<p>Consulta la <a href="https://refind-themes-collection.netlify.app/">rEFInd Themes Collection</a> para ver temas disponibles.</p>
+
+<footer>
+<a href="index.html">Volver al inicio</a>
+</footer>
+</body>
+</html>
