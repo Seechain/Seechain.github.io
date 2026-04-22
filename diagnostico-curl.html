@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>Diagnóstico con curl</title>
+</head>
+<body>
+<h1>Diagnóstico con curl</h1>
+
+<p>Guía práctica para diagnosticar servicios usando curl.</p>
+
+<h2>Qué es curl</h2>
+
+<p>curl es una herramienta de línea de comandos para transferir datos con URL. Soporta múltiples protocolos (HTTP, HTTPS, FTP, etc.) y es ideal para probar y diagnosticar servicios.</p>
+
+<h2>Opciones de Verbose</h2>
+
+<p><strong>-v, --verbose</strong> - Muestra toda la conversación HTTP: headers, método, status, redirecciones. Es la opción más usada para diagnóstico.</p>
+
+<p><strong>-i, --include</strong> - Incluye los headers de respuesta en la salida.</p>
+
+<p><strong>-I, --head</strong> - Solo obtiene los headers, no el cuerpo de la respuesta.</p>
+
+<p><strong>-s, --silent</strong> - Modo silencioso, oculta la barra de progreso.</p>
+
+<p><strong>-o, --output</strong> - Guarda la respuesta en un archivo.</p>
+
+<p><strong>-w, --write-out</strong> - Imprime información específica al terminar (código de status, tiempo, etc).</p>
+
+<h2>Diagnóstico de Servicios</h2>
+
+<h3>Verificar si un servicio está corriendo</h3>
+
+<pre>
+curl -v http://localhost:8080
+</pre>
+
+<p>Muestra si el servicio responde y qué headers devuelve.</p>
+
+<h3>Ver headers de respuesta</h3>
+
+<pre>
+curl -I http://localhost:8080
+</pre>
+
+<p>Muestra solo los headers sin descargar el cuerpo.</p>
+
+<h3>Ver método HTTP</h3>
+
+<pre>
+curl -v -X POST http://localhost:8080/api/generate
+</pre>
+
+<p>Usa -X para especificar el método HTTP (GET, POST, PUT, DELETE).</p>
+
+<h4>Detectar redirecciones</h4>
+
+<pre>
+curl -vL http://localhost:8080
+</pre>
+
+<p>-L sigue las redirecciones automáticamente.</p>
+
+<h4>Timeout y conexiones</h4>
+
+<pre>
+curl --connect-timeout 5 http://localhost:8080
+curl -m 10 http://localhost:8080
+</pre>
+
+<p>--connect-timeout: segundos para establecer conexión.<br>
+-m: segundos para completar la transferencia.</p>
+
+<h2>Ejemplos Prácticos</h2>
+
+<h3>API de ejemplo</h3>
+
+<pre>
+# Verificar si el servicio está corriendo
+curl -v http://localhost:8080
+
+# Ver estado de la API
+curl -s http://localhost:8080/api/status
+
+# Generar respuesta (ejemplo)
+curl -s http://localhost:8080/api/generate -d '{"prompt":"Hola","stream":false}'
+</pre>
+
+<h3>Servicios web</h3>
+
+<pre>
+# Ver headers de un sitio web
+curl -I https://ejemplo.com
+
+# Ver respuesta completa con seguimiento de redirecciones
+curl -vL https://ejemplo.com
+
+# Ver tiempo de respuesta
+curl -w "Tiempo: %{time_total}s\n" -o /dev/null -s http://localhost:8080
+</pre>
+
+<h3>APIs REST</h3>
+
+<pre>
+# GET request
+curl -v http://localhost:3000/api/usuarios
+
+# POST con JSON
+curl -v -X POST http://localhost:3000/api/usuarios \
+  -H "Content-Type: application/json" \
+  -d '{"nombre":"Juan"}'
+
+# Ver código de respuesta
+curl -w "Status: %{http_code}\n" -o /dev/null -s http://localhost:8080
+
+# Ver tamaño de respuesta
+curl -w "Tamaño: %{size_download} bytes\n" -o /dev/null -s http://localhost:8080
+</pre>
+
+<h2>Interpretar la Salida Verbose</h2>
+
+<pre>
+*   Trying 127.0.0.1:8080...
+* Connected to localhost (127.0.0.1) port 8080 (#0)
+> GET / HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/8.5.0
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Content-Type: application/json
+< Date: Tue, 21 Apr 2026 12:00:00 GMT
+< Content-Length: 28
+<
+{...cuerpo de la respuesta...}
+* Connection #0 to host localhost left intact
+</pre>
+
+<ul>
+<li><strong>* Trying</strong> - Intentando conectar al host</li>
+<li><strong>* Connected</strong> - Conexión exitosa</li>
+<li><strong>&gt;</strong> - Datos enviados al servidor (request)</li>
+<li><strong>&lt;</strong> - Datos recibidos del servidor (response)</li>
+<li><strong>HTTP/1.1 200 OK</strong> - Código de estado</li>
+</ul>
+
+<h2>Códigos de Estado HTTP Comunes</h2>
+
+<ul>
+<li><strong>200</strong> - OK, solicitud exitosa</li>
+<li><strong>201</strong> - Created, recurso creado</li>
+<li><strong>301</strong> - Moved Permanently, redirección permanente</li>
+<li><strong>302</strong> - Found, redirección temporal</li>
+<li><strong>400</strong> - Bad Request, solicitud inválida</li>
+<li><strong>401</strong> - Unauthorized, autenticación requerida</li>
+<li><strong>403</strong> - Forbidden, acceso denegado</li>
+<li><strong>404</strong> - Not Found, recurso no encontrado</li>
+<li><strong>500</strong> - Internal Server Error, error del servidor</li>
+<li><strong>502</strong> - Bad Gateway</li>
+<li><strong>503</strong> - Service Unavailable</li>
+</ul>
+
+<h2>Cheat Sheet</h2>
+
+<pre>
+# Básico
+curl http://localhost:8080
+curl -v http://localhost:8080
+curl -I http://localhost:8080
+curl -s http://localhost:8080
+
+# Métodos
+curl -X POST http://localhost:8080
+curl -X DELETE http://localhost:8080
+
+# Headers
+curl -H "Content-Type: application/json" http://localhost:8080
+curl -H "Authorization: Bearer token" http://localhost:8080
+
+# Datos
+curl -d '{"key":"value"}' http://localhost:8080
+curl --data-urlencode "mensaje=Hola mundo" http://localhost:8080
+
+# Archivos
+curl -o archivo.txt http://localhost:8080
+curl -O http://localhost:8080
+
+# Control
+curl -m 10 http://localhost:8080
+curl --connect-timeout 5 http://localhost:8080
+curl -L http://localhost:8080
+
+# Información
+curl -w "Status: %{http_code}\n" -o /dev/null -s http://localhost:8080
+curl -w "Tiempo: %{time_total}s\n" -o /dev/null -s http://localhost:8080
+curl -w "Tamaño: %{size_download}\n" -o /dev/null -s http://localhost:8080
+</pre>
+
+<footer><a href="index.html">Volver al índice</a></footer>
+</body>
+</html>

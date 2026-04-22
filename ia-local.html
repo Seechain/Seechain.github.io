@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>IA Local con Ollama</title>
+</head>
+<body>
+<h1>IA Local con Ollama</h1>
+
+<p>Guía de instalación de Ollama para tener modelos de IA funcionando de manera local en tu servidor.</p>
+
+<h2>Instalación de Ollama</h2>
+
+<p>En Ubuntu, la instalación es simple:</p>
+
+<pre>
+curl -fsSL https://ollama.com/install.sh | sh
+</pre>
+
+<p>Verificar que está funcionando:</p>
+
+<pre>
+ss -antp | grep :11434
+curl http://localhost:11434 -v
+</pre>
+
+<p>Ollama queda disponible en <code>http://127.0.0.1:11434</code> y se reinicia automáticamente con el sistema.</p>
+
+<h2>Gestión de Ollama</h2>
+
+<p><strong>ollama --help</strong> - Muestra la ayuda general con todos los comandos disponibles.</p>
+
+<p><strong>ollama pull gemma3:1b</strong> - Descarga un modelo desde el repositorio de Ollama. Puedes ver los modelos disponibles en <a href="https://ollama.com/search">ollama.com/search</a>.</p>
+
+<p><strong>ollama list</strong> - Lista todos los modelos descargados localmente.</p>
+
+<p><strong>ollama rm nombre-modelo</strong> - Elimina un modelo descargado locally.</p>
+
+<p><strong>ollama run gemma3:1b --verbose</strong> - Ejecuta un modelo en modo interactivo desde la terminal. El flag --verbose muestra estadísticas adicionales de la sesión.</p>
+
+<p>Dentro de una sesión interactiva:</p>
+
+<p><strong>/?</strong> - Muestra la ayuda dentro de la sesión interactiva.</p>
+
+<p><strong>/show</strong> - Muestra información general del modelo.</p>
+
+<p><strong>/show info</strong> - Muestra detalles técnicos del modelo (parámetros, tamaño, etc).</p>
+
+<p><strong>/bye</strong> - Cierra la sesión interactiva con el modelo.</p>
+
+<h2>Acceso Externo</h2>
+
+<p>Por defecto Ollama solo acepta conexiones desde localhost. Para acceder desde otro equipo:</p>
+
+<pre>
+sudo systemctl edit ollama.service
+</pre>
+
+<p>Agregar:</p>
+
+<pre>
+[Service]
+Environment="OLLAMA_HOST=0.0.0.0:11434"
+Environment="OLLAMA_ORIGINS=*"
+</pre>
+
+<p>Recargar y reiniciar el servicio:</p>
+
+<pre>
+sudo systemctl daemon-reload
+sudo systemctl restart ollama
+</pre>
+
+<p>Verificar que listens en todas las interfaces:</p>
+
+<pre>
+ss -antp
+</pre>
+
+<p>Debería mostrar:</p>
+
+<pre>
+LISTEN 0  4096  *:11434  *:*  users:(("ollama",pid=2101,fd=3))
+</pre>
+
+<p><strong>Nota de seguridad:</strong> Abrir el acceso a red introduce riesgos. No hay autenticación por defecto. Restringe el acceso usando ACLs de red y nunca expongas Ollama directamente a internet.</p>
+
+<h2>Extensiones de Navegador</h2>
+
+<p>Puedes interactuar con Ollama directamente desde tu navegador usando extensiones.</p>
+
+<h3>Page Assist</h3>
+
+<p>Extensión de código abierto para Chrome, Firefox, Brave y Edge. Permite chatear con tus modelos locales desde cualquier página web.</p>
+
+<ul>
+<li><strong>Sidebar:</strong> Abre una barra lateral en cualquier página web</li>
+<li><strong>Web UI:</strong> Interfaz completa en una nueva pestaña</li>
+<li><strong>Chat With Webpage:</strong> Chatea sobre el contenido de la página actual</li>
+<li><strong>Atajos:</strong> Ctrl+Shift+Y (sidebar), Ctrl+Shift+L (Web UI)</li>
+</ul>
+
+<p>Instalación:</p>
+<ul>
+<li><a href="https://chromewebstore.google.com/detail/page-assist/jfgfiigpkhlkbnfnbobbkinehhfdhndo">Chrome Web Store</a></li>
+<li><a href="https://addons.mozilla.org/en-US/firefox/addon/page-assist/">Firefox Add-ons</a></li>
+<li><a href="https://microsoftedge.microsoft.com/addons/detail/page-assist-a-web-ui-fo/ogkogooadflifpmmidmhjedogicnhooa">Edge Add-ons</a></li>
+</ul>
+
+<p>Repositorio: <a href="https://github.com/n4ze3m/page-assist">github.com/n4ze3m/page-assist</a></p>
+
+<h3>Ollama Client</h3>
+
+<p>Extensión ligera con soporte multi-proveedor (Ollama, LM Studio, llama.cpp). Incluye RAG local y almacenamiento en IndexedDB.</p>
+
+<ul>
+<li><strong>Multi-proveedor:</strong> Conecta a Ollama, LM Studio o llama.cpp</li>
+<li><strong>Sidepanel:</strong> Chat integrado en el navegador</li>
+<li><strong>Local RAG:</strong> Workflows de recuperación de información local</li>
+<li><strong>Privacidad:</strong> Datos almacenados localmente, sin telemetría</li>
+</ul>
+
+<p>Instalación:</p>
+<ul>
+<li><a href="https://chromewebstore.google.com/detail/ollama-client-chat-with-l/bfaoaaogfcgomkjfbmfepbiijmciinjl">Chrome Web Store</a></li>
+<li><a href="https://addons.mozilla.org/en-US/firefox/addon/ollama-client/">Firefox Add-ons</a></li>
+</ul>
+
+<p>Repositorio: <a href="https://github.com/Shishir435/ollama-client">github.com/Shishir435/ollama-client</a></p>
+
+<h2>Hoja de Comandos</h2>
+
+<pre>
+# Instalación
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Verificar servicio
+ss -antp | grep :11434
+curl http://localhost:11434 -v
+
+# Comandos básicos
+ollama --help
+ollama pull gemma3:1b
+ollama list
+ollama rm nombre-modelo
+ollama run gemma3:1b --verbose
+
+# Sesión interactiva (dentro de ollama run)
+/?           - Muestra la ayuda
+/show        - Muestra información del modelo
+/show info   - Detalles técnicos del modelo
+/bye         - Cierra la sesión         
+
+# Acceso externo
+sudo systemctl edit ollama.service
+
+# Agregar:
+[Service]
+Environment="OLLAMA_HOST=0.0.0.0:11434"
+Environment="OLLAMA_ORIGINS=*"
+
+# Recargar y reiniciar
+sudo systemctl daemon-reload
+sudo systemctl restart ollama
+
+# Verificar
+ss -antp
+</pre>
+
+<footer><a href="index.html">Volver al índice</a></footer>
+</body>
+</html>
