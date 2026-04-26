@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Chile - Canales en Vivo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TV Chile</h1>
+        </header>
+
+        <nav id="filters" class="filters-container"></nav>
+
+        <div id="channelsGrid" class="channels-grid">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Cargando canales...</p>
+            </div>
+        </div>
+
+      
+    </div>
+
+    <div class="modal" id="playerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"> reproductor</h2>
+                <button class="close-btn" id="closeBtn">&times;</button>
+            </div>
+            <div class="video-container">
+                <video id="videoPlayer" playsinline controls>
+                    <source src="" type="application/x-mpegURL">
+                </video>
+            </div>
+            <div class="status-bar">
+                <span id="statusText">Conectando...</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
