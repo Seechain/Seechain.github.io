@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>Servidor HTTP Simple</title>
+</head>
+<body>
+<h1>Servidor HTTP Simple</h1>
+
+<p>Tres formas de levantar un servidor HTTP simple en el puerto 3000 con tres lenguajes diferentes:</p>
+
+<h2>Node.js</h2>
+
+<p>Usando el paquete <code>serve</code>:</p>
+
+<pre>
+npm install -g serve
+serve -s .
+</pre>
+
+<h2>Python 3</h2>
+
+<pre>
+python3 -m http.server 3000
+</pre>
+
+<h2>Ruby</h2>
+
+<pre>
+ruby -run -e httpd . -p 3000
+</pre>
+
+
+<footer><a href="index.html">Volver al índice</a></footer>
+</body>
+</html>

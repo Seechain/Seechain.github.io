@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>Hosting detras de CGNAT con Cloudflare Tunnel</title>
+</head>
+<body>
+<h1>Hosting detras de CGNAT con Cloudflare Tunnel</h1>
+
+<p>Tu ISP te puso detras de CGNAT y no puedes abrir puertos en tu router? No todo esta perdido! Puedes hostear sitios web y servicios publicos desde casa, gratis, sin abrir puertos, usando Cloudflare Tunnel.</p>
+
+
+<h2>Que es CGNAT?</h2>
+
+<p><strong>CGNAT</strong> (Carrier-Grade NAT) es cuando tu proveedor de internet usa NAT compartiendote con otros clientes. No tienes tu propia IP publica - todos comparten la misma. Esto signifie que el trafico entrante no sabe llegar a tu servidor.</p>
+
+<p>Tradicionalmente harias <strong>port forwarding</strong> en tu router, pero con CGNAT eso no funciona porque el router de tu ISP ni siquiera conoce tu servidor.</p>
+
+
+<h2>La solucion: Cloudflare Tunnel</h2>
+
+<p>Cloudflare Tunnel invierte la logica: en lugar de abrir puertos para que el mundo llegue a ti, tu servidor <strong>hace una conexion saliente</strong> a los servidores de Cloudflare. El traficopublico va a Cloudflare, que lo envia por el tunnel hasta tu casa.</p>
+
+<h3>Ventajas</h3>
+<ul>
+<li>No necesitas abrir puertos en el router</li>
+<li>No necesitas IP publica estatica</li>
+<li>Funciona detras de CGNAT</li>
+<li>SSL automatico (Cloudflare maneja los certificados)</li>
+<li>Proteccion DDoS integrada</li>
+<li>Tu IP de casa queda oculta</li>
+<li>Totalmente gratis</li>
+</ul>
+
+
+<h2>Requisitos</h2>
+<ul>
+<li>Una cuenta en Cloudflare (gratis)</li>
+<li>Un dominio con DNS gestionado por Cloudflare</li>
+<li>Un servidor Linux en tu red local con algum servicio web funcionando</li>
+</ul>
+
+
+<h2>Paso 1: Agrega tu dominio a Cloudflare</h2>
+
+<ol>
+<li>Registrate en <a href="https://dash.cloudflare.com/">Cloudflare</a></li>
+<li>Agrega tu dominio (puedes comprar uno o usar uno que ya tengas)</li>
+<li>Cambia los nameservers en tu registrador a los que Cloudflare te indique</li>
+</ol>
+
+
+<h2>Paso 2: Crea el Tunnel</h2>
+
+<ol>
+<li>Ve a <strong>Zero Trust Dashboard</strong> - <strong>Networks</strong> - <strong>Tunnels</strong></li>
+<li>Click en <strong>Create Tunnel</strong></li>
+<li>Selecciona <strong>Cloudflared</strong> como tipo</li>
+<li>Asigna un nombre al tunnel (ej: "mi-homelab")</li>
+</ol>
+
+
+<h2>Paso 3: Instala cloudflared en tu servidor</h2>
+
+<p>Cloudflare te dara un comando de instalacion. Ejemplo para Linux amd64:</p>
+
+<pre><code>wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+dpkg -i cloudflared-linux-amd64.deb</code></pre>
+
+<p>O usa Docker:</p>
+
+<pre><code>docker run -d --name cloudflared \
+  --network host \
+  cloudflare/cloudflared:latest tunnel --no-autoupdate run &lt;TOKEN&gt;</code></pre>
+
+<p>El token lo obtienes del dashboard al crear el tunnel.</p>
+
+
+<h2>Paso 4: Configura el hostname publico</h2>
+
+<p>En el dashboard del tunnel, agrega un <strong>Public Hostname</strong>:</p>
+
+<table>
+<tr><td>Subdomain</td><td>Tu eliges (ej: <code>erp.midominio.com</code>)</td></tr>
+<tr><td>Domain</td><td>Tu dominio</td></tr>
+<tr><td>Service</td><td>HTTP en localhost:PUERTO</td></tr>
+</table>
+
+<p>Ejemplo: si tienes Odoo en el puerto 8069 de tu red local:</p>
+<ul>
+<li>Subdomain: <code>erp</code></li>
+<li>Service: <code>http://192.168.1.100:8069</code></li>
+</ul>
+
+<p>Ahora cuando alguien visite <code>erp.midominio.com</code>, Cloudflare enviara el trafico por el tunnel hasta tu servidor.</p>
+
+
+<h2>Paso 5: (Opcional) Agrega autenticacion</h2>
+
+<p>Puedes anadir <strong>Cloudflare Access</strong> para que nadie pueda ver tus servicios sin antes autenticarse (email, Google, GitHub, etc.).</p>
+
+<p>Ve a <strong>Zero Trust</strong> - <strong>Access</strong> - <strong>Applications</strong> y agrega una politica de autenticacion.</p>
+
+
+<h2>Notas finales</h2>
+
+<ul>
+<li>Tu servidor debe permitir salida por TCP/UDP puerto 443</li>
+<li>El tunnel es persistente, pero conviene configurarlo en un contenedor Docker o como servicio para que arranque automaticamente al iniciar</li>
+<li>Puedes exponer multiples servicios con un solo tunnel usando reglas de ingress</li>
+</ul>
+
+
+<hr>
+
+
+<footer><a href="index.html">Volver al indice</a></footer>
+</body>
+</html>
