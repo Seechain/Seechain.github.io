@@ -21,7 +21,7 @@
   },
   "meganoticias": {
     "nombre": "Meganoticias",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/b/be/Meganoticias2019.png",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Logotipo_de_Mega_%282020-%29.svg",
     "señales": {
       "iframe_url": [
         "https://rudo.video/live/mega",
@@ -207,7 +207,7 @@
   },
   "tvn-3": {
     "nombre": "TVN 3",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/TVN_3_2023.svg/320px-TVN_3_2023.svg.png",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Logotipo_de_Televisi%C3%B2n_Nacional_de_Chile_%282004-2016%29.svg/960px-Logotipo_de_Televisi%C3%B2n_Nacional_de_Chile_%282004-2016%29.svg.png",
     "señales": {
       "iframe_url": [
         "https://mdstrm.com/live-stream/5653641561b4eba30a7e4929?volume=0"
@@ -551,68 +551,8 @@
     "país": "cl",
     "categoría": "sports"
   },
-  "chv-deportes": {
-    "nombre": "CHV Deportes",
-    "logo": "",
-    "señales": {
-      "iframe_url": [],
-      "m3u8_url": [
-        "https://mdstrm.com/live-stream-playlist/6531749eaf244059b3ade17b.m3u8"
-      ],
-      "yt_id": "",
-      "yt_embed": "",
-      "yt_playlist": "",
-      "twitch_id": ""
-    },
-    "sitio_oficial": "https://pluto.tv/latam/live-tv/638df6f8b63cf100075ccfa1",
-    "país": "cl",
-    "categoría": "sports"
-  },
-  "picadotv-chile": {
-    "nombre": "PicadoTV Chile",
-    "logo": "https://graph.facebook.com/picadotv/picture?width=800&height=800",
-    "señales": {
-      "iframe_url": [],
-      "m3u8_url": [],
-      "yt_id": "UCpANs3C33Ay49hN2JeCV7FQ",
-      "yt_embed": "",
-      "yt_playlist": "",
-      "twitch_id": ""
-    },
-    "sitio_oficial": "https://www.youtube.com/channel/UCpANs3C33Ay49hN2JeCV7FQ",
-    "país": "cl",
-    "categoría": "sports"
-  },
-  "frecuencia-cruzada": {
-    "nombre": "Frecuencia Cruzada",
-    "logo": "https://graph.facebook.com/FrecuenciaCruzada/picture?width=800&height=800",
-    "señales": {
-      "iframe_url": [],
-      "m3u8_url": [],
-      "yt_id": "UCQNt1ccbf8WXt1QJqqXfW3g",
-      "yt_embed": "",
-      "yt_playlist": "",
-      "twitch_id": ""
-    },
-    "sitio_oficial": "https://frecuenciacruzada.cl/en-vivo",
-    "país": "cl",
-    "categoría": "sports"
-  },
-  "balong": {
-    "nombre": "Balong - MDTPnet",
-    "logo": "https://graph.facebook.com/fuerteperoalbalong/picture?width=800&height=800",
-    "señales": {
-      "iframe_url": [],
-      "m3u8_url": [],
-      "yt_id": "UCEZEW2z22WBkUB2Fcs8Gq3A",
-      "yt_embed": "",
-      "yt_playlist": "",
-      "twitch_id": ""
-    },
-    "sitio_oficial": "https://www.youtube.com/channel/UCEZEW2z22WBkUB2Fcs8Gq3A",
-    "país": "cl",
-    "categoría": "sports"
-  },
+
+
   "mega-tiempo": {
     "nombre": "MegaTiempo",
     "logo": "https://logowik.com/content/uploads/images/mega-tiempo-new2760.logowik.com.webp",
@@ -1366,6 +1306,21 @@
     "país": "cl",
     "categoría": "general"
   },
+  "radio-austral": {
+    "nombre": "Radio Austral",
+    "logo": "https://www.radioaustralvaldivia.cl/storage/2024/08/cropped-N300-1.png",
+    "señales": {
+      "iframe_url": ["https://archi-us.digitalproserver.com/austral.aac"],
+      "m3u8_url": [],
+      "yt_id": "",
+      "yt_embed": "",
+      "yt_playlist": "",
+      "twitch_id": ""
+    },
+    "sitio_oficial": "https://www.radioaustralvaldivia.cl/radio-online/",
+    "país": "cl",
+    "categoría": "music"
+  },
   "tv-costa": {
     "nombre": "TV Costa",
     "logo": "https://tvcosta.cl/wp-content/uploads/2022/12/TV-Costa.jpg",
@@ -1485,61 +1440,7 @@
     "país": "cl",
     "categoría": "general"
   },
-  "la-granja-tv": {
-    "nombre": "La Granja TV",
-    "logo": "https://www.lagranja.tv/gallery_gen/a54e5683a51ffc503a0587669bceebc4_440x444.png",
-    "señales": {
-      "iframe_url": [],
-      "m3u8_url": [
-        "https://oracle.streaminghd.cl/8126/8126/playlist.m3u8"
-      ],
-      "yt_id": "UCdjWpcYFNxsgzdV5tldy5rA",
-      "yt_embed": "",
-      "yt_playlist": "",
-      "twitch_id": ""
-    },
-    "sitio_oficial": "https://www.lagranja.tv",
-    "país": "cl",
-    "categoría": "general"
-  },
-  "la-granja-tv-fm": {
-    "nombre": "laGranja FM 107.3",
-    "logo": "https://www.lagranja.tv/gallery_gen/a54e5683a51ffc503a0587669bceebc4_440x444.png",
-    "señales": {
-      "iframe_url": [
-        "https://sthd-player.cl/video/index.php?s=lagranjafm"
-      ],
-      "m3u8_url": [
-        "https://oracle.streaminghd.cl/lagranjafm/lagranjafm/playlist.m3u8"
-      ],
-      "yt_id": "",
-      "yt_embed": "",
-      "yt_playlist": "",
-      "twitch_id": ""
-    },
-    "sitio_oficial": "https://www.lagranja.tv",
-    "país": "cl",
-    "categoría": "music"
-  },
-  "dancefmchile": {
-    "nombre": "Dance FM Chile TV",
-    "logo": "https://graph.facebook.com/dancefmchile/picture?width=800&height=800",
-    "señales": {
-      "iframe_url": [
-        "https://video.mediawebchile.com:9332/stream"
-      ],
-      "m3u8_url": [
-        "https://5eaccbab48461.streamlock.net:1936/dancefm_1/dancefm_1/playlist.m3u8"
-      ],
-      "yt_id": "UC6f6ZevbvPZUeWZCL8dX5Xg",
-      "yt_embed": "",
-      "yt_playlist": "",
-      "twitch_id": ""
-    },
-    "sitio_oficial": "https://www.dancefm.cl/",
-    "país": "cl",
-    "categoría": "music"
-  },
+
   "caracola-tv": {
     "nombre": "Caracola TV La Florida",
     "logo": "https://www.caracolatv.cl/wp-content/uploads/2022/11/cropped-LOGO-CARACOLA-05-1-300x169.png",
@@ -2388,36 +2289,7 @@
     "país": "cl",
     "categoría": "outdoor"
   },
-  "megadeportescl": {
-    "nombre": "MegaDeportes",
-    "logo": "https://graph.facebook.com/MegaDeportesCL/picture?width=800&height=800",
-    "señales": {
-      "iframe_url": [],
-      "m3u8_url": [],
-      "yt_id": "UCS2q6U7sWalPEgdLKx5YzQA",
-      "yt_embed": "",
-      "yt_playlist": "",
-      "twitch_id": ""
-    },
-    "sitio_oficial": "https://www.meganoticias.cl/deportes/",
-    "país": "cl",
-    "categoría": "sports"
-  },
-  "tierradragones": {
-    "nombre": "Tierra de Dragones",
-    "logo": "https://graph.facebook.com/tierradragones/picture?width=800&height=800",
-    "señales": {
-      "iframe_url": [],
-      "m3u8_url": [],
-      "yt_id": "UCSrud09QWBIzPjvXlhm757A",
-      "yt_embed": "",
-      "yt_playlist": "",
-      "twitch_id": "tierradragones"
-    },
-    "sitio_oficial": "https://tierradedragones.cl/online/",
-    "país": "cl",
-    "categoría": "sports"
-  },
+  
   "canal-pais": {
     "nombre": "Canal País",
     "logo": "https://graph.facebook.com/CanalPais/picture?width=800&height=800",
@@ -8182,7 +8054,7 @@
     "logo": "https://static.wixstatic.com/media/cfd102_33591d3d86434bf0802f66ac6c9e34ae~mv2.jpg/v1/crop/x_0,y_7,w_678,h_801/fill/w_188,h_222,al_c,q_80,usm_0.66_1.00_0.01/cfd102_33591d3d86434bf0802f66ac6c9e34ae~mv2.webp",
     "señales": {
       "iframe_url": [
-        "http://tornagaleones.ddns.net:9000/stream"
+        "http://e.mytuner-radio.com/embed/radio-tornagaleones-426794"
       ],
       "m3u8_url": [
         ""
