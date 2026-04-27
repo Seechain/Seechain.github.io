@@ -8,7 +8,7 @@ const FILTERS = {
     entertainment: 'Entretención',
     sports: 'Deportes',
     kids: 'Niños',
-    lifestyle: 'Estilo de vida'
+
 };
 
 const NATIONAL_CHANNELS = [
@@ -113,10 +113,6 @@ function initPlayer() {
     player = new Plyr(video, {
         controls: ['play-large', 'play', 'volume', 'settings', 'fullscreen'],
         settings: ['quality', 'speed'],
-        quality: {
-            default: 720,
-            options: [1080, 720, 480, 360]
-        },
         speed: {
             selected: 1,
             options: [0.5, 0.75, 1, 1.25, 1.5]
@@ -214,6 +210,31 @@ function playStream(url) {
             if (levels.length > 2) {
                 hls.startLevel = 2;
             }
+
+            if (player && levels.length > 0) {
+                const qualityOptions = levels.map((level, index) => ({
+                    id: index,
+                    label: level.height ? `${level.height}p` : `${level.bitrate / 1000}kbps`
+                }));
+                
+                qualityOptions.unshift({ id: -1, label: 'Auto' });
+
+                player.quality = {
+                    default: -1,
+                    options: qualityOptions,
+                    forced: true
+                };
+
+                player.on('qualitychange', (event) => {
+                    const quality = event.detail.qualities[player.quality.selected];
+                    if (quality && quality.id >= 0) {
+                        hls.currentLevel = quality.id;
+                    } else {
+                        hls.currentLevel = -1;
+                    }
+                });
+            }
+
             video.play().catch(() => {
                 statusText.textContent = 'Click para reproducir';
             });
