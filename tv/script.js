@@ -11,10 +11,6 @@ const FILTERS = {
 
 };
 
-const NATIONAL_CHANNELS = [
-    'tvn-cl', 'mega-cl', 'canal-13', 'chilevision', '13-cultura', '24-horas'
-];
-
 const EXCLUDED_CHANNELS = [];
 
 const CHANNEL_OVERRIDES = {
@@ -67,7 +63,7 @@ function renderChannels() {
     
     if (currentFilter === 'general') {
         filtered = allChannels.filter(ch => 
-            NATIONAL_CHANNELS.includes(ch.key)
+            ch.categoría === 'general'
         );
     } else {
         filtered = allChannels.filter(ch => 
@@ -75,12 +71,6 @@ function renderChannels() {
             !EXCLUDED_CHANNELS.includes(ch.key)
         );
     }
-
-    filtered.sort((a, b) => {
-        const idxA = NATIONAL_CHANNELS.indexOf(a.key);
-        const idxB = NATIONAL_CHANNELS.indexOf(b.key);
-        return idxA - idxB;
-    });
 
     container.innerHTML = filtered.map(channel => {
         const hasStream = channel.señales?.m3u8_url?.length > 0;

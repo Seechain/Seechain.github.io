@@ -1,24 +1,27 @@
 {
-  "24-horas": {
-    "nombre": "24 horas",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Logotipo_del_Canal_24_Horas.png",
+
+  
+      "tvn-cl": {
+    "nombre": "TVN",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/3/33/Logotipo_de_Televisi%C3%B2n_Nacional_de_Chile.svg",
     "señales": {
       "iframe_url": [
-        "https://mdstrm.com/live-stream/57d1a22064f5d85712b20dab?volume=0",
-        "https://www.24horas.cl/envivo/"
+        "https://www.tvn.cl/en-vivo"
       ],
       "m3u8_url": [
-        "https://mdstrm.com/live-stream-playlist/689ba606ecfe7915e1f8f741.m3u8"
+        "http://217.26.190.76:8888/play/a0m6/index.m3u8"
+  
       ],
-      "yt_id": "UCTXNz3gjAypWp3EhlIATEJQ",
+      "yt_id": "UCaVaCaiG6qRzDiJDuEGKOhQ",
       "yt_embed": "",
       "yt_playlist": "",
-      "twitch_id": "24horas_tvn"
+      "twitch_id": ""
     },
-    "sitio_oficial": "https://www.24horas.cl/envivo/",
+    "sitio_oficial": "https://www.youtube.com/channel/UCaVaCaiG6qRzDiJDuEGKOhQ",
     "país": "cl",
-    "categoría": "news"
+    "categoría": "general"
   },
+
   "meganoticias": {
     "nombre": "Meganoticias",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Logotipo_de_Mega_%282020-%29.svg",
@@ -144,26 +147,6 @@
     "categoría": "music"
   },
   
-    "tvn-cl": {
-    "nombre": "TVN",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/3/33/Logotipo_de_Televisi%C3%B2n_Nacional_de_Chile.svg",
-    "señales": {
-      "iframe_url": [
-        "https://www.tvn.cl/en-vivo"
-      ],
-      "m3u8_url": [
-        "http://217.26.190.76:8888/play/a0m6/index.m3u8"
-  
-      ],
-      "yt_id": "UCaVaCaiG6qRzDiJDuEGKOhQ",
-      "yt_embed": "",
-      "yt_playlist": "",
-      "twitch_id": ""
-    },
-    "sitio_oficial": "https://www.youtube.com/channel/UCaVaCaiG6qRzDiJDuEGKOhQ",
-    "país": "cl",
-    "categoría": "general"
-  },
 
   "tvn-3": {
     "nombre": "TVN 3",
@@ -240,7 +223,7 @@
     },
     "sitio_oficial": "https://www.13.cl/en-vivo",
     "país": "cl",
-    "categoría": "general"
+    "categoría": "culture"
   },
   "chilevision": {
     "nombre": "Chilevisión",
@@ -280,45 +263,8 @@
     "país": "cl",
     "categoría": "culture"
   },
-  "tv-mas": {
-    "nombre": "TV+",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/9/9b/TV%2B_%282018%29.png",
-    "señales": {
-      "iframe_url": [
-        "https://mdstrm.com/live-stream/5c0e8b19e4c87f3f2d3e6a59?volume=0"
-      ],
-      "m3u8_url": [
-        "https://mdstrm.com/live-stream-playlist/5c0e8b19e4c87f3f2d3e6a59.m3u8"
-      ],
-      "yt_id": "UCZnboDa_k5jxFCGp6jVhpUQ",
-      "yt_embed": "",
-      "yt_playlist": "",
-      "twitch_id": ""
-    },
-    "sitio_oficial": "https://www.tvmas.tv/",
-    "país": "cl",
-    "categoría": "general"
-  },
-  "13-cultura": {
-    "nombre": "13 Cultura",
-    "logo": "https://graph.facebook.com/canal13c/picture?width=800&height=800",
-    "señales": {
-      "iframe_url": [
-        "https://rudo.video/live/13cultura"
-      ],
-      "m3u8_url": [
-        "https://origin.dpsgo.com/ssai/event/GI-9cp_bT8KcerLpZwkuhw/master.m3u8",
-        "https://dai.google.com/linear/hls/event/GI-9cp_bT8KcerLpZwkuhw/master.m3u8"
-      ],
-      "yt_id": "",
-      "yt_embed": "",
-      "yt_playlist": "",
-      "twitch_id": ""
-    },
-    "sitio_oficial": "https://www.13.cl/c",
-    "país": "cl",
-    "categoría": "culture"
-  },
+
+
   
   "13-humor": {
     "nombre": "13 Humor",
@@ -593,7 +539,48 @@
     "categoría": "news"
   },
 
-
+  "24-horas": {
+    "nombre": "24 horas",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Logotipo_del_Canal_24_Horas.png",
+    "señales": {
+      "iframe_url": [
+        "https://mdstrm.com/live-stream/57d1a22064f5d85712b20dab?volume=0",
+        "https://www.24horas.cl/envivo/"
+      ],
+      "m3u8_url": [
+        "https://mdstrm.com/live-stream-playlist/689ba606ecfe7915e1f8f741.m3u8"
+      ],
+      "yt_id": "UCTXNz3gjAypWp3EhlIATEJQ",
+      "yt_embed": "",
+      "yt_playlist": "",
+      "twitch_id": "24horas_tvn"
+    },
+    "sitio_oficial": "https://www.24horas.cl/envivo/",
+    "país": "cl",
+    "categoría": "general"
+  },
+  
+    "13-cultura": {
+    "nombre": "13 Cultura",
+    "logo": "https://graph.facebook.com/canal13c/picture?width=800&height=800",
+    "señales": {
+      "iframe_url": [
+        "https://rudo.video/live/13cultura"
+      ],
+      "m3u8_url": [
+        "https://origin.dpsgo.com/ssai/event/GI-9cp_bT8KcerLpZwkuhw/master.m3u8",
+        "https://dai.google.com/linear/hls/event/GI-9cp_bT8KcerLpZwkuhw/master.m3u8"
+      ],
+      "yt_id": "",
+      "yt_embed": "",
+      "yt_playlist": "",
+      "twitch_id": ""
+    },
+    "sitio_oficial": "https://www.13.cl/c",
+    "país": "cl",
+    "categoría": "general"
+  },
+  
   "radio-tornagaleones": {
     "nombre": "Radio Tornagaleones",
     "logo": "https://static.wixstatic.com/media/cfd102_33591d3d86434bf0802f66ac6c9e34ae~mv2.jpg/v1/crop/x_0,y_7,w_678,h_801/fill/w_188,h_222,al_c,q_80,usm_0.66_1.00_0.01/cfd102_33591d3d86434bf0802f66ac6c9e34ae~mv2.webp",
