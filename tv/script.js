@@ -11,11 +11,7 @@ const FILTERS = {
 
 };
 
-const EXCLUDED_CHANNELS = [];
 
-const CHANNEL_OVERRIDES = {
-
-};
 
 let allChannels = [];
 let currentFilter = 'general';
@@ -95,8 +91,7 @@ function renderChannels() {
         );
     } else {
         filtered = allChannels.filter(ch => 
-            ch.categoría === currentFilter && 
-            !EXCLUDED_CHANNELS.includes(ch.key)
+            ch.categoría === currentFilter
         );
     }
 
@@ -163,16 +158,10 @@ function openChannel(channel) {
         hls = null;
     }
 
-    const override = CHANNEL_OVERRIDES[channel.key];
     let streamUrl = null;
     let streamSource = null;
 
-    if (override) {
-        if (override.url) {
-            streamUrl = override.url;
-            streamSource = 'override';
-        }
-    } else if (channel.señales?.m3u8_url?.length > 0) {
+    if (channel.señales?.m3u8_url?.length > 0) {
         streamUrl = channel.señales.m3u8_url[0];
         streamSource = 'm3u8';
     } else if (channel.señales?.iframe_url?.length > 0) {
@@ -207,6 +196,12 @@ function openChannel(channel) {
         statusText.textContent = 'Abriendo YouTube...';
         setTimeout(() => {
             window.open(`https://www.youtube.com/watch?v=${channel.señales.yt_id}`, '_blank');
+            closePlayer();
+        }, 1000);
+    } else if (channel.sitio_oficial) {
+        statusText.textContent = 'Abriendo sitio oficial...';
+        setTimeout(() => {
+            window.open(channel.sitio_oficial, '_blank');
             closePlayer();
         }, 1000);
     } else {

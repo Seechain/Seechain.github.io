@@ -1,23 +1,18 @@
 {
 
   
-      "tvn-cl": {
+  "tvn-cl": {
     "nombre": "TVN",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/3/33/Logotipo_de_Televisi%C3%B2n_Nacional_de_Chile.svg",
     "señales": {
-      "iframe_url": [
-        "https://www.tvn.cl/en-vivo"
-      ],
-      "m3u8_url": [
-        "http://217.26.190.76:8888/play/a0m6/index.m3u8"
-  
-      ],
-      "yt_id": "UCaVaCaiG6qRzDiJDuEGKOhQ",
+      "iframe_url": [""],
+      "m3u8_url": [""],
+      "yt_id": "",
       "yt_embed": "",
       "yt_playlist": "",
       "twitch_id": ""
     },
-    "sitio_oficial": "https://www.youtube.com/channel/UCaVaCaiG6qRzDiJDuEGKOhQ",
+    "sitio_oficial": "https://www.tvn.cl/en-vivo",
     "país": "cl",
     "categoría": "general"
   },
@@ -586,7 +581,7 @@
     "logo": "https://static.wixstatic.com/media/cfd102_33591d3d86434bf0802f66ac6c9e34ae~mv2.jpg/v1/crop/x_0,y_7,w_678,h_801/fill/w_188,h_222,al_c,q_80,usm_0.66_1.00_0.01/cfd102_33591d3d86434bf0802f66ac6c9e34ae~mv2.webp",
     "señales": {
       "iframe_url": [
-        "http://tornagaleones.ddns.net:9000/Flac"
+        "http://tornagaleones.ddns.net:9000/Flac.m3u"
       ],
       "m3u8_url": [
         
