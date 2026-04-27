@@ -32,11 +32,12 @@
                 <h2 id="modalTitle"> reproductor</h2>
                 <button class="close-btn" id="closeBtn">&times;</button>
             </div>
-            <div class="video-container">
-                <video id="videoPlayer" playsinline controls>
-                    <source src="" type="application/x-mpegURL">
-                </video>
-            </div>
+<div class="video-container">
+    <video id="videoPlayer" playsinline controls>
+        <source src="" type="application/x-mpegURL">
+    </video>
+    <audio id="audioPlayer" controls style="display:none; width:100%; margin-top:1rem;"></audio>
+</div>
             <div class="status-bar">
                 <span id="statusText">Conectando...</span>
             </div>

@@ -586,10 +586,10 @@
     "logo": "https://static.wixstatic.com/media/cfd102_33591d3d86434bf0802f66ac6c9e34ae~mv2.jpg/v1/crop/x_0,y_7,w_678,h_801/fill/w_188,h_222,al_c,q_80,usm_0.66_1.00_0.01/cfd102_33591d3d86434bf0802f66ac6c9e34ae~mv2.webp",
     "señales": {
       "iframe_url": [
-        "http://e.mytuner-radio.com/embed/radio-tornagaleones-426794"
+        "http://tornagaleones.ddns.net:9000/Flac"
       ],
       "m3u8_url": [
-        ""
+        
       ],
       "yt_id": "",
       "yt_embed": "",

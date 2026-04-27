@@ -14,15 +14,43 @@ const FILTERS = {
 const EXCLUDED_CHANNELS = [];
 
 const CHANNEL_OVERRIDES = {
-    'tvn-cl': {
-        url: 'https://www.tvn.cl/en-vivo'
-    }
+
 };
 
 let allChannels = [];
 let currentFilter = 'general';
 let player = null;
 let hls = null;
+let audioPlayer = null;
+
+function getStreamType(url) {
+    if (!url) return 'unknown';
+    if (url.match(/\.m3u8(\?|$)/)) return 'hls';
+    if (url.match(/\.m3u(\?|$)/)) return 'm3u-playlist';
+    if (url.match(/\.(aac|mp3|ogg|opus|flac)(\?|$)/)) return 'audio';
+    if (url.match(/\.pls(\?|$)/)) return 'pls-playlist';
+    return 'audio';
+}
+
+async function parsePlaylist(url) {
+    try {
+        const response = await fetch(url);
+        const text = await response.text();
+        const lines = text.split('\n').map(l => l.trim()).filter(l => l && !l.startsWith('#'));
+        return lines.length > 0 ? lines[0] : null;
+    } catch (e) {
+        console.error('Error parsing playlist:', e);
+        return null;
+    }
+}
+
+async function resolveStreamUrl(url) {
+    const type = getStreamType(url);
+    if (type === 'm3u-playlist' || type === 'pls-playlist') {
+        return await parsePlaylist(url);
+    }
+    return url;
+}
 
 async function loadChannels() {
     try {
@@ -137,32 +165,44 @@ function openChannel(channel) {
 
     const override = CHANNEL_OVERRIDES[channel.key];
     let streamUrl = null;
+    let streamSource = null;
 
     if (override) {
         if (override.url) {
-            if (override.url.includes('.m3u8')) {
-                streamUrl = override.url;
-            } else {
-                statusText.textContent = 'Abriendo en sitio oficial...';
-                setTimeout(() => {
-                    window.open(override.url, '_blank');
-                    closePlayer();
-                }, 1000);
-                return;
-            }
+            streamUrl = override.url;
+            streamSource = 'override';
         }
     } else if (channel.señales?.m3u8_url?.length > 0) {
         streamUrl = channel.señales.m3u8_url[0];
-    }
-    
-    if (streamUrl) {
-        playStream(streamUrl);
+        streamSource = 'm3u8';
     } else if (channel.señales?.iframe_url?.length > 0) {
-        statusText.textContent = 'Abriendo en sitio oficial...';
-        setTimeout(() => {
-            window.open(channel.señales.iframe_url[0], '_blank');
-            closePlayer();
-        }, 1000);
+        streamUrl = channel.señales.iframe_url[0];
+        streamSource = 'iframe';
+    }
+
+    if (streamUrl) {
+        const type = getStreamType(streamUrl);
+        if (type === 'hls') {
+            playStream(streamUrl, 'video');
+        } else if (type === 'm3u-playlist' || type === 'pls-playlist') {
+            statusText.textContent = 'Cargando lista...';
+            resolveStreamUrl(streamUrl).then(resolved => {
+                if (resolved) {
+                    const resolvedType = getStreamType(resolved);
+                    playStream(resolved, resolvedType === 'audio' ? 'audio' : 'video');
+                } else {
+                    statusText.textContent = 'Error al leer la lista';
+                }
+            });
+        } else if (type === 'audio') {
+            playStream(streamUrl, 'audio');
+        } else if (streamSource === 'iframe') {
+            statusText.textContent = 'Abriendo en sitio oficial...';
+            setTimeout(() => {
+                window.open(streamUrl, '_blank');
+                closePlayer();
+            }, 1000);
+        }
     } else if (channel.señales?.yt_id) {
         statusText.textContent = 'Abriendo YouTube...';
         setTimeout(() => {
@@ -174,9 +214,22 @@ function openChannel(channel) {
     }
 }
 
-function playStream(url) {
+function playStream(url, type = 'video') {
     const video = document.getElementById('videoPlayer');
+    const audio = document.getElementById('audioPlayer');
     const statusText = document.getElementById('statusText');
+
+    video.style.display = type === 'video' ? 'block' : 'none';
+    audio.style.display = type === 'audio' ? 'block' : 'none';
+
+    if (type === 'audio') {
+        audio.src = url;
+        audio.play().catch(() => {
+            statusText.textContent = 'Click para reproducir audio';
+        });
+        statusText.textContent = 'En vivo (audio)';
+        return;
+    }
 
     if (Hls.isSupported()) {
         hls = new Hls({
@@ -260,6 +313,7 @@ function playStream(url) {
 function closePlayer() {
     const modal = document.getElementById('playerModal');
     const video = document.getElementById('videoPlayer');
+    const audio = document.getElementById('audioPlayer');
 
     modal.style.display = 'none';
 
@@ -274,6 +328,11 @@ function closePlayer() {
 
     video.pause();
     video.src = '';
+    video.style.display = 'block';
+
+    audio.pause();
+    audio.src = '';
+    audio.style.display = 'none';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
