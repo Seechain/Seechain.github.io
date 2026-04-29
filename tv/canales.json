@@ -17,26 +17,7 @@
     "categoría": "general"
   },
 
-  "meganoticias": {
-    "nombre": "Meganoticias",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Logotipo_de_Mega_%282020-%29.svg",
-    "señales": {
-      "iframe_url": [
-        "https://rudo.video/live/mega",
-        "https://www.mega.cl/senal-en-vivo/"
-      ],
-      "m3u8_url": [
-        "https://pantera1-100gb-cl-movistar.dps.live/mega/mega.smil/playlist.m3u8"
-      ],
-      "yt_id": "UCkccyEbqhhM3uKOI6Shm-4Q",
-      "yt_embed": "",
-      "yt_playlist": "",
-      "twitch_id": "meganoticiascl"
-    },
-    "sitio_oficial": "https://www.mega.cl/",
-    "país": "cl",
-    "categoría": "news"
-  },
+
   "t13": {
     "nombre": "T13 - Teletrece",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/0/09/Logotipo_de_Teletrece.svg",
