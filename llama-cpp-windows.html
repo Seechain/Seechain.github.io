@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>llama.cpp en Windows</title>
+</head>
+<body>
+<h1>🛠️ llama.cpp en Windows</h1>
+
+<p>Importante: si quieres ahorrarte la compilación puedes instalar directamente llama.cpp usando <a href="https://scoop.sh/#/apps?q=llama.cpp">Scoop</a>.</p>
+
+<p>Esta guía te ayudará a configurar tu entorno, compilar el código fuente de <code>llama.cpp</code> y configurar un atajo fácil para iniciar el servidor.</p>
+
+<h2>Requisitos Previos</h2>
+<ul>
+  <li>Un sistema operativo Windows.</li>
+  <li>Una terminal o línea de comandos (CMD, PowerShell o Git Bash).</li>
+  <li><strong>Scoop</strong> instalado (para la gestión de paquetes).</li>
+</ul>
+
+<h2>Paso 1: Instalar las Herramientas Necesarias</h2>
+<p>Asegúrate de tener instaladas las herramientas esenciales para el desarrollo y la compilación.</p>
+
+<h3>Configurar el Bucket de Scoop (si no lo has hecho)</h3>
+<p>Este comando añade el repositorio principal de Scoop.</p>
+<pre>
+scoop bucket add main
+</pre>
+
+<h3>Instalar Git</h3>
+<p>Utilizamos Scoop para instalar la versión de Git.</p>
+<pre>
+scoop install main/git
+</pre>
+
+<h3>Instalar CMake y MinGW</h3>
+<p>Instalamos las herramientas de compilación necesarias para el proyecto.</p>
+<pre>
+scoop install mingw
+scoop install cmake
+</pre>
+
+<h2>Paso 2: Clonar el Repositorio de llama.cpp</h2>
+<p>Descargaremos el código fuente del proyecto desde GitHub.</p>
+<pre>
+git clone https://github.com/ggerganov/llama.cpp
+</pre>
+
+<h2>Paso 3: Compilar llama.cpp</h2>
+<p>Compilaremos el código fuente para obtener el ejecutable final.</p>
+
+<p>Navegar a la carpeta del proyecto:</p>
+<pre>
+cd llama.cpp
+</pre>
+
+<p>Crear la carpeta de construcción (<code>build</code>):</p>
+<pre>
+mkdir build
+</pre>
+
+<p>Entrar en la carpeta de construcción:</p>
+<pre>
+cd build
+</pre>
+
+<p>Configurar la compilación con CMake: Usamos la configuración específica para MinGW.</p>
+<pre>
+cmake .. -G "MinGW Makefiles"
+</pre>
+
+<p>Compilar el proyecto: Ejecutamos el comando final para compilar el proyecto en modo <code>Release</code>.</p>
+<pre>
+cmake --build . --config Release
+</pre>
+
+<h3>✅ Resultado de la Compilación</h3>
+<p>El ejecutable se encontrará en la siguiente ruta:</p>
+<pre>
+.\build\bin\Release\
+</pre>
+
+<h2>Paso 4: Configurar el Inicio del Servidor (PowerShell)</h2>
+<p>Una vez que el ejecutable está compilado, configuraremos una función en PowerShell para que puedas iniciar el servidor fácilmente con un solo comando.</p>
+
+<h3>Abrir el perfil de PowerShell</h3>
+<p>Abre PowerShell y ejecuta el siguiente comando para abrir el archivo de perfil:</p>
+<pre>
+notepad $PSHOME\Profile.ps1
+</pre>
+
+<h3>Pegar la función</h3>
+<p>Copia y pega la siguiente función en el Bloc de Notas que se abrió.</p>
+<pre>
+# Iniciar servidor
+function llama-server { 
+    C:\llama.cpp\llama-server.exe `
+        -m C:\modelos\gemma-4-E2B-it-UD-Q4_K_XL.gguf `
+        --host 0.0.0.0 `
+        --port 8080 `
+        --jinja `
+        --no-mmap `
+        --cache-type-k q8_0 --cache-type-v q8_0 `
+        --spec-type ngram-mod `
+        --spec-ngram-mod-n-match 24 --spec-ngram-mod-n-min 48 --spec-ngram-mod-n-max 64 `
+        --temp 0.6 --top-p 0.95 --top-k 20 `
+        --dry-multiplier 0.1 --dry-base 1.05 --dry-allowed-length 12 --dry-penalty-last-n 128 `
+        -np 1
+}
+
+# Iniciar CLI 
+function llama-cli { 
+    C:\llama.cpp\llama-cli.exe `
+        -m C:\modelos\gemma-4-E2B-it-UD-Q4_K_XL.gguf `
+        --jinja `
+        -cnv `
+        --no-mmap `
+        --reasoning off `
+        --temp 0.6 --top-p 0.95 --top-k 20 `
+        --dry-multiplier 0.1 --dry-base 1.05 `
+        --color
+}
+</pre>
+
+<h3>Guardar, cerrar y recargar</h3>
+<p>Guarda el archivo del perfil, cierra el Bloc de Notas y reinicia tu sesión de PowerShell para que los cambios surtan efecto.</p>
+
+<h2>Paso 5: Iniciar el Servidor</h2>
+<p>Ahora que la función está configurada, cada vez que quieras iniciar el servidor, solo escribe en PowerShell:</p>
+<pre>
+llama-server
+</pre>
+
+<p>¡Listo! El servidor <code>llama-server</code> se iniciará automáticamente con los parámetros que definiste.</p>
+
+<footer><a href="index.html">Volver al índice</a></footer>
+</body>
+</html>
