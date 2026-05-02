@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>Clonar Windows con herramientas nativas</title>
+</head>
+<body>
+<h1>Clonar Windows con herramientas nativas</h1>
+
+<p>Este es un resumen paso a paso para clonar tu Windows usando únicamente herramientas nativas del sistema.</p>
+
+<h2>1. Preparación y Captura de la imagen</h2>
+<p>Entra al entorno de recuperación (WinRE) reiniciando mientras mantienes presionada la tecla Shift. Una vez en el Símbolo del Sistema, identifica tus unidades escribiendo notepad, ve a Archivo > Abrir para ver las letras asignadas. Luego, usa este comando para crear la imagen:</p>
+<pre>
+dism /capture-image /imagefile:C:\bk.wim /capturedir:E:\ /name:Windows /compress:max
+</pre>
+<p><strong>Nota:</strong> Sustituye 'C' por la unidad donde guardarás el respaldo y 'E' por la unidad donde está tu Windows actual.</p>
+
+<h2>2. Aplicación de la imagen en el nuevo SSD</h2>
+<p>Después de preparar las particiones en el Administrador de Discos (una de 500 MB en FAT32 y el resto en NTFS), restaura la imagen con el siguiente comando:</p>
+<pre>
+dism /apply-image /imagefile:D:\bk.wim /index:1 /applydir:Z:\
+</pre>
+<p><strong>Nota:</strong> Sustituye 'D' por la ubicación de tu archivo .wim y 'Z' por la partición de destino en tu nuevo disco.</p>
+
+<h2>3. Creación del arranque</h2>
+<p>Para que el nuevo SSD pueda iniciar el sistema por sí solo, debes configurar los archivos de arranque:</p>
+<pre>
+bcdboot Z:\Windows /f UEFI /s Y:
+</pre>
+<p><strong>Nota:</strong> 'Z' es la unidad de Windows y 'Y' es la partición pequeña de 500 MB que creaste para el sistema.</p>
+
+<p>Finalmente, reinicia el equipo y selecciona tu nuevo SSD en el menú de arranque (BIOS/Boot Menu) para verificar que todo esté funcionando correctamente.</p>
+
+<h2>4. Ocultar la partición de arranque</h2>
+<p>Para finalizar el proceso y mantener el orden en tu sistema, es recomendable ocultar la partición de arranque (la pequeña partición de 500 MB) para que no aparezca visible en el Explorador de Archivos, ya que no es una unidad diseñada para guardar archivos personales.</p>
+
+<p>Pasos para hacerlo:</p>
+<ul>
+  <li><strong>Abre el Administrador de Discos:</strong> Haz clic derecho sobre el botón de Inicio y selecciona Administración de discos.</li>
+  <li><strong>Localiza la partición:</strong> Busca la partición de 500 MB que creaste para el arranque.</li>
+  <li><strong>Cambia la letra de unidad:</strong> Haz clic derecho sobre dicha partición y selecciona la opción Cambiar la letra y rutas de acceso a la unidad....</li>
+  <li><strong>Elimina la letra:</strong> En la ventana que aparece, selecciona la letra de la unidad y haz clic en el botón Quitar.</li>
+  <li><strong>Confirma:</strong> Acepta los avisos de seguridad que te muestre Windows.</li>
+</ul>
+
+<p><strong>Nota importante:</strong> Esto no afectará en absoluto el arranque de tu equipo ni borrará la partición; simplemente hará que deje de aparecer como una unidad de almacenamiento accesible en tu explorador de archivos.</p>
+
+<p><strong>Fuente:</strong> <a href="https://www.youtube.com/watch?v=JanTqcyre9k">Video tutorial en YouTube</a></p>
+
+<footer><a href="index.html">Volver al índice</a></footer>
+</body>
+</html>
