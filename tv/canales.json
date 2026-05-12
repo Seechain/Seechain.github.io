@@ -592,5 +592,39 @@
     "sitio_oficial": "https://www.radioaustralvaldivia.cl/",
     "país": "cl",
     "categoría": "music"
+  },
+  "concierto": {
+    "nombre": "Radio Concierto",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Radioconciertofm3.png",
+    "señales": {
+      "iframe_url": [
+        "https://29320.live.streamtheworld.com/CONCIERTO.mp3"
+      ],
+      "m3u8_url": [],
+      "yt_id": "",
+      "yt_embed": "",
+      "yt_playlist": "",
+      "twitch_id": ""
+    },
+    "sitio_oficial": "https://www.concierto.cl/",
+    "país": "cl",
+    "categoría": "music"
+  },
+  "la-bottega-radio": {
+    "nombre": "Radio Bottega",
+    "logo": "https://i.ibb.co/JjwxXDN0/301808725-501545065305626-3928008391586338992-n.png",
+    "señales": {
+      "iframe_url": [
+        "https://streaming6.locucionar.com:24048/stream"
+      ],
+      "m3u8_url": [],
+      "yt_id": "",
+      "yt_embed": "",
+      "yt_playlist": "",
+      "twitch_id": ""
+    },
+    "sitio_oficial": "https://www.labottegaonline.com/radio/",
+    "país": "cl",
+    "categoría": "music"
   }
 }
