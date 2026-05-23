@@ -21,44 +21,180 @@
 
 <h2>Paso 2: Firefox - Efecto Aero Glass (Opcional)</h2>
 
-<h3>2.1: Instalar complemento</h3>
-<p>Instala <a href="https://addons.mozilla.org/es-ES/firefox/addon/aero-glass/">Aero Glass</a> o <a href="https://addons.mozilla.org/es-ES/firefox/addon/glas-374012-2/">GlassMyFox</a> desde los complementos de Mozilla.</p>
 
-<h3>2.2: Habilitar personalización</h3>
+<h3>2.1: Habilitar personalización</h3>
 <p>Escribe <code>about:config</code> en la barra de direcciones y presiona <code>Enter</code>.</p>
 <p>Haz clic en <code>"Aceptar el riesgo y continuar"</code>.</p>
 <p>Busca <code>toolkit.legacyUserProfileCustomizations.stylesheets</code> y cámbialo a <code>true</code>.</p>
 <p>Busca <code>browser.tabs.inTitlebar</code> y cámbialo a <code>0</code>.</p>
 <p>Opcional: Busca <code>browser.uidensity</code> y cámbialo a <code>1</code>.</p>
 
-<h3>2.3: Crear userChrome.css</h3>
+<h3>2.2: Crear userChrome.css</h3>
 <p>Ve a <code>about:support</code> y abre la carpeta del perfil.</p>
 <p>Crea una carpeta <code>chrome</code> y dentro un archivo <code>userChrome.css</code>.</p>
 
-<h3>2.4: Código CSS</h3>
+<h3>2.3: Código CSS</h3>
 
 <pre>
-/* Hacer que la ventana principal sea transparente */
-#main-window {
-  background-color: transparent !important;
-  -moz-appearance: -moz-win-glass !important;
+
+:root {
+  --lwt-accent-color: transparent !important;
+  --lwt-text-color: #ffffff !important; 
+  --toolbar-bgcolor: transparent !important;
+  --toolbar-color: #ffffff !important;
+  --lwt-toolbarbutton-icon-fill: #ffffff !important;
+  --toolbarbutton-icon-fill: #ffffff !important;
+  --chrome-background-color: transparent !important;
+  --chrome-secondary-background-color: transparent !important;
+  --tab-min-height: 28px !important; 
+  --toolbarbutton-hover-background: rgba(255, 255, 255, 0.25) !important;
+  --toolbarbutton-active-background: rgba(255, 255, 255, 0.4) !important;
 }
 
-/* Ajustar el área de las pestañas y barra de herramientas */
-#navigator-toolbox, 
-#nav-bar, 
-#TabsToolbar {
-  background: transparent !important;
+
+#main-window,
+#titlebar,
+#navigator-toolbox,
+#TabsToolbar,
+#nav-bar,
+#PersonalToolbar,
+#tabbrowser-tabs,
+.tab-background {
   background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
 }
 
-/* Opcional: Añadir un ligero tinte para legibilidad */
-.tab-background[selected="true"] {
-  background-color: rgba(255, 255, 255, 0.2) !important;
+
+#browser,
+#appcontent,
+.browserSidebarContainer,
+#webextpanels-list {
+  background-color: -moz-Dialog !important; /* Mantiene el color sólido del sistema */
+}
+
+
+#navigator-toolbox {
+  position: relative !important;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(255, 255, 255, 0.0) 100%
+  ) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 
+              0 1px 2px rgba(0, 0, 0, 0.1) !important;
+
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 
+               0 0 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+
+.tabbrowser-tab {
+  padding-inline: 4px !important;
+  margin-top: 2px !important;
+}
+
+.tab-background {
+  border-radius: 4px 4px 0 0 !important;
+  margin-block: 1px !important;
+  transition: background-color 0.15s ease, border-color 0.15s ease !important;
+}
+
+
+.tabbrowser-tab:not([selected]) .tab-background,
+.tabbrowser-tab:not([selected="true"]) .tab-background {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-bottom: none !important;
+}
+
+
+.tabbrowser-tab:not([selected]):hover .tab-background,
+.tabbrowser-tab:not([selected="true"]):hover .tab-background {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(0, 120, 215, 0.3) rgba(0, 120, 215, 0.3) transparent !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 
+              0 0 5px rgba(0, 120, 215, 0.3) !important;
+}
+
+
+.tabbrowser-tab[selected] .tab-background,
+.tabbrowser-tab[selected="true"] .tab-background {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.75) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  ) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  border-bottom: none !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8),
+              0 -1px 3px rgba(0, 120, 215, 0.2) !important;
+}
+
+
+.tab-label {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 
+               0 0 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+
+#urlbar-background {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1),
+              0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  border-radius: 4px !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+#urlbar[focused="true"] #urlbar-background {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: #0078d7 !important;
+  box-shadow: 0 0 6px rgba(0, 120, 215, 0.5) !important;
+}
+
+#urlbar[open] #urlbar-background {
+  background-color: #ffffff !important;
+}
+
+
+#urlbar-input {
+  color: #000000 !important;
+}
+
+#urlbar {
+  text-shadow: none !important; 
+}
+
+
+
+
+.toolbarbutton-icon,
+.toolbarbutton-image,
+.menu-iconic-icon {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 2px rgba(0, 0, 0, 0.5)) !important;
+}
+
+
+#urlbar .toolbarbutton-icon,
+#urlbar .toolbarbutton-image,
+#urlbar-container .toolbarbutton-icon,
+.searchbar-search-button {
+  fill: currentColor !important;
+  color: #000000 !important;
+  filter: none !important;
 }
 </pre>
 
-<h3>2.5: Reiniciar Firefox</h3>
+<h3>2.4: Reiniciar Firefox</h3>
 
 <h2>Paso 3: Windows Terminal - Ocultar barra de título (Opcional)</h2>
 
