@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>Montaje Automático con /etc/fstab</title>
+</head>
+<body>
+<h1>Montaje Automático con /etc/fstab</h1>
+
+<h2>1. Identificar el disco a montar</h2>
+
+<pre>
+# Ver todos los discos y particiones
+lsblk -f
+
+# Ver UUID específicos
+sudo blkid
+</pre>
+
+<p><strong>Ejemplo de salida:</strong></p>
+<pre>
+sdb
+└─sdb1 ext4  Backup   62147831-0f0d-4cc6-b820-854c51794513
+</pre>
+
+<h2>2. Crear punto de montaje</h2>
+
+<pre>
+# Crear directorio donde se montará el disco
+sudo mkdir -p /mnt/backup
+
+# Verificar
+ls -ld /mnt/backup
+</pre>
+
+<h2>3. Editar el archivo fstab</h2>
+
+<pre>
+# Hacer backup
+sudo cp /etc/fstab /etc/fstab.backup
+
+# Editar fstab
+sudo nano /etc/fstab
+</pre>
+
+<p><strong>Agregar esta línea (según tu disco):</strong></p>
+
+<pre>
+UUID=62147831-0f0d-4cc6-b820-854c51794513 /mnt/backup ext4 defaults,noatime 0 2
+</pre>
+
+<h3>Opciones comunes:</h3>
+
+<table>
+<tr><th>Opción</th><th>Uso</th></tr>
+<tr><td><code>defaults</code></td><td>Opciones estándar</td></tr>
+<tr><td><code>noatime</code></td><td>Mejor rendimiento</td></tr>
+<tr><td><code>ro</code></td><td>Solo lectura</td></tr>
+<tr><td><code>noauto</code></td><td>Montaje manual</td></tr>
+</table>
+
+<h2>4. Probar la configuración</h2>
+
+<pre>
+# Verificar sintaxis
+sudo findmnt --verify
+
+# Montar el disco
+sudo mount -a
+
+# Verificar montaje
+df -h /mnt/backup
+
+# Si hay error, ver logs
+journalctl -xe | grep -i mount
+</pre>
+
+<h3>Errores comunes:</h3>
+
+<table>
+<tr><th>Error</th><th>Solución</th></tr>
+<tr><td><code>mount point does not exist</code></td><td><code>sudo mkdir -p /mnt/backup</code></td></tr>
+<tr><td><code>wrong fs type</code></td><td>Verificar tipo con <code>lsblk -f</code></td></tr>
+<tr><td><code>UUID=xxx does not exist</code></td><td>Ver UUID con <code>sudo blkid</code></td></tr>
+</table>
+
+<p><strong>¿Listo?</strong> Después de estos pasos, el disco se montará automáticamente en cada reinicio.</p>
+
+<footer><a href="index.html">Volver al índice</a></footer>
+</body>
+</html>
