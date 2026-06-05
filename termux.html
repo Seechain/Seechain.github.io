@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>Termux - Configuración</title>
+</head>
+<body>
+<h1>Termux - Configuración</h1>
+
+<p>Termux es un emulador de terminal para Android que permite ejecutar un entorno Linux nativo sin necesidad de root.</p>
+
+<h2>1. Activar el Almacenamiento</h2>
+<pre>
+# Dar permisos de almacenamiento a Termux
+termux-setup-storage
+</pre>
+<p><strong>Explicación:</strong> Te pedirá permisos. Presiona "Permitir". Esto creará una carpeta <code>~/storage</code> que enlaza a tu almacenamiento interno:</p>
+<ul>
+<li><code>~/storage/downloads</code> → Carpeta Descargas</li>
+<li><code>~/storage/dcim</code> → Fotos/Cámara</li>
+<li><code>~/storage/music</code> → Música</li>
+<li><code>~/storage/shared</code> → Raíz del almacenamiento</li>
+</ul>
+
+<h2>2. Actualizar Repositorios</h2>
+<pre>
+# Actualizar lista de paquetes
+pkg update
+
+# Actualizar paquetes instalados
+pkg upgrade -y
+</pre>
+
+<h2>3. Instalar los Programas</h2>
+<pre>
+# Instalar todo de una vez
+pkg install -y mpv yt-dlp aria2 htop wget fastfetch yazi
+</pre>
+
+<p>Explicación de cada programa:</p>
+
+<table>
+<tr><th>Programa</th><th>Función</th></tr>
+<tr><td>mpv</td><td>Reproductor multimedia (video/audio)</td></tr>
+<tr><td>yt-dlp</td><td>Descargar videos/audio de YouTube y otros sitios</td></tr>
+<tr><td>aria2</td><td>Descargador multiprotocolo (HTTP/BitTorrent/Metalink)</td></tr>
+<tr><td>htop</td><td>Monitor de sistema (procesos, RAM, CPU)</td></tr>
+<tr><td>wget</td><td>Descargar archivos desde internet</td></tr>
+<tr><td>fastfetch</td><td>Muestra información del sistema (alternativa moderna a neofetch)</td></tr>
+<tr><td>yazi</td><td>Explorador de archivos desde terminal</td></tr>
+</table>
+
+<h2>4. Instalar y Configurar la Fuente (Hack Nerd Font)</h2>
+<pre>
+# 1. Crear carpeta de configuración de Termux
+mkdir -p ~/.termux
+
+# 2. Moverse a la carpeta de configuración
+cd ~/.termux
+
+# 3. Descargar la fuente Hack Nerd Font
+wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFont-Regular.ttf
+
+# 4. Renombrar la fuente
+mv HackNerdFont-Regular.ttf font.ttf
+
+# 4. Recargar la configuración de Termux
+termux-reload-settings
+</pre>
+
+<h2>5. Termux-API (Acceso al Hardware del Teléfono)</h2>
+
+<p>Permite acceder a sensores y funciones del teléfono desde la terminal.</p>
+
+<pre>
+# Instalar el paquete
+pkg install termux-api
+
+# Ejemplos de uso
+termux-battery-status       # Estado de la batería
+termux-camera-photo         # Tomar foto
+termux-clipboard-get        # Obtener texto del portapapeles
+termux-clipboard-set        # Establecer texto en el portapapeles
+termux-notification         # Enviar una notificación
+termux-wifi-scaninfo        # Escanear redes WiFi
+termux-sensor -s            # Listar sensores disponibles
+termux-microphone-record    # Grabar audio
+</pre>
+
+<p><strong>Requisito adicional:</strong> Instalar la app Termux:API desde F-Droid.</p>
+
+<h2>6. SSH desde Termux</h2>
+
+<p>Usar OpenSSH para conectarte a servidores o iniciar un servidor SSH en tu dispositivo.</p>
+
+<pre>
+# Instalar OpenSSH
+pkg install openssh
+
+# Conectarse a un servidor remoto
+ssh usuario@servidor
+
+# Generar clave SSH
+ssh-keygen -t ed25519
+
+# Iniciar servidor SSH en Termux (puerto 8022)
+sshd -p 8022
+
+# Ver tu IP local
+ip a
+</pre>
+
+<footer><a href="index.html">Volver al índice</a></footer>
+</body>
+</html>
