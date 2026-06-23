@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+<title>Reparar Windows con DISM y SFC</title>
+</head>
+<body>
+<h1>Reparar Windows con DISM y SFC</h1>
+
+<p>Guía paso a paso para reparar archivos del sistema en Windows usando las herramientas nativas DISM y SFC.</p>
+
+<h2>Secuencia correcta (DISM → SFC → Reinicio)</h2>
+<p>Nunca ejecutes solo SFC si ya te ha fallado antes. Esta es la secuencia que usan los técnicos de Microsoft:</p>
+
+<h3>1. DISM /RestoreHealth</h3>
+<p>Abre el Símbolo del sistema o PowerShell como <strong>Administrador</strong> (clic derecho &gt; "Ejecutar como administrador") y ejecuta:</p>
+<pre>DISM /Online /Cleanup-Image /RestoreHealth</pre>
+<p>Espera a que llegue al 100%. Puede tardar 20-40 minutos.</p>
+
+<h3>2. SFC /Scannow</h3>
+<p>Cuando termine DISM, ejecuta:</p>
+<pre>sfc /scannow</pre>
+<p>Espera al 100%. Suele tardar menos si ya hiciste DISM.</p>
+
+<h3>3. Reinicio</h3>
+<p>Reinicia tu PC para aplicar los cambios.</p>
+
+<h2>¿Y si DISM no tiene internet o falla?</h2>
+<p>Si tu PC no tiene internet, o DISM da error, puedes usar una imagen ISO de Windows como fuente de reparación:</p>
+<pre>DISM /Online /Cleanup-Image /RestoreHealth /Source:E:\sources\install.wim /LimitAccess</pre>
+<p><strong>Nota:</strong> Cambia la letra <code>E:</code> por la unidad donde tengas el USB/DVD de Windows.</p>
+
+<h2>Resumen rápido</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Comando</th>
+      <th>Función</th>
+      <th>¿Cuándo usarlo?</th>
+      <th>¿Necesita Internet?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>SFC /SCANNOW</code></td>
+      <td>Repara archivos del sistema usando la copia local.</td>
+      <td>Fallos leves del sistema (cuelgues, errores de archivos).</td>
+      <td>NO</td>
+    </tr>
+    <tr>
+      <td><code>DISM /RestoreHealth</code></td>
+      <td>Repara la copia local de archivos descargando versiones buenas.</td>
+      <td>1) Cuando SFC no puede reparar. 2) Antes de grandes actualizaciones.</td>
+      <td>SÍ (por defecto)</td>
+    </tr>
+  </tbody>
+</table>
+
+<footer><a href="index.html">Volver al índice</a></footer>
+</body>
+</html>
