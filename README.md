@@ -1,3 +1,3 @@
 # Seechain.github.io
 
-Jardín digital, notas y apuntes
+Jardín digital, notas y apuntes.
